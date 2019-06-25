@@ -21,7 +21,7 @@ public class DBTest {
 
 		try {
 			while (true) {
-				Class.forName("oracle.jdbc.dirver.OracleDriver");
+				Class.forName("oracle.jdbc.driver.OracleDriver");
 				Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "bitadmin", "dkdlxl");
 				System.out.println("1.등록 2.삭제 3.전체출력 4.검색");
 				int protocol = input.nextInt();
