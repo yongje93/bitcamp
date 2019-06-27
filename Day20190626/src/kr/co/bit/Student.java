@@ -39,4 +39,7 @@ public class Student extends Person {
 		return "Student [schoolKind=" + schoolKind + ", grade=" + grade + "]";
 	}
 	
+	public void study() {
+		System.out.println("공부를 한다.");
+	}
 }
