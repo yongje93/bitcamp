@@ -9,7 +9,7 @@ public class OverridingTest {
 		System.out.println("person.x = " + person.x);
 		employee.sleep();
 		person.sleep();
-
+		
 	}
 
 }
