@@ -55,15 +55,27 @@ public class Board {
 		content = titleContent.substring(indexI + 1);
 	}
 
-	public void closeAll() throws SQLException { // rs, pstmt, conn close해주는 함수.
+	public void closeAll() { // rs, pstmt, conn close해주는 함수.
 		if (rs != null) {
-			rs.close();
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		if (pstmt != null) {
-			pstmt.close();
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		if (conn != null) {
-			conn.close();
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
