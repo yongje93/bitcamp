@@ -56,7 +56,6 @@ public class Update {
 	
 	public void oldBoardSqlExecute() throws SQLException {
 		System.out.println("수정 전 내용입니다.");
-		System.out.print("번호\t제목\t내용\t작성자\t날짜\t조회수\n");
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, titleUpdate);
 		rs = pstmt.executeQuery();
@@ -67,6 +66,7 @@ public class Update {
 			author = rs.getString("author");
 			day = rs.getString("day");
 			readcount = rs.getInt("readcount");
+			System.out.print("번호\t제목\t내용\t작성자\t날짜\t조회수\n");
 			System.out.print(no + "\t" + title + "\t" + content + "\t" + author + "\t" + day + "\t" + readcount + "\n");
 		}
 		System.out.println("해당 게시글이 검색 되었습니다.");	
