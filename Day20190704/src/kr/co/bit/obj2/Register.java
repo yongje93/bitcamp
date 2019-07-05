@@ -52,6 +52,7 @@ public class Register extends Board implements BoardInterface {
 
 	@Override
 	public void boardProcess() throws IOException, SQLException {
+		conn = getConnection();
 		setNo();
 		setTitleContent();
 		titleContentPorcess();
