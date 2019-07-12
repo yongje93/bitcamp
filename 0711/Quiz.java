@@ -26,13 +26,12 @@ import java.util.Scanner;
 class Quiz {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		
 		int answer = 0;
 		int count = 0;
 		int xcount = 0;
 		String yn;
 		while(true) {
-			for(int i = 1; i <= 5; i++) {  
+			for(int i = 1; i <= 5; i++) {
 				int random1 = (int)(Math.random()*90) + 10;
 				int random2 = (int)(Math.random()*90) + 10;
 				while(true) {

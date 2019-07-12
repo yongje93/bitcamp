@@ -10,7 +10,7 @@ class ForTest2 {
 		for(int i = 1; i <= 10; i++) {
 			if(i%2 == 1) {
 				result -= i;
-				System.out.print(-i);
+				System.out.print("-"+i);
 			} else if (i%2 == 0) {
 				result +=i;
 				System.out.print("+"+i);

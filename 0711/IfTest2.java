@@ -33,7 +33,6 @@ class IfTest2 {
 			temp = b; b = c; c = temp;
 		}
 		System.out.println(a + "," + b + "," + c);
-			
 		//------------------------------------------------------
 		if(a<b && a<c) {//a가 가장 작다면
 			if(b<c) System.out.println(a+","+b+","+c);
@@ -45,7 +44,5 @@ class IfTest2 {
 			if(a<b) System.out.println(c+","+a+","+b);
 			else System.out.println(c+","+b+","+a);
 		}
-
-
 	}
 }
