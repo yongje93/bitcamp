@@ -17,7 +17,7 @@ public class ServerEx02 {
 			while(true) {
 				Socket sock = server.accept();
 				InetAddress inetaddr = sock.getInetAddress();
-				System.out.println(inetaddr.getHostAddress()+"�κ��� �����߽��ϴ�.");	
+				System.out.println(inetaddr.getHostAddress()+"로부터 접속했습니다.");	
 				SocketThread st = new SocketThread(sock);
 				list.add(st);
 				st.start();
