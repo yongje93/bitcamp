@@ -1,7 +1,6 @@
 package kr.co.client;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -13,25 +12,25 @@ import java.util.Scanner;
 public class Example01 {
 	public static void main(String[] args) {
 		try {
-//			1.¼­¹öÀÇ IP¿Í ¼­¹öÀÇ Æ÷Æ® °ªÀ» ÀÎÀÚ·Î ³Ö¾î Socket »ı¼º
+//			1.ì„œë²„ì˜ IPì™€ ì„œë²„ì˜ í¬íŠ¸ ê°’ì„ ì¸ìë¡œ ë„£ì–´ Socket ìƒì„±
 			Socket sock = new Socket("192.168.0.10",10002);
 //			Socket sock = new Socket("127.0.0.1",10008);
 			Scanner scan = new Scanner(System.in);
-//			2.»ı¼ºµÈ SocketÀ¸·ÎºÎÅÍ inputStream°ú outputStreamÀ» ±¸Çö
+//			2.ìƒì„±ëœ Socketìœ¼ë¡œë¶€í„° inputStreamê³¼ outputStreamì„ êµ¬í˜„
 			OutputStream out = sock.getOutputStream();
 			InputStream in = sock.getInputStream();
-//			3.InputStream°ú OutputStream ¹æ½Ä ÀüÈ¯
+//			3.InputStreamê³¼ OutputStream ë°©ì‹ ì „í™˜
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(out));
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String line = null;
-			System.out.println("ÀÔ·Â½ÃÀÛ");
-//			5.Å°º¸µå·ÎºÎÅÍ ÇÑÁÙ ÀÔ·Â ¹ŞÀ½ ÀÌÈÄ ¼­¹ö·Î Àü¼Û
+			System.out.println("ì…ë ¥ì‹œì‘");
+//			5.í‚¤ë³´ë“œë¡œë¶€í„° í•œì¤„ ì…ë ¥ ë°›ìŒ ì´í›„ ì„œë²„ë¡œ ì „ì†¡
 			line = scan.nextLine();
 			pw.println(line);
 			pw.flush();
-//			6.¼­¹ö·ÎºÎÅÍ ¹®ÀÚ¿­À» ¹Ş¾Æ Ãâ·Â
+//			6.ì„œë²„ë¡œë¶€í„° ë¬¸ìì—´ì„ ë°›ì•„ ì¶œë ¥
 			String echo = br.readLine();
-			System.out.println("¼­¹ö·ÎºÎÅÍ ¹ŞÀº ¹®ÀÚ¿­: "+echo);
+			System.out.println("ì„œë²„ë¡œë¶€í„° ë°›ì€ ë¬¸ìì—´: "+echo);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

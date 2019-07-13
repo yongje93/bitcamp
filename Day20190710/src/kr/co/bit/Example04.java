@@ -8,14 +8,14 @@ import java.nio.file.Paths;
 //Files
 public class Example04 {
 	public static void main(String[] args) throws IOException {
-		Path path = Paths.get("C:\\file\\aaa.txt"); // Files´Â Path¶ó´Â ÀÎÅÍÆäÀÌ½º¸¦ ÅëÇØ¼­¸¸ »ç¿ë°¡´É
-		System.out.println("µğ·ºÅä¸® ¿©ºÎ: "+Files.isDirectory(path));
-		System.out.println("ÆÄÀÏ ¿©ºÎ: "+Files.isRegularFile(path));
-		System.out.println("¸¶Áö¸· ¼öÁ¤ ½Ã°£: "+Files.getLastModifiedTime(path));
-		System.out.println("ÆÄÀÏ Å©±â: "+Files.size(path));
-		System.out.println("¼ÒÀ¯ÀÚ: "+Files.getOwner(path));
-		System.out.println("¼û±è ÆÄÀÏ ¿©ºÎ: "+Files.isHidden(path));
-		System.out.println("ÀĞ±â ÆÄÀÏ ¿©ºÎ: "+Files.isReadable(path));
-		System.out.println("¾²±â ÆÄÀÏ ¿©ºÎ: "+Files.isWritable(path));
+		Path path = Paths.get("C:\\file\\aaa.txt"); // FilesëŠ” Pathë¼ëŠ” ì¸í„°í˜ì´ìŠ¤ë¥¼ í†µí•´ì„œë§Œ ì‚¬ìš©ê°€ëŠ¥
+		System.out.println("ë””ë ‰í† ë¦¬ ì—¬ë¶€: "+Files.isDirectory(path));
+		System.out.println("íŒŒì¼ ì—¬ë¶€: "+Files.isRegularFile(path));
+		System.out.println("ë§ˆì§€ë§‰ ìˆ˜ì • ì‹œê°„: "+Files.getLastModifiedTime(path));
+		System.out.println("íŒŒì¼ í¬ê¸°: "+Files.size(path));
+		System.out.println("ì†Œìœ ì: "+Files.getOwner(path));
+		System.out.println("ìˆ¨ê¹€ íŒŒì¼ ì—¬ë¶€: "+Files.isHidden(path));
+		System.out.println("ì½ê¸° íŒŒì¼ ì—¬ë¶€: "+Files.isReadable(path));
+		System.out.println("ì“°ê¸° íŒŒì¼ ì—¬ë¶€: "+Files.isWritable(path));
 	}
 }

@@ -1,7 +1,6 @@
 package kr.co.server;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -14,24 +13,24 @@ import java.net.Socket;
 public class ServerEx {
 	public static void main(String[] args) {
 		try {
-//			1.Serversocket »ı¼º
+//			1.Serversocket ìƒì„±
 			ServerSocket server = new ServerSocket(10008);
 			System.out.println("Waiting Connection...");
-//			2.ServersocketÀÇ accept() ¸Ş¼Òµå¸¦ ÅëÇØ Å¬¶óÀÌ¾ğÆ® Á¢¼ÓÀ» ´ë±â
-//			Å¬¶óÀÌ¾ğÆ®°¡ Á¢¼ÓÇÒ °æ¿ì accept() ¸Ş¼Òµå´Â SocketÀ» ¸®ÅÏ
+//			2.Serversocketì˜ accept() ë©”ì†Œë“œë¥¼ í†µí•´ í´ë¼ì´ì–¸íŠ¸ ì ‘ì†ì„ ëŒ€ê¸°
+//			í´ë¼ì´ì–¸íŠ¸ê°€ ì ‘ì†í•  ê²½ìš° accept() ë©”ì†Œë“œëŠ” Socketì„ ë¦¬í„´
 			Socket sock = server.accept();
 			InetAddress inetAddress = sock.getInetAddress();
-			System.out.println(inetAddress.getHostAddress()+" ·ÎºÎÅÍ Á¢¼ÓÇß½À´Ï´Ù.");
-//			3.¹İÈ¯¹ŞÀº SocketÀ¸·ÎºÎÅÍ inputStream outputStreamÀ» ±¸Çö
+			System.out.println(inetAddress.getHostAddress()+" ë¡œë¶€í„° ì ‘ì†í–ˆìŠµë‹ˆë‹¤.");
+//			3.ë°˜í™˜ë°›ì€ Socketìœ¼ë¡œë¶€í„° inputStream outputStreamì„ êµ¬í˜„
 			OutputStream out = sock.getOutputStream();
 			InputStream in = sock.getInputStream();
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(out));
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String line = null;
-//			4. readline ¸Ş¼Òµå¸¦ ÀÌ¿ëÇØ¼­ Å¬¶óÀÌ¾ğÆ®°¡ º¸³»´Â ¹®ÀÚ¿­À» ÇÑÁÙ ÀĞ¾îµé¿© Ãâ·Â
+//			4. readline ë©”ì†Œë“œë¥¼ ì´ìš©í•´ì„œ í´ë¼ì´ì–¸íŠ¸ê°€ ë³´ë‚´ëŠ” ë¬¸ìì—´ì„ í•œì¤„ ì½ì–´ë“¤ì—¬ ì¶œë ¥
 			while((line = br.readLine())!=null) {
-				System.out.println("Å¬¶óÀÌ¾ğÆ®·ÎºÎÅÍ Àü´Ş¹ŞÀº ¹®ÀÚ¿­: "+line);
-//				5.Å¬¶óÀÌ¾ğÆ® ÂÊÀ¸·Î ¹®ÀÚ¿­ Àü¼Û
+				System.out.println("í´ë¼ì´ì–¸íŠ¸ë¡œë¶€í„° ì „ë‹¬ë°›ì€ ë¬¸ìì—´: "+line);
+//				5.í´ë¼ì´ì–¸íŠ¸ ìª½ìœ¼ë¡œ ë¬¸ìì—´ ì „ì†¡
 				pw.println(":D");
 				pw.flush();
 			}

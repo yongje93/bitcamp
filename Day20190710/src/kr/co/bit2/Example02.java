@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-//fileChannel read ´Ü¹æÇâ
+//fileChannel read ë‹¨ë°©í–¥
 public class Example02 {
 
 	public static void main(String[] args) throws IOException {

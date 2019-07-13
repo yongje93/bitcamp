@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-//Path¿Í Files
+//Pathì™€ Files
 public class Example05 {
 	public static void main(String[] args) throws IOException {
 		Path path1 = Paths.get("C:\\file\\dir");
@@ -19,9 +19,9 @@ public class Example05 {
 		DirectoryStream<Path> ditrctoryStream = Files.newDirectoryStream(path3);
 		for (Path path : ditrctoryStream) {
 			if(Files.isDirectory(path)) {
-				System.out.println("[µğ·ºÅä¸®] "+path.getFileName());
+				System.out.println("[ë””ë ‰í† ë¦¬] "+path.getFileName());
 			}else {
-				System.out.println("[ÆÄÀÏ] "+path.getFileName());
+				System.out.println("[íŒŒì¼] "+path.getFileName());
 			}
 		}
 	}

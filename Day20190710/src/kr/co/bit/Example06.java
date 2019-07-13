@@ -4,23 +4,23 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.IntBuffer;
 
-//allocateDirect¿Í allocate¸¦ ÅëÇØ buffer¼±¾ğ
+//allocateDirectì™€ allocateë¥¼ í†µí•´ bufferì„ ì–¸
 public class Example06 {
 	public static void main(String[] args) {
-		ByteBuffer byteBuffer1 = ByteBuffer.allocateDirect(100); //´ÙÀÌ·ºÆ®¹öÆÛ
-		System.out.println("ÀúÀå¿ë·®: "+byteBuffer1.capacity());
+		ByteBuffer byteBuffer1 = ByteBuffer.allocateDirect(100); //ë‹¤ì´ë ‰íŠ¸ë²„í¼
+		System.out.println("ì €ì¥ìš©ëŸ‰: "+byteBuffer1.capacity());
 		
 		CharBuffer charBuffer = ByteBuffer.allocateDirect(100).asCharBuffer();
-		System.out.println("ÀúÀå¿ë·®: "+charBuffer.capacity());
+		System.out.println("ì €ì¥ìš©ëŸ‰: "+charBuffer.capacity());
 		
 		IntBuffer intBuffer = ByteBuffer.allocateDirect(100).asIntBuffer();
-		System.out.println("ÀúÀå¿ë·®: "+intBuffer.capacity());
+		System.out.println("ì €ì¥ìš©ëŸ‰: "+intBuffer.capacity());
 		
-		ByteBuffer byteBuffer2 = ByteBuffer.allocate(100); //³Í´ÙÀÌ·ºÆ®¹öÆÛ
-		System.out.println("ÀúÀå¿ë·®: "+byteBuffer2.capacity());
+		ByteBuffer byteBuffer2 = ByteBuffer.allocate(100); //ë„Œë‹¤ì´ë ‰íŠ¸ë²„í¼
+		System.out.println("ì €ì¥ìš©ëŸ‰: "+byteBuffer2.capacity());
 		
 		byte[] byteArr = new byte[100];
-		ByteBuffer byteBuffer3 = ByteBuffer.wrap(byteArr); //³Í´ÙÀÌ·ºÆ®¹öÆÛ
-		System.out.println("ÀúÀå¿ë·®: "+byteBuffer3.capacity());
+		ByteBuffer byteBuffer3 = ByteBuffer.wrap(byteArr); //ë„Œë‹¤ì´ë ‰íŠ¸ë²„í¼
+		System.out.println("ì €ì¥ìš©ëŸ‰: "+byteBuffer3.capacity());
 	}
 }

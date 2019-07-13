@@ -3,12 +3,11 @@ package kr.co.bit2;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-// FileChannel º¹»ç ¾ç¹æÇâ...ByteBuffer´Â ºí·ÎÅ·ÀÌ¶ó ¹ø°Å·Î¿ò
+// FileChannel ë³µì‚¬ ì–‘ë°©í–¥...ByteBufferëŠ” ë¸”ë¡œí‚¹ì´ë¼ ë²ˆê±°ë¡œì›€
 public class Example03 {
 
 	public static void main(String[] args) throws IOException {
@@ -32,6 +31,6 @@ public class Example03 {
 		}
 		fromChannel.close();
 		toChannel.close();
-		System.out.println("ÆÄÀÏ º¹»ç ¼º°ø");
+		System.out.println("íŒŒì¼ ë³µì‚¬ ì„±ê³µ");
 	}
 }

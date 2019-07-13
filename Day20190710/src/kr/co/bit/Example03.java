@@ -10,14 +10,14 @@ public class Example03 {
 	public static void main(String[] args) throws IOException {
 		FileSystem fileSystem = FileSystems.getDefault();
 		for (FileStore store : fileSystem.getFileStores()) {
-			System.out.println("µå¶óÀÌ¹ö ¸í: "+store.name());
-			System.out.println("ÆÄÀÏ ½Ã½ºÅÛ: "+store.type());
-			System.out.println("ÀüÃ¼ °ø°£: "+store.getTotalSpace());
-			System.out.println("»ç¿ë °¡´ÉÇÑ °ø°£: "+store.getUsableSpace());
-			System.out.println("»ç¿ëÁßÀÎ °ø°£: "+(store.getTotalSpace()-store.getUsableSpace()));
+			System.out.println("ë“œë¼ì´ë²„ ëª…: "+store.name());
+			System.out.println("íŒŒì¼ ì‹œìŠ¤í…œ: "+store.type());
+			System.out.println("ì „ì²´ ê³µê°„: "+store.getTotalSpace());
+			System.out.println("ì‚¬ìš© ê°€ëŠ¥í•œ ê³µê°„: "+store.getUsableSpace());
+			System.out.println("ì‚¬ìš©ì¤‘ì¸ ê³µê°„: "+(store.getTotalSpace()-store.getUsableSpace()));
 		}
-		System.out.println("ÆÄÀÏ ±¸ºĞÀÚ: "+fileSystem.getSeparator());
+		System.out.println("íŒŒì¼ êµ¬ë¶„ì: "+fileSystem.getSeparator());
 	}
 }
 
-// ³» ÇÏµå¿ş¾îÀÇ »óÅÂ°ªÀ» º¼ ¼ö ÀÖ´Ù
+// ë‚´ í•˜ë“œì›¨ì–´ì˜ ìƒíƒœê°’ì„ ë³¼ ìˆ˜ ìˆë‹¤

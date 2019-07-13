@@ -1,51 +1,50 @@
 package kr.co.bit;
 
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
 //BufferMethod
 public class Example07 {
 	public static void main(String[] args) {
-		System.out.println("[7¹ÙÀÌÆ® Å©±âÀÇ ¹öÆÛ »ı¼º]");
+		System.out.println("[7ë°”ì´íŠ¸ í¬ê¸°ì˜ ë²„í¼ ìƒì„±]");
 		ByteBuffer buffer = ByteBuffer.allocateDirect(7);
 		printState(buffer);
 
 		buffer.put((byte)10);
 		buffer.put((byte)11);
-		System.out.println("[2¹ÙÀÌÆ® ÀúÀå ÈÄ]");
+		System.out.println("[2ë°”ì´íŠ¸ ì €ì¥ í›„]");
 		printState(buffer);
 		
 		buffer.put((byte)12);
 		buffer.put((byte)13);
 		buffer.put((byte)14);
-		System.out.println("[3¹ÙÀÌÆ® ÀúÀå ÈÄ]");
+		System.out.println("[3ë°”ì´íŠ¸ ì €ì¥ í›„]");
 		printState(buffer);
 		
-		buffer.flip(); //positionÀº 0À¸·Î limitÀº ¿ø·¡ positionÀÌ ÀÖ´ø ÀÚ¸®·Î
-		System.out.println("[flip() ½ÇÇà ÈÄ]");
+		buffer.flip(); //positionì€ 0ìœ¼ë¡œ limitì€ ì›ë˜ positionì´ ìˆë˜ ìë¦¬ë¡œ
+		System.out.println("[flip() ì‹¤í–‰ í›„]");
 		printState(buffer);
 		
 		buffer.get(new byte[3]);
-		System.out.println("[3¹ÙÀÌÆ® ÀĞÀº ÈÄ]");
+		System.out.println("[3ë°”ì´íŠ¸ ì½ì€ í›„]");
 		printState(buffer);
 		
 		buffer.mark();
-		System.out.println("--ÇöÀç À§Ä¡ ¸¶Å·--");
+		System.out.println("--í˜„ì¬ ìœ„ì¹˜ ë§ˆí‚¹--");
 		
 		buffer.get(new byte[2]);
-		System.out.println("[2¹ÙÀÌÆ® ÀĞÀº ÈÄ]");
+		System.out.println("[2ë°”ì´íŠ¸ ì½ì€ í›„]");
 		printState(buffer);
 		
-		buffer.reset(); //¸¶Å·ÇÑ ÀÚ¸®·Î Æ÷Áö¼Å´×
-		System.out.println("--[positionÀ» ¸¶Å© À§Ä¡·Î ¿Å±è]--");
+		buffer.reset(); //ë§ˆí‚¹í•œ ìë¦¬ë¡œ í¬ì§€ì…”ë‹
+		System.out.println("--[positionì„ ë§ˆí¬ ìœ„ì¹˜ë¡œ ì˜®ê¹€]--");
 		printState(buffer);
 		
-		buffer.rewind(); //positionÀ» Ã³À½ »óÅÂ·Î 
-		System.out.println("[rewind() ½ÇÇà ÈÄ]");
+		buffer.rewind(); //positionì„ ì²˜ìŒ ìƒíƒœë¡œ 
+		System.out.println("[rewind() ì‹¤í–‰ í›„]");
 		printState(buffer);
 		
-		buffer.clear(); //Ã³À½ »óÅÂ·Î
-		System.out.println("[clear() ½ÇÇà ÈÄ]");
+		buffer.clear(); //ì²˜ìŒ ìƒíƒœë¡œ
+		System.out.println("[clear() ì‹¤í–‰ í›„]");
 		printState(buffer);
 	}
 	

@@ -1,11 +1,10 @@
 package kr.co.bit;
 
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
 public class Example08 {
 	public static void main(String[] args) {
-		System.out.println("[7¹ÙÀÌÆ® Å©±â ¹öÆÛ »ı¼º]");
+		System.out.println("[7ë°”ì´íŠ¸ í¬ê¸° ë²„í¼ ìƒì„±]");
 		ByteBuffer buffer = ByteBuffer.allocateDirect(7);
 		buffer.put((byte)10);
 		buffer.put((byte)11);
@@ -16,11 +15,11 @@ public class Example08 {
 		printState(buffer);
 		
 		buffer.get(new byte[3]);
-		System.out.println("[3¹ÙÀÌÆ® ÀĞÀ½]");
+		System.out.println("[3ë°”ì´íŠ¸ ì½ìŒ]");
 		printState(buffer);
 		
-		buffer.compact(); // ÇöÀç Æ÷Áö¼ÇÀ» Áß½ÉÀ¸·Î ¸®¹ÌÆ®±îÁö ÀÖ´Â ±ÛÀÚ¸¦ ÀĞ°í Ã³À½ À§Ä¡¿¡¼­ºÎÅÍ ºÙ¿©³Ö´Â´Ù
-		System.out.println("[compact() ½ÇÇà ÈÄ]");
+		buffer.compact(); // í˜„ì¬ í¬ì§€ì…˜ì„ ì¤‘ì‹¬ìœ¼ë¡œ ë¦¬ë¯¸íŠ¸ê¹Œì§€ ìˆëŠ” ê¸€ìë¥¼ ì½ê³  ì²˜ìŒ ìœ„ì¹˜ì—ì„œë¶€í„° ë¶™ì—¬ë„£ëŠ”ë‹¤
+		System.out.println("[compact() ì‹¤í–‰ í›„]");
 		printState(buffer);
 	}
 	

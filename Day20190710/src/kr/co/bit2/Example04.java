@@ -1,14 +1,12 @@
 package kr.co.bit2;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-// Channel¿¡¼­ Á¦°øÇÏ´Â ³íºí·ÎÅ· º¹»ç
+// Channelì—ì„œ ì œê³µí•˜ëŠ” ë…¼ë¸”ë¡œí‚¹ ë³µì‚¬
 public class Example04 {
 	public static void main(String[] args) {
 		
@@ -19,7 +17,7 @@ public class Example04 {
 					StandardOpenOption.WRITE);
 
 			from.transferTo(0, from.size(), to);
-//			to.transferFrom(from, o, from.size()); // À§¿Í µ¿ÀÏÇÑ ³»¿ë
+//			to.transferFrom(from, o, from.size()); // ìœ„ì™€ ë™ì¼í•œ ë‚´ìš©
 			
 			from.close();
 			to.close();

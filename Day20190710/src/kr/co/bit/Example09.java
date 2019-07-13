@@ -3,17 +3,17 @@ package kr.co.bit;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-//bufferº¯È¯ 
+//bufferë³€í™˜ 
 public class Example09 {
 	public static void main(String[] args) {
-		Charset charset = Charset.forName("UTF-8"); //¹®ÀÚ¿­ <-> ¹ÙÀÌ³Ê¸® º¯È¯
+		Charset charset = Charset.forName("UTF-8"); //ë¬¸ìì—´ <-> ë°”ì´ë„ˆë¦¬ ë³€í™˜
 		
-		//¹®ÀÚ¿­ ÀÎÄÚµù
-		String data = "¾È³çÇÏ¼¼¿ä";
+		//ë¬¸ìì—´ ì¸ì½”ë”©
+		String data = "ì•ˆë…•í•˜ì„¸ìš”";
 		ByteBuffer bb = charset.encode(data);
 		
-		//¹®ÀÚ¿­ µğÄÚµù
+		//ë¬¸ìì—´ ë””ì½”ë”©
 		data = charset.decode(bb).toString();
-		System.out.println("¹®ÀÚ¿­ º¹¿ø: "+data);
+		System.out.println("ë¬¸ìì—´ ë³µì›: "+data);
 	}
 }

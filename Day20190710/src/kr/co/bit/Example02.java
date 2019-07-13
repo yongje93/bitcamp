@@ -6,9 +6,9 @@ import java.nio.file.Paths;
 public class Example02 {
 	public static void main(String[] args) {
 		Path path = Paths.get("C:\\file\\aaa.txt");
-		System.out.println("[ÆÄÀÏ¸í] "+path.getFileName());
-		System.out.println("[ºÎ¸ğ µğ·ºÅä¸®¸í] "+path.getParent());
-		System.out.println("[ÁßÃ¸ °æ·Î ¼ö] "+path.getNameCount());
+		System.out.println("[íŒŒì¼ëª…] "+path.getFileName());
+		System.out.println("[ë¶€ëª¨ ë””ë ‰í† ë¦¬ëª…] "+path.getParent());
+		System.out.println("[ì¤‘ì²© ê²½ë¡œ ìˆ˜] "+path.getNameCount());
 		
 		System.out.println();
 		for (int i = 0; i < path.getNameCount(); i++) {
@@ -17,5 +17,5 @@ public class Example02 {
 	}
 }
 
-// ´ÙÀÌ·ºÆ® ¸Ş¸ğ¸® ¾×¼¼¼­ (ÇÏµå¿ş¾î/Ä¿³Î¿¡ ¹Ù·ÎÁ¢±Ù)
-// new¸¦ ÅëÇØ Á¢±ÙÇÏ´Â°Ô ¾Æ´Ô
+// ë‹¤ì´ë ‰íŠ¸ ë©”ëª¨ë¦¬ ì•¡ì„¸ì„œ (í•˜ë“œì›¨ì–´/ì»¤ë„ì— ë°”ë¡œì ‘ê·¼)
+// newë¥¼ í†µí•´ ì ‘ê·¼í•˜ëŠ”ê²Œ ì•„ë‹˜

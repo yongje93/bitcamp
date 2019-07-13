@@ -4,22 +4,21 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-//FileChannel create/write ´Ü¹æÇâ
+//FileChannel create/write ë‹¨ë°©í–¥
 public class Example01 {
 
 	public static void main(String[] args) throws IOException {
 		Path path = Paths.get("C:\\file\\aaa.txt");
-//		µğ·ºÅä¸® »ı¼º
+//		ë””ë ‰í† ë¦¬ ìƒì„±
 //		Files.createDirectories(path.getParent());
 		FileChannel fileChannel = FileChannel.open(path,
 				StandardOpenOption.CREATE, StandardOpenOption.WRITE);
 		
-		String data = "¾È³çÇÏ¼¼¿ä";
+		String data = "ì•ˆë…•í•˜ì„¸ìš”";
 		Charset charSet = Charset.defaultCharset();
 		ByteBuffer byteBuffer = charSet.encode(data);
 		

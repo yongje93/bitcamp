@@ -9,26 +9,26 @@ public class Example01 {
 	public static void main(String[] args) throws IOException {
 		File f = new File("C:\\file\\aaa.txt");
 		
-//		ÆÄÀÏÀÌ ÀÖ´ÂÁö ¾ø´ÂÁö Ã¼Å©
+//		íŒŒì¼ì´ ìˆëŠ”ì§€ ì—†ëŠ”ì§€ ì²´í¬
 //		if(f.exists()) {
-//			System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÕ´Ï´Ù.");
+//			System.out.println("íŒŒì¼ì´ ì¡´ì¬í•©ë‹ˆë‹¤.");
 //		}else {
-//			System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+//			System.out.println("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 //		}
 		
 		if(!f.exists()) {
-			f.createNewFile(); //ÆÄÀÏ»ı¼º
+			f.createNewFile(); //íŒŒì¼ìƒì„±
 		}
-		System.out.println(f.isFile()); //ÆÄÀÏÀÎÁö ¾Æ´ÑÁö È®ÀÎ
-		System.out.println(f.getAbsolutePath()); //Àı´ë°æ·Î
-		System.out.println(f.getCanonicalPath()); //»ó´ë°æ·Î
-		System.out.println(f.getPath()); //»ó´ë°æ·Î
-		System.out.println(f.getName()); //ÆÄÀÏÀÌ¸§
-		System.out.println(f.getParent()); //»óÀ§°æ·Î
-		System.out.println(f.length()); //ÆÄÀÏÅ©±â
+		System.out.println(f.isFile()); //íŒŒì¼ì¸ì§€ ì•„ë‹Œì§€ í™•ì¸
+		System.out.println(f.getAbsolutePath()); //ì ˆëŒ€ê²½ë¡œ
+		System.out.println(f.getCanonicalPath()); //ìƒëŒ€ê²½ë¡œ
+		System.out.println(f.getPath()); //ìƒëŒ€ê²½ë¡œ
+		System.out.println(f.getName()); //íŒŒì¼ì´ë¦„
+		System.out.println(f.getParent()); //ìƒìœ„ê²½ë¡œ
+		System.out.println(f.length()); //íŒŒì¼í¬ê¸°
 		
-//		f.mkdir() //µğ·ºÅä¸® »ı¼º
-//		f.setExecutable() //¼ÒÀ¯ÀÚÀÇ ½ÇÇà ±ÇÇÑÀ» ÁØ´Ù.
-//		f.delete() //ÆÄÀÏ»èÁ¦
+//		f.mkdir() //ë””ë ‰í† ë¦¬ ìƒì„±
+//		f.setExecutable() //ì†Œìœ ìì˜ ì‹¤í–‰ ê¶Œí•œì„ ì¤€ë‹¤.
+//		f.delete() //íŒŒì¼ì‚­ì œ
 	}	
 }
