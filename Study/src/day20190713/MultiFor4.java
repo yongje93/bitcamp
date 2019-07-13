@@ -1,13 +1,7 @@
-/*
-3중 for if(마지막2개라서) 이용
-2단 3단 4단
-5단 6단 7단
-8단 9단
+package day20190713;
 
-1-9까지 곱하는 for 랑 3개찍는 for랑 1-9단찍는 for
-*/
+public class MultiFor4 {
 
-class MultiFor4 {
 	public static void main(String[] args) {
 		int i, j, k;
 		for (k = 2; k < 9; k += 3) {
