@@ -43,9 +43,9 @@ class Car {
 
 		while (true) {
 			System.out.println();
-			System.out.println("****************");
-			System.out.println("1.입차\n2.출차\n3.리스트 보기\n4.끝");
-			System.out.println("****************");
+			System.out.println("**********************");
+			System.out.println("\t1.입차\n\t2.출차\n\t3.리스트 보기\n\t4.끝");
+			System.out.println("**********************");
 			System.out.print("번호 입력: ");
 			protocol = scan.nextInt();
 			System.out.println();
@@ -53,7 +53,7 @@ class Car {
 			if (protocol == 1) {
 				System.out.print("위치 입력: ");
 				park = scan.nextInt();
-				if (ar[park - 1] == true) { // 주차가 되어있을경우
+				if (ar[park - 1]) { // 주차가 되어있을경우	// boolean형은 == 안씀. 그자체가 true false
 					System.out.println("이미 주차 되어있습니다.");
 				} else { // 주차가 안되어있을경우
 					ar[park - 1] = true;
@@ -62,7 +62,7 @@ class Car {
 			} else if (protocol == 2) {
 				System.out.print("위치 입력: ");
 				park = scan.nextInt();
-				if (ar[park - 1] == true) { // 주차가 되어있을경우
+				if (ar[park - 1]) { // 주차가 되어있을경우
 					ar[park - 1] = false;
 					System.out.println(park + "번 위치 출차");
 				} else { // 주차가 안되어있을경우

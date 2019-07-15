@@ -7,6 +7,7 @@
 1-9±îÁö °öÇÏ´Â for ¶û 3°³Âï´Â for¶û 1-9´ÜÂï´Â for
 */
 
+/*
 class MultiFor4 {
 	public static void main(String[] args) {
 		int i, j, k;
@@ -15,6 +16,22 @@ class MultiFor4 {
 				for (i = k; i < k + 3; i++) {
 					if (i == 10) break;
 					System.out.print(i +" * " + j + " = " + (i*j) +"\t");
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
+	}
+}
+*/
+
+class MultiFor4 {
+	public static void main(String[] args) {
+		int dan, i, k;
+		for(k = 2; k <= 8; k+=3) {	
+			for(i = 1; i <=9; i++) {
+				for(dan = k; dan <= k+2; dan++){
+					if(dan != 10) System.out.print(dan +" * " + i + " = " + (dan*i) +"\t");
 				}
 				System.out.println();
 			}
