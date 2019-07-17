@@ -10,8 +10,6 @@ class AwtTest3 extends Frame {
 		newB = new Button("새로 만들기");
 		exitB = new Button("종료");
 
-		//newB.setLocation(50,100);
-		//newB.setSize(150,50);
 		newB.setBounds(50,100,80,30);
 		exitB.setBounds(150,100,80,30);
 		add(newB);
