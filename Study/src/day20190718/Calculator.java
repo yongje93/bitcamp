@@ -22,10 +22,7 @@ class Calculator implements ActionListener {
 		frame.setTitle("계산기");
 
 		btn = new Button[18];
-		// String[] numStr = { "BackSpace", "C", "7", "8", "9", "/", "4", "5", "6", "*",
-		// "1", "2", "3", "-", ".", "0", "=", "+" };
-		String[] numStr = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", ".", "=", "C",
-				"BackSpace" };
+		String[] numStr = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", ".", "=", "C", "BackSpace"};
 		for (int i = 0; i < btn.length; i++) {
 			btn[i] = new Button(numStr[i]);
 		}
@@ -78,19 +75,6 @@ class Calculator implements ActionListener {
 		panel[7].add(btn[15]); // 15번 =
 		panel[7].add(btn[10]); // 10번 +
 
-//		for (int i = 2; i <= 5; i++) {
-//			panel[4].add(btn[i]);
-//		}
-//		for (int i = 6; i <= 9; i++) {
-//			panel[5].add(btn[i]);
-//		}
-//		for (int i = 10; i <= 13; i++) {
-//			panel[6].add(btn[i]);
-//		}
-//		for (int i = 14; i <= 17; i++) {
-//			panel[7].add(btn[i]);
-//		}
-
 		for (int i = 1; i <= 7; i++) {
 			panel[0].add(panel[i]);
 		}
@@ -111,6 +95,7 @@ class Calculator implements ActionListener {
 		});
 
 	}
+	
 	// 10번 + 11번 - 12번 * 13번 / 14번 . 15번 = 16번 C 17번 backspace
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -121,7 +106,9 @@ class Calculator implements ActionListener {
 					temp = downL.getText();
 					if(temp.equals("0")) {
 						downL.setText(""+i);
-					} else downL.setText(temp + i);
+					} else {
+						downL.setText(temp + i);
+					}
 				} else {
 					switch(i) {
 						case 10: //더하기
@@ -161,7 +148,8 @@ class Calculator implements ActionListener {
 			}
 		}
 	}
-
+	
+	
 	public static void main(String[] args) {
 		new Calculator().init();
 	}
