@@ -22,7 +22,8 @@ class Calculator implements ActionListener {
 		frame.setTitle("계산기");
 
 		btn = new Button[18];
-		String[] numStr = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", ".", "=", "C", "BackSpace"};
+		String[] numStr = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", ".", "=", "C",
+				"BackSpace" };
 		for (int i = 0; i < btn.length; i++) {
 			btn[i] = new Button(numStr[i]);
 		}
@@ -33,11 +34,11 @@ class Calculator implements ActionListener {
 		upL.setPreferredSize(new Dimension(270, 40));
 
 		downL = new Label();
-		downL.setAlignment(Label.RIGHT);	
+		downL.setAlignment(Label.RIGHT);
 		downL.setBackground(new Color(168, 168, 255));
 		downL.setPreferredSize(new Dimension(270, 40));
 		downL.setText("0");
-		
+
 		Panel[] panel = new Panel[8];
 		for (int i = 0; i < panel.length; i++) {
 			panel[i] = new Panel();
@@ -95,61 +96,68 @@ class Calculator implements ActionListener {
 		});
 
 	}
-	
+
 	// 10번 + 11번 - 12번 * 13번 / 14번 . 15번 = 16번 C 17번 backspace
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String temp;
+		String getString = downL.getText();
+		StringBuffer set = new StringBuffer(getString);
 		for (int i = 0; i < btn.length; i++) {
 			if (e.getSource() == btn[i]) {
-				if(i < 10) { //0 부터 9까지
-					temp = downL.getText();
-					if(temp.equals("0")) {
-						downL.setText(""+i);
+				// ---------------------------------------------0이 연속적으로 이용되게 못하도록. 단 앞에 숫자 있으면 가능.
+				if (i < 10) { // 0 부터 9까지
+					// getString = downL.getText();
+					if (getString.equals("0")) {
+						downL.setText("" + i);
 					} else {
-						downL.setText(temp + i);
+						downL.setText(set.append(i).toString());
+						// downL.setText(getString + i);
 					}
 				} else {
-					switch(i) {
-						case 10: //더하기
-							temp = downL.getText();
-							downL.setText(temp + "+"); 
-							break;
-						case 11: //빼기
-							temp = downL.getText();
-							downL.setText(temp + "-"); 
-							break;
-						case 12: //곱하기
-							temp = downL.getText();
-							downL.setText(temp + "*");
-							break;
-						case 13: //나누기
-							temp = downL.getText();
-							downL.setText(temp + "/");
-							break;
-						case 14: //소수점
-							temp = downL.getText();
-							downL.setText(temp + "."); 
-							break;
-						case 15: // =
-							
-							break;
-						case 16: // 초기화
+					switch (i) {
+					case 10: // 더하기
+						downL.setText(set.append("+").toString());
+						upL.setText(set.toString());
+						break;
+					case 11: // 빼기
+						downL.setText(set.append("-").toString());
+						upL.setText(set.toString());
+						break;
+					case 12: // 곱하기
+						downL.setText(set.append("*").toString());
+						upL.setText(set.toString());
+						break;
+					case 13: // 나누기
+						downL.setText(set.append("/").toString());
+						upL.setText(set.toString());
+						break;
+					case 14: // 소수점
+						//-----------------------------------------------------------------소수점 연속 입력만 막기.
+						if (getString.indexOf(".") == -1) {
+							downL.setText(set.append(".").toString());
+						}
+						break;
+					case 15: // =
+
+						break;
+					case 16: // 초기화
+						downL.setText("0");
+						upL.setText("");
+						break;
+					case 17: // backspace
+						if (getString.length() != 0) {
+							downL.setText(set.deleteCharAt(getString.length() - 1).toString());
+						}
+						if (getString.length() == 1) {
 							downL.setText("0");
-							break;
-						case 17: // backspace
-							temp = downL.getText();
-							if(temp.length() != 0) {
-								downL.setText(temp.substring(0,temp.length()-1));
-							}
-							break;
+						}
+						break;
 					}
 				}
 			}
 		}
 	}
-	
-	
+
 	public static void main(String[] args) {
 		new Calculator().init();
 	}
