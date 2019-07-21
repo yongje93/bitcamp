@@ -3,6 +3,7 @@ package day20190718;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Label;
@@ -34,6 +35,7 @@ class Calculator implements ActionListener {
 		upL.setPreferredSize(new Dimension(270, 40));
 
 		downL = new Label();
+		downL.setFont(new Font("", Font.BOLD, 20));
 		downL.setAlignment(Label.RIGHT);
 		downL.setBackground(new Color(168, 168, 255));
 		downL.setPreferredSize(new Dimension(270, 40));
@@ -97,43 +99,47 @@ class Calculator implements ActionListener {
 
 	}
 
-	// 10번 + 11번 - 12번 * 13번 / 14번 . 15번 = 16번 C 17번 backspace
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String getString = downL.getText();
 		StringBuffer set = new StringBuffer(getString);
+		
 		for (int i = 0; i < btn.length; i++) {
 			if (e.getSource() == btn[i]) {
-				// ---------------------------------------------0이 연속적으로 이용되게 못하도록. 단 앞에 숫자 있으면 가능.
 				if (i < 10) { // 0 부터 9까지
-					// getString = downL.getText();
 					if (getString.equals("0")) {
 						downL.setText("" + i);
 					} else {
 						downL.setText(set.append(i).toString());
-						// downL.setText(getString + i);
 					}
 				} else {
 					switch (i) {
 					case 10: // 더하기
-						downL.setText(set.append("+").toString());
-						upL.setText(set.toString());
+						if (getString.indexOf("+") < 0) {
+							downL.setText(set.append("+").toString());
+							upL.setText(set.toString());
+						}
 						break;
 					case 11: // 빼기
-						downL.setText(set.append("-").toString());
-						upL.setText(set.toString());
+						if (getString.indexOf("-") < 0) {
+							downL.setText(set.append("-").toString());
+							upL.setText(set.toString());
+						}
 						break;
 					case 12: // 곱하기
-						downL.setText(set.append("*").toString());
-						upL.setText(set.toString());
+						if (getString.indexOf("*") < 0) {
+							downL.setText(set.append("*").toString());
+							upL.setText(set.toString());
+						}
 						break;
 					case 13: // 나누기
-						downL.setText(set.append("/").toString());
-						upL.setText(set.toString());
+						if (getString.indexOf("/") < 0) {
+							downL.setText(set.append("/").toString());
+							upL.setText(set.toString());
+						}
 						break;
 					case 14: // 소수점
-						//-----------------------------------------------------------------소수점 연속 입력만 막기.
-						if (getString.indexOf(".") == -1) {
+						if (getString.indexOf(".") < 0) { // 소수점 연속으로 입력 안되게.
 							downL.setText(set.append(".").toString());
 						}
 						break;
