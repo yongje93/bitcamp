@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 class Calculator implements ActionListener {
 	private Frame frame;
@@ -21,7 +22,8 @@ class Calculator implements ActionListener {
 	private StringBuffer upBuf, downBuf;
 	private double result;		// 중간결과 / 최종결과
 	private int op;	//연산자 구분
-
+	private NumberFormat nf = new DecimalFormat("#,###.#####");
+	
 	public void init() {
 		frame = new Frame();
 		frame.setTitle("계산기");
@@ -125,13 +127,15 @@ class Calculator implements ActionListener {
 			}
 			downL.setText(downBuf + "");
 		} else if (e.getActionCommand() == "C") {
-			result = 0;
 			upBuf.delete(0, upBuf.length());
 			downBuf.delete(0, downBuf.length());
 			downBuf.append("0");
 	
 			upL.setText("");
 			downL.setText("0");
+			result = 0;
+			op = 0;
+			
 		} else if (e.getActionCommand() == ".") {
 			if (downBuf.indexOf(".") == -1) downBuf.append(".");
 			downL.setText(downBuf+"");
@@ -141,63 +145,59 @@ class Calculator implements ActionListener {
 // 3. 연산자를 op에 넣는다.
 		} else if (e.getActionCommand() == "+") {
 			calc();
-			op = 1;
-			upBuf.append(downBuf.append("+"));
+			upBuf.append(downBuf+"+");
 			downBuf.delete(0, downBuf.length());
 			downBuf.append("0");
-			
+		
+			op = '+';
+			downL.setText(nf.format(result));
 			upL.setText(upBuf+"");
 		} else if (e.getActionCommand() == "-") {
 			calc();
-			op = 2;
-			upBuf.append(downBuf.append("-"));
+			upBuf.append(downBuf+"-");
 			downBuf.delete(0, downBuf.length());
 			downBuf.append("0");
 			
+			op = '-';
+			downL.setText(nf.format(result));
 			upL.setText(upBuf+"");
 		} else if (e.getActionCommand() == "*") {
 			calc();
-			op = 3;
-			upBuf.append(downBuf.append("*"));
+			upBuf.append(downBuf+"*");
 			downBuf.delete(0, downBuf.length());
 			downBuf.append("0");
 			
+			op = '*';
+			downL.setText(nf.format(result));
 			upL.setText(upBuf+"");
 		} else if (e.getActionCommand() == "/") {
 			calc();
-			op = 4;
-			upBuf.append(downBuf.append("/"));
+			upBuf.append(downBuf+"/");
 			downBuf.delete(0, downBuf.length());
 			downBuf.append("0");
 			
+			op = '/';
+			downL.setText(nf.format(result));
 			upL.setText(upBuf+"");
 		} else if (e.getActionCommand() == "=") {
 			calc();
-			downL.setText(new DecimalFormat("#.###").format(result)+"");
 			upBuf.delete(0, upBuf.length());
 			downBuf.delete(0, downBuf.length());
 			downBuf.append("0");
-			upL.setText(upBuf+"");
+
+			upL.setText("");
+			downL.setText(nf.format(result));
+			result = 0;
+			op = 0;
 		}
 	}
 
 	public void calc() {
-		if(op == 0) {
-			result = Double.parseDouble(downBuf+"");
-			System.out.println(result);
-		} else if(op == 1) {	//더하기
-			result += Double.parseDouble(downBuf+"");
-			System.out.println(result);
-		} else if(op == 2) {	//빼기
-			result -= Double.parseDouble(downBuf+"");
-			System.out.println(result);
-		} else if(op == 3) {	//곱하기
-			result *= Double.parseDouble(downBuf+"");
-			System.out.println(result);
-		} else if(op == 4) {	//나누기
-			result /= Double.parseDouble(downBuf+"");
-			System.out.println(result);
-		}
+		if(op == 0) result = Double.parseDouble(downBuf+"");
+		 else if(op == '+') result += Double.parseDouble(downBuf+"");
+		 else if(op == '-') result -= Double.parseDouble(downBuf+"");
+		 else if(op == '*') result *= Double.parseDouble(downBuf+"");
+		 else if(op == '/') result /= Double.parseDouble(downBuf+"");
 	}	
 	
 	public static void main(String[] args) {
