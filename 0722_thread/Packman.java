@@ -17,9 +17,9 @@ class Packman extends Frame implements KeyListener, Runnable {
 		foodX = new int[5];
 		foodY = new int[5];
 
-		for (int i = 0; i < 5; i++) {
-			foodX[i] = (int) (Math.random() * 480) + 1;
-			foodY[i] = (int) (Math.random() * 470) + 10;
+		for (int i = 0; i < foodX.length; i++) {
+			foodX[i] = (int) (Math.random() * 461) + 20; // 20~480
+			foodY[i] = (int) (Math.random() * 461) + 20; // 20~480
 		}
 
 		setBounds(100, 200, 500, 500);
@@ -53,44 +53,36 @@ class Packman extends Frame implements KeyListener, Runnable {
 			x = x + mx;
 			y = y + my;
 
-			if (x < 0)
-				x = 500;
-			else if (x > 500)
-				x = 0;
-			if (y < 0)
-				y = 500;
-			else if (y > 500)
-				y = 0;
+			if (x < 0) x = 500;
+			else if (x > 500) x = 0;
+			if (y < 0) y = 500;
+			else if (y > 500) y = 0;
 
-			for(int i = 0; i < 5; i++) {
-				if(x+25 > foodX[i] - 10 && y+25 > foodY[i] - 10 && x+25 < foodX[i] +30 && y+25 < foodY[i] + 30) {
-					foodX[i] = 0;
-					foodY[i] = 0;
-				}
-			}
-			
 			repaint();
 			try {
 				Thread.sleep(100); // 단위: 1/1000
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			} catch (InterruptedException e) {e.printStackTrace();}
+			
+			//먹기.
+			for (int i = 0; i < foodX.length; i++) {
+				if (x + 25 >= foodX[i] - 10 && y + 25 >= foodY[i] - 10 && 
+					x + 25 <= foodX[i] + 30	&& y + 25 <= foodY[i] + 30) {
+					foodX[i] = 0;
+					foodY[i] = 0;
+				}
+			}						
 		}
 	}
-
+	
 	public void paint(Graphics g) {
 		Image img = Toolkit.getDefaultToolkit().getImage("C:/java_se/0722_thread/packman.jpg");
-		Image food = Toolkit.getDefaultToolkit().getImage("C:/java_se/0722_thread/food.jpg");
-		for(int i = 0; i < 5; i++) {
-			g.drawImage(food, 
-					foodX[i], foodY[i], foodX[i]+20, foodY[i]+20,
-					0,0,20,20,
-					this);
+		Image foodImg = Toolkit.getDefaultToolkit().getImage("C:/java_se/0722_thread/food.jpg");
+		for (int i = 0; i < foodX.length; i++) {
+			g.drawImage(foodImg, foodX[i], foodY[i], foodX[i] + 20, foodY[i] + 20, 0, 0, 20, 20, this);
 		}
-		g.drawImage(img, 
-				x,y,x+50,y+50,	//화면위치
-				sel*50, 0, sel*50+50, 50,		//메모리
-				this);	
+		g.drawImage(img, x, y, x + 50, y + 50, // 화면위치
+				sel * 50, 0, sel * 50 + 50, 50, // 메모리
+				this);
 	}
 
 	public void keyPressed(KeyEvent e) {
