@@ -7,7 +7,7 @@ import java.awt.Toolkit;
 
 class Racer extends Canvas implements Runnable {// component - main문 없음
 	private int pos;
-	private static int rank;
+	private static int rank;	//공유변수
 	private String name;
 
 	public Racer(String name) { // 수정.
@@ -22,7 +22,6 @@ class Racer extends Canvas implements Runnable {// component - main문 없음
 
 	@Override
 	public void run() {
-		Thread.currentThread().setName(name);
 		for (int i = 0; i < 600; i += ((int) (Math.random() * 10) + 1)) {
 			pos = i;
 			repaint();
@@ -33,6 +32,6 @@ class Racer extends Canvas implements Runnable {// component - main문 없음
 			}
 		}
 		// 등수	
-		System.out.print(++rank + "등 " +Thread.currentThread().getName()+"\n");
+		System.out.print(++rank + "등 " + name +"\n");
 	}
 }
