@@ -27,8 +27,6 @@ class MsPaint extends JFrame {
 	private DrCanvas can;
 	// 그렸던 애들을 저장하는 arraylist
 	private ArrayList<ShapeDTO> list;
-	
-	ArrayList current, old; 
 
 	public MsPaint() {
 		x1L = new JLabel("X1");
@@ -66,7 +64,7 @@ class MsPaint extends JFrame {
 		drawB = new JButton("그리기");
 
 		can = new DrCanvas(this);
-		
+
 		list = new ArrayList<ShapeDTO>();
 
 		// North
@@ -117,6 +115,7 @@ class MsPaint extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				x1T.setText(e.getX() + "");
 				y1T.setText(e.getY() + "");
+				
 			}
 		});
 
@@ -133,20 +132,24 @@ class MsPaint extends JFrame {
 		can.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				
 				int shape = 0;
-				
-				if(line.isSelected()) {
+				if (line.isSelected()) { // 선
 					shape = 0;
-				} else if(circle.isSelected()) {
+				} else if (circle.isSelected()) { // 원
 					shape = 1;
-				} else if(rect.isSelected()) {
+				} else if (rect.isSelected()) { // 사각형
 					shape = 2;
-				} else if(roundRect.isSelected()) {
+				} else if (roundRect.isSelected()) { // 둥근사각형
 					shape = 3;
+				} else if (pen.isSelected()) { // 펜
+					shape = 4;
 				}
-				
-				list.add(new ShapeDTO(Integer.parseInt(x1T.getText()), Integer.parseInt(y1T.getText()), Integer.parseInt(x2T.getText()), Integer.parseInt(y2T.getText()), 
-							Integer.parseInt(z1T.getText()), Integer.parseInt(z2T.getText()),  getFill().isSelected(), shape, getCombo().getSelectedIndex()));
+
+				list.add(new ShapeDTO(	Integer.parseInt(x1T.getText()), Integer.parseInt(y1T.getText()),
+										Integer.parseInt(x2T.getText()), Integer.parseInt(y2T.getText()),
+										Integer.parseInt(z1T.getText()), Integer.parseInt(z2T.getText()), 
+										getFill().isSelected(), shape, getCombo().getSelectedIndex()));
 			}
 		});
 
