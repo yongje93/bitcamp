@@ -1,7 +1,6 @@
 package day20190724;
 
 import java.awt.Container;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -26,9 +25,10 @@ class MsPaint extends JFrame {
 	private JComboBox<String> combo;
 	private JButton drawB;
 	private DrCanvas can;
+	// 그렸던 애들을 저장하는 arraylist
+	private ArrayList<ShapeDTO> list;
 	
-	ArrayList start;	//시작점들
-	ArrayList end;		//끝점들
+	ArrayList current, old; 
 
 	public MsPaint() {
 		x1L = new JLabel("X1");
@@ -66,8 +66,9 @@ class MsPaint extends JFrame {
 		drawB = new JButton("그리기");
 
 		can = new DrCanvas(this);
-
 		
+		list = new ArrayList<ShapeDTO>();
+
 		// North
 		JPanel topP = new JPanel();
 		topP.add(x1L);
@@ -116,8 +117,6 @@ class MsPaint extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				x1T.setText(e.getX() + "");
 				y1T.setText(e.getY() + "");
-			
-
 			}
 		});
 
@@ -126,11 +125,30 @@ class MsPaint extends JFrame {
 			public void mouseDragged(MouseEvent e) {
 				x2T.setText(e.getX() + "");
 				y2T.setText(e.getY() + "");
-				
+
 				can.repaint();
 			}
 		});
-		
+
+		can.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				int shape = 0;
+				
+				if(line.isSelected()) {
+					shape = 0;
+				} else if(circle.isSelected()) {
+					shape = 1;
+				} else if(rect.isSelected()) {
+					shape = 2;
+				} else if(roundRect.isSelected()) {
+					shape = 3;
+				}
+				
+				list.add(new ShapeDTO(Integer.parseInt(x1T.getText()), Integer.parseInt(y1T.getText()), Integer.parseInt(x2T.getText()), Integer.parseInt(y2T.getText()), 
+							Integer.parseInt(z1T.getText()), Integer.parseInt(z2T.getText()),  getFill().isSelected(), shape, getCombo().getSelectedIndex()));
+			}
+		});
 
 	}
 
@@ -184,6 +202,10 @@ class MsPaint extends JFrame {
 
 	public JRadioButton getPen() {
 		return pen;
+	}
+
+	public ArrayList<ShapeDTO> getList() {
+		return list;
 	}
 
 	public static void main(String[] args) {
