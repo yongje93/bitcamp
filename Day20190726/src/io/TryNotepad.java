@@ -37,6 +37,21 @@ public class TryNotepad extends JFrame implements ActionListener { // JFrame은 
 		setVisible(true);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int result = JOptionPane.showConfirmDialog(TryNotepad.this, "저장 하시겠습니까?", "메모장",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (result == JOptionPane.YES_OPTION) {
+					saveDialog();
+					fileWrite();
+					System.exit(0);
+				} else if (result == JOptionPane.NO_OPTION) {
+					System.exit(0);
+				} else if (result == JOptionPane.CANCEL_OPTION) {
+					return;
+				}
+			}
+		});
 	}// 생성자
 
 	public void event() { // event만 잡는 함수
@@ -47,21 +62,7 @@ public class TryNotepad extends JFrame implements ActionListener { // JFrame은 
 		menu.getCutM().addActionListener(this);
 		menu.getCopyM().addActionListener(this);
 		menu.getPasteM().addActionListener(this);
-		
-		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				int result = JOptionPane.showConfirmDialog(TryNotepad.this, "저장 하시겠습니까?", "메모장",
-									JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if (result == JOptionPane.YES_OPTION) {
-					saveDialog();
-					fileWrite();
-				} else if (result == JOptionPane.NO_OPTION) {
-					System.exit(0);
-				} else if (result == JOptionPane.CANCEL_OPTION) {
-					return;
-				}
-			}
-		});
+
 	}// 이벤트
 
 	@Override // 오버라이드 구역은 thorws 안됨.
@@ -77,7 +78,17 @@ public class TryNotepad extends JFrame implements ActionListener { // JFrame은 
 			saveDialog();
 			fileWrite();
 		} else if (e.getSource() == menu.getExitM()) {
-			System.exit(0);
+			int result = JOptionPane.showConfirmDialog(this, "저장 하시겠습니까?", "메모장", 
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (result == JOptionPane.YES_OPTION) {
+				saveDialog();
+				fileWrite();
+				System.exit(0);
+			} else if (result == JOptionPane.NO_OPTION) {
+				System.exit(0);
+			} else if (result == JOptionPane.CANCEL_OPTION) {
+				return;
+			}
 		} else if (e.getSource() == menu.getCutM()) {
 			area.cut();
 		} else if (e.getSource() == menu.getCopyM()) {
