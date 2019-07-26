@@ -31,7 +31,7 @@ public class ScoreForm extends JFrame {
 		engT = new JTextField(11);
 		mathT = new JTextField(11);
 				
-		output = new JTextArea(150, 150);
+		output = new JTextArea(200, 200);
 		
 		Border border = BorderFactory.createLineBorder(Color.GRAY);
 		output.setBorder(BorderFactory.createCompoundBorder(border,BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -76,8 +76,6 @@ public class ScoreForm extends JFrame {
 		left.add(panel_3);
 		left.add(panel_4);
 		left.add(panel_5);
-
-		// JPanel panelArea = new JPanel();
 
 		panel.add(left);
 		panel.add(output);
