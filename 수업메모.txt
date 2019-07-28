@@ -1,0 +1,583 @@
+==0711==================================================
+*OOP(Object Oriented Programming)
+ 객체 지향 프로그램
+
+class 클래스명 {
+
+}
+
+함수()
+: 명령어들의 집합체
+: main
+
+
+숫자
+'문자'	char
+"문자열"	String
+
+
+오라클 '문자' '문자열" - char, varchar2
+
+	char 1바이트	char 2바이트
+	C		JAVA (유니코드 최대 2바이트까지 한글자로봄)
+	'문자'		'문자' -uni code
+	1byte		1개
+	'A' - 1byte, 1개	'A' - 1byte,1개
+	"목" - 2byte, 1개	'목' - 2byte,1개
+
+
+bit	정보의 최소 단위 0 또는 1
+byte	1byte = 8bit
+
+byte	기계어(bit)		10진수(ASCII)
+A	0100 0001	65
+B	0100 0010	66
+a	0110 0001	97
+5	0000 0101	5
+'5'	0011 0101	53
+'0'	0011 0000	48
+
+"A"
+ASCII 값이 없다.
+
+
+'a'+3
+
+int a = 10;
+a+3
+0xa + 3 => d 	(0x 16진수)
+
+자료형
+1. 기본형
+	논리형	boolean(1bit)
+	문자형	char(2byte)
+	정수형	byte(1byte)
+		short(2byte) 
+		int(4byte)	
+		long(8byte)
+	실수형	float(4byte) 
+		double(8byte)	-default값
+
+2. 객체형
+
+3. 배열형
+
+==0712==================================================
+java.oracle.com
+
+class Test {
+	int a;	// field
+	
+System.out (field이면서 static으로 선언되어있음)
+
+
+-final 
+
+class Test {
+	final int a=10;	// 상수.
+	final int b;	// new 키워드를 통해서 생성자로 초기화 해야됨..
+	final static int c = 30; 
+	final static int d;	// static 블록에 초기회해 야됨.
+	
+	Test(){ b = 20; }	// 생성자는 new 할때 한번 생성한다. 클래스명과 같음.
+	static{ d = 40; }
+}
+
+new Test()		// 생성자,생성자함수()
+
+final class Test() {	// 자식클래스 못만듬.
+	void aa(){}	
+}
+
+abstract class Test { // 추상클래스 new 생성 안됨. (자식클래스로 new 생성) (서브클래스를 제어 하기위해)
+	abstract void aa();	// 오버라이드 금지(final) / 반드시 오버라이드(abstract) 
+}
+
+class Child extends Test {
+	void aa(){}	// 오버라이드(Override) 1.부모자식관계 2.우선권이 자식.
+}
+
+인터페이스는 다중상속을 구현하기 위해.
+---------------------------------------------------------------
+함수() -> method
+: 명령어들의 집합
+: main
+
+[형식]
+1. 구현
+retrun형 메서드명(인수형 인수, 인수형 인수, ...) {
+	body 부분
+}
+
+2. 호출
+
+--------------------------------------------------------------
+기본형	Wrapper Class(포장)
+boolean	Boolean
+
+char	Character
+
+byte	Byte
+short	Short
+int	Integer
+long	Long
+
+float	Float
+double	Double
+
+
+int a = 5;	
+Integer b; // 객체형
+b = a;	// AutoBoxing
+a = b;	// UnAutoBoxing
+
+Integer a;
+String b;
+
+Integer c = a;
+String d = a;	// 타입이 틀려서 안됨.
+		// 부모 = 자식 (자바에서 최상위 클래스는 Object)
+Object obj;	// 자식 = (자식)부모
+obj = a;
+obj = b;
+
+Integer a;
+Object ob;
+a = (Integer)ob;	//다운캐스팅
+
+Collection
+List<String> list = new ArrayList<String>();  //object형으로 모두 다받을수 있음. 제네릭을 통해서 제한함
+//부모 = 자식
+
+오버로드 => 쌍둥이
+오버라이드 => 부모, 자식
+
+서울시 서초구 강남대로 459	//실제주소 -> C
+9호선 신논현역 6번출구		//참조주소 -> Java
+
+배열명
+참조값
+클래스명@16진수 - (참조주소)
+
+-----------------------------------------------------------
+Exception(예외처리)
+1. 컴파일 - try ~ catch, throws(JVM에게 넘김) 
+
+2. 실행
+-----------------------------------------------------------
+메모리 <---------- 버퍼 <------------- 화면
+
+----------------------------------------------------------
+*OOP(객체지향 프로그램)
+- 중복 X
+
+
+가상화 - 속성(데이터)
+          - 기능(메소드)
+
+객체 - 참조값 / 클래스명@16진수
+
+------------------------------------------------------
+*Overload			*Override
+:1개클래스			:상속관계
+:인수의 형이 틀리거나		:다 똑같아야됨.
+:인수의 개수가 틀린 경우	:접근제어자는 틀려도 된다.(단 자식클래스가 더 커야됨.)
+
+class Test {
+	public void sub(int a){}
+	public void sub(int a, int b){}
+	public void sub(char a){}
+	public int sub(char a){} -> 오버로드 안됨.
+}			
+
+class Parent {
+	protected void sub(int a){}	
+}
+
+class Child extends Parent {
+	public void sub(int a){}
+}
+
+==0715==================================================
+* 객체지향프로그래밍(OOP)
+: 가상화	
+: 속성(데이터) + 기능(메소드)
+: 캡슐화	(데이터를 감추는것.보안.)
+   상속성	(클래스의 재구현.)
+   다형성	(부모가 자식클래스를 참조하겠다.)
+
+* 클래스
+
+* Overeload		Override
+			상속관계
+
+ 메소드명이 같다.		다같아야됨.
+ 인수개수 틀리거나		접근제어자.(자식이 범위가 더 커야됨)
+ 인수형이 틀린경우
+
+* 생성자
+: 객체 초기화.
+
+--------------------------------------------------------
+* 상속 (inheritance)
+: 클래스의 재구현
+
+Super - 부모
+Sub - 자식
+오버로드, 오버라이드는 함수에만 먹힘. 변수 안됨.
+
+자바 클래스 다중상속 X
+       인터페이스 다중상속 O
+
+==0716상속================================================
+* 상속(inheritance)
+: is ~ a 관계 (~이다)
+: super class
+  sub class
+: sub class 메모리 생성 super+sub
+
+다형성
+부모 = 자식
+String str = "apple";
+String str2 = str;
+Object ob = str;
+
+---------------------------------------------------------
+
+java.lang.Object
+           ↑
+java.awt.Component
+           ↑
+java.awt.Container
+           ↑
+java.awt.Window
+
+윈도우 기본 바탕색은 하얀색
+글자색은 검정
+
+* 색
+:4byte(32bit)
+:RGB(빛의 3요소)
+
+R		G		B
+1byte		1byte		1byte
+0000 0000(0)	0000 0000(0)	0000 0000(0)	- 검정
+0000 0001(1)
+
+1111 1111(255)	1111 1111(255)	1111 1111(255)	- 흰색
+
+--------------------------------------------------------
+* 메소드
+1. 구현
+returnType 메소드명(인수형 인수, 인수형 인수, ...) {
+
+}
+
+2. 호출
+객체.메소드(값1, 값2, ...)
+클래스.메소드(값1, 값2, ...)
+---------------------------------------------------------
+* 추상 클래스
+sub class의 제어
+
+추상메소드가 있는 클래스는 반드시 추상클래스.
+추상클래스는 new 생성 할 수 없다.
+  - sub class 생성 (반드시 sub class는 추상메소드를 Override)
+  - 메소드 생성
+  
+
+
+가비지컬렉터가 작동하는동안 시스템은 멈춘다.
+
+상속 - 다형성
+부모 = 자식
+AA aa = new AA();
+BB bb = new BB();
+CC cc = new CC(); 
+DD dd = new DD():
+EE ee = new EE();
+	↓
+Parent p;
+p = new AA();
+p = new BB();
+p = new CC(); 
+p = new DD():
+p = new EE();
+
+abstract class Parent {
+  public abstract void xyz();
+}
+
+
+class AA extends Parent {		class BB extends Parent {
+  public void xyz() {			  public void xyz() {
+    System.out.println();		    System.out.println();
+  }				  }
+}				}
+
+==0717추상클래스==================================================
+* 추상클래스
+Sub class의 제어
+
+* interface
+: is~a 관계
+: 상수(final, static final), 추상메소드(abstract)만 존재.
+: 다중상속
+: extends, implements
+
+implements
+: 모든 추상메소드를 Override
+
+--------------------------------------------------------
+* 이벤트
+EventSource
+EventListener
+EventHandler - 구현
+
+EventSource.addEventListent(EventHandler의 위치)
+
+버튼 - ActionListener 이용
+
+
+
+class Object {
+	public boolean equals(Object obj) { } - 참조값 비교
+}
+
+class String extends Object {
+	public boolean equals(Object obj) { } - 문자열 비교
+}
+
+==0718중첩클래스==================================================
+* 중첩 클래스
+: has ~ a 관계
+
+class AA {
+	필드
+	int a;		//인스턴스 변수
+	static int b;	//클래스 변수
+	메소드() { } 	//구현부
+	1. class BB { }	//inner class
+	2. 메소드() {
+		class CC { } //local class
+	}
+	3. static class DD{ }	//static inner class
+	4. 익명 inner class
+	
+}
+
+AA.BB	bb = new AA.new BB();
+
+AA	aa = new AA();
+aa.disp();
+
+AA.DD	dd = new AA.DD();
+
+
+-------------------------------------------------------
+class 클 {			class 클2 {
+   private int a;
+
+   //setter, getter
+
+
+class 클 {
+	private int a;
+	
+	calss 클2 {  }	//a에 그냥 접근 가능. getter, setter 없어도.
+			//객체를 생성하면 클2의 내용 접근가능
+}
+
+Outer.java
+Outer.class
+Outer$Inner.class
+
+1. 메소드
+2. Sub class (반드시 추상메소드 Override)
+3. 흑기사(추상메소드 Override)
+
+AbstractMain.java
+AbstractMain.class
+AbstractMain$1.class
+AbstractMain$2.class
+
+Canvas 
+
+class DrCanvas extends Canvas {
+
+}
+
+==0719컬렉션==================================================
+* Collection -> 인터페이스. 추상메소드만 제공.
+
+ 제네릭 - <T> <E> <K> <V>
+
+1. 억제 	@SuppressWarnings("unchecked")
+2. 제네릭	< T >
+
+*Iterator  // iterator는 인터페이스라서 new가 안된다
+
+iterator.hasNext() - 지정한 곳에 항목이 있으면 True, 없으면 False
+iterator.next() - 항목을 꺼내고 다음으로 이동
+
+
+* interface
+1. implements 
+	모든 추상메소드를 Override
+2. 익명 Inner class
+	모든 추상메소드를 Override
+3. 대신해서 모든 추상메소드를 Override 해주는 클래스
+4. 메소드를 통한 생성
+-------------------------------------------------------
+★ Comparable / Comparator 인터페이스
+객체을 정렬하는데 필요한 메소드가 정의되어 있다
+비교대상자가 더 크면(<) -1, 같다면(==) 0, 작으면(>) 1을 반환시켜줍니다. 
+이 값을 비교하여 정렬을 할 수 있습니다.
+
+일반적인 int, char, double 같은 타입의 배열이라면 다음 함수들을 이용
+Collections(또는 Arrays).sort()       : 정렬 
+Collectoins(또는 Arrays).reverse()    : 뒤집기
+
+1. Comparable (java.lang)
+- 기본 정렬기준을 구현하는데 사용
+- 주로 Integer와 같은 warpper클래스와 String, Date, File과 같은 것
+- 기본적으로 오름차순으로 정렬되도록 구현되어 있다
+- public int compareTo(T o)
+
+public final class Integer
+extends Number
+implements Comparable<Integer>
+
+
+2. Comparator (java.util)
+- 기본 정렬기준 외에 다른 기준으로 정렬하고자할 때 사용
+- public int compare(T o1, T o2)
+  public boolean equals(Object obj)
+
+
+★ Collections.sort()
+객체 정렬
+
+==0722스레드==============================================
+*프로세스(process)
+:현재 실행중인 프로그램
+
+*멀티프로세스(멀티태스킹)
+:하나의 cpu에 여러개의 응용프로그램을 동시에 실행
+:시분할시스템
+
+*Component(도구)
+:button, textField, panel
+:Servlet, JSP, PHP
+
+*Container
+:Frame, Dialog, JFrame
+:Tomcat (서버)
+
+*쓰레드(Thread)
+(Web에서는 스레드 내장)
+--쓰레드 생성
+1. 상속
+2. 인터페이스
+
+start()	스레드 시작.
+join()	스레드 죽이기.
+
+==0723==================================================
+*동기화(synchronized)
+- 스레드가 동시에 접근하는 것을 막아준다. 
+- 하나의 스레드 작업이 끝날때 까지 다른 스레드 못들어옴.
+- 여러개의 개체가 동시에 하나의 메소드에 접근하려고 할 때 심각한 부하가 발생된다.
+-이를 방지하기 위해 Lock을 건다.
+-이것을 동기화 처리라고 한다.
+
+public synchronized 결과형 메소드(인수형 인수, 인수형 인수, ...) {
+
+}
+
+public 결과형 메소드(인수형 인수, 인수형 인수, ...) {
+	
+	 synchronized(this) {	//같은 주소값 가진애들은 락걸림.
+	}	
+}
+
+public 결과형 메소드(인수형 인수, 인수형 인수, ...) {
+	
+	 synchronized(*.class) {	//같은 클래스 타입을 가진 애들은 락걸림
+	}	
+}
+
+* SingleTon(싱글톤)
+- 객체를 한번만 만들어서 쓰자.
+
+*static	
+: 메모리 static 영역
+: 초기화 1번
+: 모든 객체가 같이 쓰는 공유변수
+
+
+calss Test {
+	int a;
+	static int b;
+}
+
+Test aa = new Test();
+aa.a++; aa.b++;
+     1              1
+
+Test bb = new Test();
+bb.a++; bb.b++;
+      1            2
+
+Test cc = new Test();
+cc.a++; cc.b++;
+     1           3
+
+
+*GUI
+   CUI  / CLI
+
+AWT
+  ↑
+SWING
+
+
+Component
+Button / JButton
+
+Container
+Frame / JFrame - 최종
+Dialog
+
+==0725=======================================================
+* 더블 버퍼링
+: repaint() 요청하면 JVM이 update() - paint()
+
+ 메모리 
+ update(Graphics g)
+->Image
+
+
+ 화면
+ paint(Graphics g)
+->Canvas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
