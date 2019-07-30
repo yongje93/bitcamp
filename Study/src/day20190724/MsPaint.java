@@ -69,18 +69,12 @@ class MsPaint extends JFrame {
 
 		// North
 		JPanel topP = new JPanel();
-		topP.add(x1L);
-		topP.add(x1T);
-		topP.add(y1L);
-		topP.add(y1T);
-		topP.add(x2L);
-		topP.add(x2T);
-		topP.add(y2L);
-		topP.add(y2T);
-		topP.add(z1L);
-		topP.add(z1T);
-		topP.add(z2L);
-		topP.add(z2T);
+		topP.add(x1L);		topP.add(x1T);
+		topP.add(y1L);		topP.add(y1T);
+		topP.add(x2L);		topP.add(x2T);
+		topP.add(y2L);		topP.add(y2T);
+		topP.add(z1L);		topP.add(z1T);
+		topP.add(z2L);		topP.add(z2T);
 		topP.add(fill);
 
 		// South
@@ -115,10 +109,33 @@ class MsPaint extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				x1T.setText(e.getX() + "");
 				y1T.setText(e.getY() + "");
-				
+			}
+			//마우스 놓았을 때
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				ShapeDTO dto = new ShapeDTO();
+				// 좌표
+				dto.setX1(Integer.parseInt(x1T.getText()));
+				dto.setY1(Integer.parseInt(y1T.getText()));
+				dto.setX2(Integer.parseInt(x2T.getText()));
+				dto.setY2(Integer.parseInt(y2T.getText()));
+				dto.setZ1(Integer.parseInt(z1T.getText()));
+				dto.setZ2(Integer.parseInt(z2T.getText()));
+				// 채우기
+				dto.setFill(fill.isSelected());
+				// 도형
+				if(line.isSelected()) dto.setShape(Figure.LINE);
+				else if(circle.isSelected()) dto.setShape(Figure.CIRCLE);
+				else if(rect.isSelected()) dto.setShape(Figure.RECT);
+				else if(roundRect.isSelected()) dto.setShape(Figure.ROUNDRECT);
+				// 색깔
+				dto.setColor(combo.getSelectedIndex());
+				// 리스트에 저장
+				list.add(dto);
+				//System.out.println("list의 개수 = "+list.size());//리스트에 저장되는지 확인
 			}
 		});
-
+		// 마우스 드래그 했을때
 		can.addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
@@ -126,33 +143,31 @@ class MsPaint extends JFrame {
 				y2T.setText(e.getY() + "");
 
 				can.repaint();
-			}
-		});
-
-		can.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
 				
-				int shape = 0;
-				if (line.isSelected()) { // 선
-					shape = 0;
-				} else if (circle.isSelected()) { // 원
-					shape = 1;
-				} else if (rect.isSelected()) { // 사각형
-					shape = 2;
-				} else if (roundRect.isSelected()) { // 둥근사각형
-					shape = 3;
-				} else if (pen.isSelected()) { // 펜
-					shape = 4;
+				// 연필
+				if(pen.isSelected()) {
+					ShapeDTO dto = new ShapeDTO();
+					// 좌표
+					dto.setX1(Integer.parseInt(x1T.getText()));
+					dto.setY1(Integer.parseInt(y1T.getText()));
+					dto.setX2(Integer.parseInt(x2T.getText()));
+					dto.setY2(Integer.parseInt(y2T.getText()));
+					dto.setZ1(Integer.parseInt(z1T.getText()));
+					dto.setZ2(Integer.parseInt(z2T.getText()));
+					// 채우기
+					dto.setFill(fill.isSelected());
+					// 도형 -- 펜
+					dto.setShape(Figure.PEN);
+					// 색깔
+					dto.setColor(combo.getSelectedIndex());
+					// 리스트에 저장
+					list.add(dto);
+					//x1, y1 의 값을 x2, y2의 값으로 바꿔줌.
+					x1T.setText(y2T.getText());
+					y1T.setText(y2T.getText());
 				}
-
-				list.add(new ShapeDTO(	Integer.parseInt(x1T.getText()), Integer.parseInt(y1T.getText()),
-										Integer.parseInt(x2T.getText()), Integer.parseInt(y2T.getText()),
-										Integer.parseInt(z1T.getText()), Integer.parseInt(z2T.getText()), 
-										getFill().isSelected(), shape, getCombo().getSelectedIndex()));
 			}
 		});
-
 	}
 
 	public JTextField getX1T() {

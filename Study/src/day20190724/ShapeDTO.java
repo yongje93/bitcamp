@@ -10,20 +10,47 @@ public class ShapeDTO {
 	// 채우기
 	private boolean fill;
 	// 도형
-	private int shape; // 0 선 1 원 2 사각형 3 둥근사각형 4 펜 staticFinal로
+	private Figure shape; // 0 선 1 원 2 사각형 3 둥근사각형 4 펜 staticFinal로
 	// 색
 	private int color;
 
-	public ShapeDTO(int x1, int y1, int x2, int y2, int z1, int z2, boolean fill, int shape, int color) {
-		super();
+	public ShapeDTO() {
+
+	}
+
+	public void setX1(int x1) {
 		this.x1 = x1;
+	}
+
+	public void setY1(int y1) {
 		this.y1 = y1;
+	}
+
+	public void setX2(int x2) {
 		this.x2 = x2;
+	}
+
+	public void setY2(int y2) {
 		this.y2 = y2;
+	}
+
+	public void setZ1(int z1) {
 		this.z1 = z1;
+	}
+
+	public void setZ2(int z2) {
 		this.z2 = z2;
+	}
+
+	public void setFill(boolean fill) {
 		this.fill = fill;
+	}
+
+	public void setShape(Figure shape) {
 		this.shape = shape;
+	}
+
+	public void setColor(int color) {
 		this.color = color;
 	}
 
@@ -55,7 +82,7 @@ public class ShapeDTO {
 		return fill;
 	}
 
-	public int getShape() {
+	public Figure getShape() {
 		return shape;
 	}
 
