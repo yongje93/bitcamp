@@ -25,8 +25,7 @@ class MsPaint extends JFrame {
 	private JComboBox<String> combo;
 	private JButton drawB;
 	private DrCanvas can;
-	// 그렸던 애들을 저장하는 arraylist
-	private ArrayList<ShapeDTO> list;
+	private ArrayList<ShapeDTO> list; // 그렸던 애들을 저장하는 arraylist
 
 	public MsPaint() {
 		x1L = new JLabel("X1");
@@ -66,23 +65,15 @@ class MsPaint extends JFrame {
 		can = new DrCanvas(this);
 
 		list = new ArrayList<ShapeDTO>();
-
 		// North
 		JPanel topP = new JPanel();
-		topP.add(x1L);
-		topP.add(x1T);
-		topP.add(y1L);
-		topP.add(y1T);
-		topP.add(x2L);
-		topP.add(x2T);
-		topP.add(y2L);
-		topP.add(y2T);
-		topP.add(z1L);
-		topP.add(z1T);
-		topP.add(z2L);
-		topP.add(z2T);
+		topP.add(x1L);	topP.add(x1T);
+		topP.add(y1L);	topP.add(y1T);
+		topP.add(x2L);	topP.add(x2T);
+		topP.add(y2L);	topP.add(y2T);
+		topP.add(z1L);	topP.add(z1T);
+		topP.add(z2L);	topP.add(z2T);
 		topP.add(fill);
-
 		// South
 		JPanel bottomP = new JPanel();
 		bottomP.add(line);
@@ -92,7 +83,7 @@ class MsPaint extends JFrame {
 		bottomP.add(pen);
 		bottomP.add(combo);
 		bottomP.add(drawB);
-
+		// Center
 		Container c = this.getContentPane();
 		c.add("North", topP);
 		c.add("South", bottomP);
@@ -101,23 +92,22 @@ class MsPaint extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 80, 700, 500);
 		setVisible(true);
-
 		// 그리기 버튼
 		drawB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				can.repaint();
+				can.repaint();	
 			}
 		});
-		// 마우스 눌렀을때 x1, y1 좌표
+		// 캔버스 위에서 마우스 이벤트
 		can.addMouseListener(new MouseAdapter() {
+			// 마우스 눌렀을때 x1, y1 좌표
 			@Override
 			public void mousePressed(MouseEvent e) {
 				x1T.setText(e.getX() + "");
 				y1T.setText(e.getY() + "");
 			}
-
-			// 마우스 놓았을 때
+			// 마우스 놓았을 때(놓았을때 도형이 그려지고, 그려진 애들의 정보를 list에 저장해야한다.
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				ShapeDTO dto = new ShapeDTO();
@@ -131,14 +121,10 @@ class MsPaint extends JFrame {
 				// 채우기
 				dto.setFill(fill.isSelected());
 				// 도형
-				if (line.isSelected())
-					dto.setShape(Figure.LINE);
-				else if (circle.isSelected())
-					dto.setShape(Figure.CIRCLE);
-				else if (rect.isSelected())
-					dto.setShape(Figure.RECT);
-				else if (roundRect.isSelected())
-					dto.setShape(Figure.ROUNDRECT);
+				if (line.isSelected()) dto.setShape(Figure.LINE);
+				else if (circle.isSelected()) dto.setShape(Figure.CIRCLE);
+				else if (rect.isSelected()) dto.setShape(Figure.RECT);
+				else if (roundRect.isSelected()) dto.setShape(Figure.ROUNDRECT);
 				// 색깔
 				dto.setColor(combo.getSelectedIndex());
 				// 리스트에 저장
@@ -180,58 +166,20 @@ class MsPaint extends JFrame {
 			}
 		});
 	}
-
-	public JTextField getX1T() {
-		return x1T;
-	}
-
-	public JTextField getY1T() {
-		return y1T;
-	}
-
-	public JTextField getX2T() {
-		return x2T;
-	}
-
-	public JTextField getY2T() {
-		return y2T;
-	}
-
-	public JTextField getZ1T() {
-		return z1T;
-	}
-
-	public JTextField getZ2T() {
-		return z2T;
-	}
-
-	public JComboBox getCombo() {
-		return combo;
-	}
-
-	public JCheckBox getFill() {
-		return fill;
-	}
-
-	public JRadioButton getLine() {
-		return line;
-	}
-
-	public JRadioButton getCircle() {
-		return circle;
-	}
-
-	public JRadioButton getRect() {
-		return rect;
-	}
-
-	public JRadioButton getRoundRect() {
-		return roundRect;
-	}
-
-	public ArrayList<ShapeDTO> getList() {
-		return list;
-	}
+	//getter들
+	public JTextField getX1T() { return x1T; }
+	public JTextField getY1T() { return y1T; }
+	public JTextField getX2T() { return x2T; }
+	public JTextField getY2T() { return y2T; }
+	public JTextField getZ1T() { return z1T; }
+	public JTextField getZ2T() { return z2T; }
+	public JComboBox getCombo() { return combo; }
+	public JCheckBox getFill() { return fill; }
+	public JRadioButton getLine() { return line; }
+	public JRadioButton getCircle() { return circle; }
+	public JRadioButton getRect() { return rect; }
+	public JRadioButton getRoundRect() { return roundRect; }
+	public ArrayList<ShapeDTO> getList() { return list; }
 
 	public static void main(String[] args) {
 		new MsPaint();

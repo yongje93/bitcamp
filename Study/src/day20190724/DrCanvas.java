@@ -11,7 +11,6 @@ class DrCanvas extends Canvas {
 	private MsPaint mp;
 	private Image bufferImage; // update에서 사용
 	private Graphics bufferG; // update에서 사용
-	// 펜관련
 
 	public DrCanvas(MsPaint mp) {
 		this.mp = mp;
@@ -28,7 +27,6 @@ class DrCanvas extends Canvas {
 			bufferImage = this.createImage(d.width, d.height);
 			bufferG = bufferImage.getGraphics();
 		}
-
 		bufferG.setColor(this.getBackground());
 		bufferG.fillRect(0, 0, d.width, d.height); // 화이트칠 하는 효과.
 
@@ -41,7 +39,6 @@ class DrCanvas extends Canvas {
 			y2 = dto.getY2();
 			z1 = dto.getZ1();
 			z2 = dto.getZ2();
-
 			//색
 			switch(dto.getColor()){
 				case 0 : bufferG.setColor(Color.RED); break;
@@ -50,10 +47,9 @@ class DrCanvas extends Canvas {
 				case 3 : bufferG.setColor(Color.MAGENTA); break;
 				case 4 : bufferG.setColor(Color.CYAN); break;
 			}
-
 			//도형
-			if(dto.getFill()){
-				if(dto.getShape()==Figure.LINE) 
+			if(dto.getFill()){	//채우기O
+				if(dto.getShape()==Figure.LINE)
 					bufferG.drawLine(x1, y1, x2, y2);
 				else if(dto.getShape()==Figure.CIRCLE) 
 					bufferG.fillOval(Math.min(x1,x2), Math.min(y1,y2), Math.abs(x2-x1), Math.abs(y2-y1));
@@ -63,8 +59,7 @@ class DrCanvas extends Canvas {
 					bufferG.fillRoundRect(Math.min(x1,x2), Math.min(y1,y2), Math.abs(x2-x1), Math.abs(y2-y1), z1, z2);
 				else if(dto.getShape()==Figure.PEN)
 					bufferG.drawLine(x1, y1, x2, y2);
-			
-			}else{
+			} else{	//채우기X
 				if(dto.getShape()==Figure.LINE) 
 					bufferG.drawLine(x1, y1, x2, y2);
 				else if(dto.getShape()==Figure.CIRCLE) 
@@ -76,10 +71,8 @@ class DrCanvas extends Canvas {
 				else if(dto.getShape()==Figure.PEN)
 					bufferG.drawLine(x1, y1, x2, y2);
 			}
-
 		}//for
-
-		/////////////////////////////////////////////////////
+		////////////////////////////////////////내가 그려주는 부분
 		//좌표 - 6개
 		x1 = Integer.parseInt(mp.getX1T().getText());
 		y1 = Integer.parseInt(mp.getY1T().getText());
@@ -87,7 +80,6 @@ class DrCanvas extends Canvas {
 		y2 = Integer.parseInt(mp.getY2T().getText());
 		z1 = Integer.parseInt(mp.getZ1T().getText());
 		z2 = Integer.parseInt(mp.getZ2T().getText());
-
 		//색
 		switch(mp.getCombo().getSelectedIndex()){
 			case 0 : bufferG.setColor(Color.RED); break;
@@ -96,9 +88,8 @@ class DrCanvas extends Canvas {
 			case 3 : bufferG.setColor(Color.MAGENTA); break;
 			case 4 : bufferG.setColor(Color.CYAN); break;
 		}
-
 		//도형
-		if(mp.getFill().isSelected()){
+		if(mp.getFill().isSelected()){	//채우기O
 			if(mp.getLine().isSelected()) 
 				bufferG.drawLine(x1, y1, x2, y2);
 			else if(mp.getCircle().isSelected()) 
@@ -107,8 +98,7 @@ class DrCanvas extends Canvas {
 				bufferG.fillRect(Math.min(x1,x2), Math.min(y1,y2), Math.abs(x2-x1), Math.abs(y2-y1));
 			else if(mp.getRoundRect().isSelected()) 
 				bufferG.fillRoundRect(Math.min(x1,x2), Math.min(y1,y2), Math.abs(x2-x1), Math.abs(y2-y1), z1, z2);
-		
-		}else{
+		} else{	//채우기X
 			if(mp.getLine().isSelected()) 
 				bufferG.drawLine(x1, y1, x2, y2);
 			else if(mp.getCircle().isSelected()) 
@@ -118,8 +108,7 @@ class DrCanvas extends Canvas {
 			else if(mp.getRoundRect().isSelected()) 
 				bufferG.drawRoundRect(Math.min(x1,x2), Math.min(y1,y2), Math.abs(x2-x1), Math.abs(y2-y1), z1, z2);
 		}
-
-		paint(g);
+		paint(g);	// g안에 bufferG에 대한 정보가 있다. bufferG를 넘겨주면 안됨. 
 	}
 
 	@Override
