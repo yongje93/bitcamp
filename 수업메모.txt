@@ -562,21 +562,93 @@ Dialog
  paint(Graphics g)
 ->Canvas
 
+==0729=================================================
+* IO Stream
+ -단위
+  byte
+  -InputStream / OutputStream
+
+  문자(2byte)
+  -Reader / Writer
+ 
+ --클래스와 같은 객체 타입은 전송 안됨.
+
+ 키보드 / 화면
+  	System.in <-- inputStream
+  	System.out <-- printStream
+ 파일
+ 네트워크
+ DB
+
+* 객체 직렬화
+Serializable - 메소드 없음.
+
+	마샬링
+PersonDTO ---------------> buffer --------------> 파일(언마샬링)
+	  ObjectOutputStream	  FileOutputStream
+	   <---------------	  <--------------
+	   ObjectInputStream	  FileInputStream
+
+
+==0730================================================
+* 네트워크
+서로 다른 PC의 소프트웨어를 이용한 데이터 이동
+
+ IP	123.123.123.123	IPv4	IPv6
+
+ 도메인	www.naver.com	네이버
+
+ Protocol 통신규약
+ TCP / UDP
+
+ URL
+ 
+ https://IP:port/file
+	     80    index.html
+ ftp://
+
+ port(방, 내선번호)
+ http 80번 https 443번
+
+ 서버 - 서비스를 제공하는 쪽
+ 클라이언트 - 서비스를 제공받는 쪽
+
+	        BufferedReader           InputStreamReader(문자단위)	     openStream()
+ URLTest.java <----------buffer<---------------------내컴퓨터<----------웹
+							       InputSteam
+
+ TCP	동기식(요청하고 응답이 올때까지 기다림)
+ 요청
+ 응답
+ 
+ AKKA 자바 비동기식.
+
+ AJax	비동기식(요청하고 응답이 올때까지 기다리지않음)
+ JQuery
+
+
+ 서버에게 보내고 서버가 응답을 해줄때 그려준다. 그래야 동시에 그릴 수 있음.
+ 예를 들어서 오목 일때  (스플릿으로 구분)
+ 100 : 1, 1	->100 일때는 좌표를 찍어서 그려주는거
+ 200: 채팅	->200 일때는 채팅 내용
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+서버
+-ServerSocket 	1. 클라이언트가 접근해오길 기다린다.
+-Socket		2. 클라이언트와 연결할 소켓을 생성한다. - accept()
+    ↑↓
+클라이언트
+-Socket
+						
+	         BufferedReader     InputStreamReader       소켓.getInputStream     
+		<------ 		<------		<------		<------		<------
+protocolClient.java 		buffer 		Socket	      	Socket		buffer		ProtocolServer.java
+		------>		------>		------>		------>		------>
+	        BufferedWriter     OutputStreamWriter     소켓.getOutputStream       
+						      
+							
 
 
 
