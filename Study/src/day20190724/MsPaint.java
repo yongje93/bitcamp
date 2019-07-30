@@ -69,12 +69,18 @@ class MsPaint extends JFrame {
 
 		// North
 		JPanel topP = new JPanel();
-		topP.add(x1L);		topP.add(x1T);
-		topP.add(y1L);		topP.add(y1T);
-		topP.add(x2L);		topP.add(x2T);
-		topP.add(y2L);		topP.add(y2T);
-		topP.add(z1L);		topP.add(z1T);
-		topP.add(z2L);		topP.add(z2T);
+		topP.add(x1L);
+		topP.add(x1T);
+		topP.add(y1L);
+		topP.add(y1T);
+		topP.add(x2L);
+		topP.add(x2T);
+		topP.add(y2L);
+		topP.add(y2T);
+		topP.add(z1L);
+		topP.add(z1T);
+		topP.add(z2L);
+		topP.add(z2T);
 		topP.add(fill);
 
 		// South
@@ -110,7 +116,8 @@ class MsPaint extends JFrame {
 				x1T.setText(e.getX() + "");
 				y1T.setText(e.getY() + "");
 			}
-			//마우스 놓았을 때
+
+			// 마우스 놓았을 때
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				ShapeDTO dto = new ShapeDTO();
@@ -124,15 +131,19 @@ class MsPaint extends JFrame {
 				// 채우기
 				dto.setFill(fill.isSelected());
 				// 도형
-				if(line.isSelected()) dto.setShape(Figure.LINE);
-				else if(circle.isSelected()) dto.setShape(Figure.CIRCLE);
-				else if(rect.isSelected()) dto.setShape(Figure.RECT);
-				else if(roundRect.isSelected()) dto.setShape(Figure.ROUNDRECT);
+				if (line.isSelected())
+					dto.setShape(Figure.LINE);
+				else if (circle.isSelected())
+					dto.setShape(Figure.CIRCLE);
+				else if (rect.isSelected())
+					dto.setShape(Figure.RECT);
+				else if (roundRect.isSelected())
+					dto.setShape(Figure.ROUNDRECT);
 				// 색깔
 				dto.setColor(combo.getSelectedIndex());
 				// 리스트에 저장
 				list.add(dto);
-				//System.out.println("list의 개수 = "+list.size());//리스트에 저장되는지 확인
+				// System.out.println("list의 개수 = "+list.size());//리스트에 저장되는지 확인
 			}
 		});
 		// 마우스 드래그 했을때
@@ -143,9 +154,9 @@ class MsPaint extends JFrame {
 				y2T.setText(e.getY() + "");
 
 				can.repaint();
-				
+
 				// 연필
-				if(pen.isSelected()) {
+				if (pen.isSelected()) {
 					ShapeDTO dto = new ShapeDTO();
 					// 좌표
 					dto.setX1(Integer.parseInt(x1T.getText()));
@@ -162,8 +173,8 @@ class MsPaint extends JFrame {
 					dto.setColor(combo.getSelectedIndex());
 					// 리스트에 저장
 					list.add(dto);
-					//x1, y1 의 값을 x2, y2의 값으로 바꿔줌.
-					x1T.setText(y2T.getText());
+					// x1, y1 의 값을 x2, y2의 값으로 바꿔줌.
+					x1T.setText(x2T.getText());
 					y1T.setText(y2T.getText());
 				}
 			}
@@ -194,7 +205,7 @@ class MsPaint extends JFrame {
 		return z2T;
 	}
 
-	public JComboBox<String> getCombo() {
+	public JComboBox getCombo() {
 		return combo;
 	}
 
@@ -216,10 +227,6 @@ class MsPaint extends JFrame {
 
 	public JRadioButton getRoundRect() {
 		return roundRect;
-	}
-
-	public JRadioButton getPen() {
-		return pen;
 	}
 
 	public ArrayList<ShapeDTO> getList() {
