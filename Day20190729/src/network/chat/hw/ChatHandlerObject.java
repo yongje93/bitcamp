@@ -11,48 +11,45 @@ public class ChatHandlerObject extends Thread {
 	private ObjectOutputStream oos;
 	private Socket socket; // 서버로부터 넘겨 받는 소켓
 	private ArrayList<ChatHandlerObject> list; // 서버로부터 넘겨 받는 핸들러 리스트
-	private InfoDTO dto;
-	
+
 	public ChatHandlerObject(Socket socket, ArrayList<ChatHandlerObject> list) throws IOException {
 		this.socket = socket;
 		this.list = list;
-		
+
 		ois = new ObjectInputStream(socket.getInputStream());
 		oos = new ObjectOutputStream(socket.getOutputStream());
 	}
-	
+
 	@Override
 	public void run() {
 		String nickName = null;
 		String line = null;
-		try {		
-			while(true) {
+		InfoDTO dto = null;
+		try {
+			while (true) {
 				dto = (InfoDTO) ois.readObject();
-
-				if(dto.getCommand() == Info.JOIN) {
+				if (dto.getCommand() == Info.JOIN) {
 					nickName = dto.getNickName();
 					dto.setMessage(nickName + "님이 입장하였습니다.");
-					broadcast(dto);				
-				}
-				else if(dto.getCommand() == Info.SEND) {
+					broadcast(dto);
+				} else if (dto.getCommand() == Info.SEND) {
 					line = dto.getMessage();
 					dto.setMessage("[" + nickName + "]" + line);
 					broadcast(dto);
-				}
-				else if(dto.getCommand() == Info.EXIT) {
+				} else if (dto.getCommand() == Info.EXIT) {
 					dto.setCommand(Info.EXIT);
-					list.remove(this);
 					dto.setMessage(nickName + "님이 퇴장하였습니다.");
 					broadcast(dto);
+					list.remove(this);
 
 					ois.close();
 					oos.close();
 					socket.close();
 				}
-			}//while
-		} catch (IOException e) {
-			e.printStackTrace();
+			} // while
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
