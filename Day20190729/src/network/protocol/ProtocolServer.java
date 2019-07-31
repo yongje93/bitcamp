@@ -24,7 +24,7 @@ public class ProtocolServer {
 
 			socket = ss.accept(); // 클라이언트가 접근을 했을 때. accept를 통해 낚아채고 socket 생성.
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream())); // 소켓을 통해 들어오는.
-			bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));	// 소켓을 통해 내보내는.
 		} catch (IOException e) {
 			System.out.println("클라이언트와 연결이 안되었습니다.");
 			e.printStackTrace();

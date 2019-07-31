@@ -59,9 +59,7 @@ public class ProtocolClient {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
 		} // while
-
 	}
 
 	public static void main(String[] args) {
