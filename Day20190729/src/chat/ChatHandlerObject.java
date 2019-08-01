@@ -46,12 +46,12 @@ public class ChatHandlerObject extends Thread {
 					dto.setMessage(nickName + "님이 퇴장하였습니다");
 					broadcast(dto);
 					list.remove(this);
-					
-					ois.close();
-					oos.close();
-					socket.close();
+					break;
 				}
 			}
+			ois.close();
+			oos.close();
+			socket.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
