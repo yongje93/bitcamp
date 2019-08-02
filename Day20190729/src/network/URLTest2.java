@@ -13,36 +13,30 @@ public class URLTest2 {
 		String line = null;
 		int count = 0;
 		int index = 0;
-		String findStr = "18K";
-		while ((line = br.readLine()) != null) { // 읽는 값이 null이 아닐때까지 읽어라
-			while (true) {
-				index = line.toLowerCase().indexOf(findStr.toLowerCase(), index); // 0부터 시작
-				//System.out.println(index);
-				if (index != -1) {
-					count++;
-					index += findStr.length();
-				} else
-					break;
-			}
-		} // while
-
-//		while ((line = br.readLine()) != null) {
-//			String[] str = line.split(" ");
-//			for (String string : str) {
-//				//System.out.println(string);
-//				if(string.toLowerCase().contains("18K".toLowerCase())) {
+		
+//		String findStr = "18K";
+//		while ((line = br.readLine()) != null) { // 읽는 값이 null이 아닐때까지 읽어라
+//			while (true) {
+//				index = line.toLowerCase().indexOf(findStr.toLowerCase(), index); // 0부터 시작
+//				//System.out.println(index);
+//				if (index != -1) {
 //					count++;
-//				}
+//					index += findStr.length();
+//				} else
+//					break;
 //			}
-//		}
+//		} // while
 
-//		while ((line = br.readLine()) != null) {
-//			Pattern pattern = Pattern.compile("18K",Pattern.CASE_INSENSITIVE);
-//			Matcher matcher = pattern.matcher(line);
-//			while(matcher.find()){
-//				count++;
-//			}
-//		}
+		while ((line = br.readLine()) != null) { // 1줄
+			line = line.toLowerCase();	// 소문자로 다바꾸기
+			
+			while( (index =line.indexOf("18k", index)) != -1) {
+				count++;
+				index += ("18k".length());
+			}
+			
+			index = 0;
+		}
 		System.out.println("18K의 개수 : " + count);
 
 		br.close();

@@ -7,6 +7,9 @@ enum Info {
 }
 
 public class InfoDTO implements Serializable {
+	// 직렬화 버전 맞추기
+	public static final long serialVersionUID = 1L;
+	
 	private String nickName;
 	private String message;
 	private Info command;

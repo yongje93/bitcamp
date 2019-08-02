@@ -7,6 +7,7 @@ enum Info {
 }
 
 public class InfoDTO implements Serializable {	// 객체 직렬화 적용
+	public static final long serialVersionUID = 1L; // 직렬화 버전 맞추기
 	private String nickName; // 닉네임
 	private String message; // 메세지
 	private Info command; // 상태

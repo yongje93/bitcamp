@@ -11,7 +11,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 public class ChatClientObject extends JFrame implements ActionListener, Runnable {
 	private JTextField input;
@@ -28,128 +28,146 @@ public class ChatClientObject extends JFrame implements ActionListener, Runnable
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 
-	public ChatClientObject() {
+	public ChatClientObject(){
 		input = new JTextField(15);
 
 		output = new JTextArea();
-		output.setEditable(false); // JTextArea 읽기전용으로 만들기.
 		JScrollPane scroll = new JScrollPane(output);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // 세로 스크롤 항상 고정.
-
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		output.setEditable(false);
+		
 		send = new JButton("보내기");
 
 		JPanel p = new JPanel(new BorderLayout());
-		p.add("Center", input);
-		p.add("East", send);
+		p.add("Center",input);
+		p.add("East",send);
 
 		Container c = this.getContentPane();
 		c.add("Center", scroll);
 		c.add("South", p);
-
-		setBounds(200, 100, 300, 300);
+		
+		setBounds(100, 80, 300, 300);
 		setVisible(true);
-		// 종료버튼 눌렀을 때 서버에 exit 보내기.
-		addWindowListener(new WindowAdapter() {
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter(){
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void	windowClosing(WindowEvent e){
+				if(oos==null || ois==null) System.exit(0);
+
 				InfoDTO dto = new InfoDTO();
 				dto.setCommand(Info.EXIT);
-				try {
+
+				try{
 					oos.writeObject(dto);
 					oos.flush();
-				} catch (IOException io) {
+				}catch(IOException io){
 					io.printStackTrace();
 				}
 			}
 		});
 	}
-
-	public void service() {
-		// 서버 IP	
-		String serverIP = JOptionPane.showInputDialog(this, "서버IP를 입력하세요", "192.168.0.49"); // "서버IP", // JOptionPane.INFORMATION_MESSAGE);
-		if (serverIP == null || serverIP.length() == 0) {
-			System.out.println("서버IP가 입력되지 않았습니다.");
+	
+	public void service(){
+		//서버IP
+		//String serverIP = JOptionPane.showInputDialog(this,"서버IP를 입력하세요","서버IP",JOptionPane.INFORMATION_MESSAGE);
+		String serverIP = JOptionPane.showInputDialog(this,"서버IP를 입력하세요","192.168.0.10");
+		if(serverIP==null || serverIP.length()==0){
+			System.out.println("서버IP가 입력되지 않았습니다");
 			System.exit(0);
 		}
-		// 닉네임
-		String nickName = JOptionPane.showInputDialog(this, "닉네임을 입력하세요", "닉네임", JOptionPane.INFORMATION_MESSAGE);
-		if (nickName == null || nickName.length() == 0) {
-			nickName = "guest";
+
+		//닉네임
+		String nickName = JOptionPane.showInputDialog(this,"닉네임을 입력하세요","닉네임",JOptionPane.INFORMATION_MESSAGE);
+		if(nickName==null || nickName.length()==0){
+			nickName="guest";
 		}
-		// 소켓 생성
-		try {
+		
+		//소켓 생성
+		try{
 			socket = new Socket(serverIP, 9500);
 
-			oos = new ObjectOutputStream(socket.getOutputStream()); // 출력이 먼저 되야됨. Client만 순서 중요함.
+			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
-
-			InfoDTO dto = new InfoDTO();
-			dto.setNickName(nickName);// dto에 닉네임 설정
-			dto.setCommand(Info.JOIN);// dto의 상태 JOIN
-			// 서버 보내기
-			oos.writeObject(dto); // dto 객체 보내주기
-			oos.flush(); // 버퍼 비우기
 			
-		} catch (UnknownHostException e) {
+			//서버로 nickName 보내기
+			InfoDTO dto = new InfoDTO();
+			dto.setCommand(Info.JOIN);
+			dto.setNickName(nickName);
+			oos.writeObject(dto);
+			oos.flush();
+
+		}catch(UnknownHostException e){
 			System.out.println("서버를 찾을 수 없습니다");
 			e.printStackTrace();
 			System.exit(0);
-		} catch (IOException e) {
+		}catch(IOException e){
 			System.out.println("서버와 연결이 안되었습니다");
 			e.printStackTrace();
 			System.exit(0);
 		}
-		// 이벤트
-		send.addActionListener(this); // 보내기 버튼
-		input.addActionListener(this); // textfield에서 엔터 버튼
-		// 쓰레드
+
+		//이벤트
+		send.addActionListener(this);
+		input.addActionListener(this);
+
+		//스레드 생성
 		Thread t = new Thread(this);
 		t.start();
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// JTextField의 내용을 얻어서 서버에 보내기
-			InfoDTO dto = new InfoDTO();
-			String line = input.getText();
-			dto.setMessage(line);
+	public void actionPerformed(ActionEvent e){
+		//서버로 보내기
+		String line = input.getText();
+		
+		InfoDTO dto = new InfoDTO();
+		if(line.toLowerCase().equals("exit")){
+			dto.setCommand(Info.EXIT);
+		}else{
 			dto.setCommand(Info.SEND);
-			try {
-				oos.writeObject(dto);
-				oos.flush();
-			} catch (IOException io) {
-				io.printStackTrace();
-			}
-			input.setText("");	//서버에 보내고 textfield 초기화
+			dto.setMessage(line);
+		}
+		try{
+			oos.writeObject(dto);
+			oos.flush();
+		}catch(IOException io){
+			io.printStackTrace();
+		}
+
+		input.setText("");
 	}
 
 	@Override
-	public void run() {
-		// 받는쪽
-		try {
-			while (true) {
-				// 서버로 오는 내용을 받아서 JTextArea에 뿌리기
-				InfoDTO dto = new InfoDTO();
-				dto = (InfoDTO) ois.readObject();
-				if (dto.getMessage() == null || dto.getCommand() == Info.EXIT) {
+	public void run(){
+		//받는쪽
+		InfoDTO dto = null;
+
+		while(true){
+			try{
+				dto = (InfoDTO)ois.readObject();
+				if(dto.getCommand()==Info.EXIT){
 					ois.close();
 					oos.close();
 					socket.close();
+
 					System.exit(0);
-				} else {
-					output.append(dto.getMessage() + "\n");
+
+				}else if(dto.getCommand()==Info.SEND){
+					output.append(dto.getMessage() +"\n");
+
+					int pos = output.getText().length();
+					output.setCaretPosition(pos);
 				}
-				int pos = output.getText().length();	// 스크롤 자동
-				output.setCaretPosition(pos);
-			} // while
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+			}catch(IOException io){
+				io.printStackTrace();
+			}catch(ClassNotFoundException e){
+				e.printStackTrace();
+			}
+		}//while
 	}
 
 	public static void main(String[] args) {
 		new ChatClientObject().service();
 	}
 }
+
