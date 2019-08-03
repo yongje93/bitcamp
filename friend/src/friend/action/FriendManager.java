@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -23,12 +22,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import friend.bean.FriendDTO;
 import friend.dao.FriendDAO;
 
-public class FriendManager extends JFrame implements ActionListener {
+public class FriendManager extends JFrame implements ActionListener, ListSelectionListener {
 	private JLabel mainL, nameL, telL, sexL, hobbyL, listL, areaL, hyphenL1, hyphenL2;
 	private JTextField nameT, tel2T, tel3T;
 	private JComboBox<String> tel1C;
@@ -73,15 +75,16 @@ public class FriendManager extends JFrame implements ActionListener {
 		updateB = new JButton("수정");
 		deleteB = new JButton("삭제");
 		clearB = new JButton("지우기");
-		
+
 		addB.setEnabled(true);
 		updateB.setEnabled(false);
 		deleteB.setEnabled(false);
 		clearB.setEnabled(false);
-		
+
 		list = new JList<FriendDTO>(new DefaultListModel<FriendDTO>());
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // 리스트의 선택모드 : 한번에 한 항목
 		model = (DefaultListModel<FriendDTO>) list.getModel();
-		
+
 		JScrollPane scroll = new JScrollPane(list);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setPreferredSize(new Dimension(300, 200));
@@ -166,15 +169,15 @@ public class FriendManager extends JFrame implements ActionListener {
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
-		
-		//DB에서 모든 레코드를 꺼내서 JList에 뿌리기
+
+		// DB에서 모든 레코드를 꺼내서 JList에 뿌리기
 		FriendDAO dao = FriendDAO.getInstance();
 		ArrayList<FriendDTO> arrayList = dao.getFriendList();
-		
+
 		for (FriendDTO dto : arrayList) {
 			model.addElement(dto);
 		}
-		
+
 	}
 
 	public void event() {
@@ -182,6 +185,7 @@ public class FriendManager extends JFrame implements ActionListener {
 		updateB.addActionListener(this);
 		deleteB.addActionListener(this);
 		clearB.addActionListener(this);
+		list.addListSelectionListener(this); // JList 선택시 이벤트
 	}
 
 	@Override
@@ -194,10 +198,8 @@ public class FriendManager extends JFrame implements ActionListener {
 			String tel3 = tel3T.getText();
 
 			int gender = 0;
-			if (manR.isSelected())
-				gender = 0;
-			else if (womanR.isSelected())
-				gender = 1;
+			if (manR.isSelected()) gender = 0;
+			else if (womanR.isSelected()) gender = 1;
 
 			int read = readCB.isSelected() ? 1 : 0;
 			int movie = movieCB.isSelected() ? 1 : 0;
@@ -219,30 +221,65 @@ public class FriendManager extends JFrame implements ActionListener {
 
 			// DB
 			FriendDAO dao = FriendDAO.getInstance(); // 싱글톤
-			
+
 			int seq = dao.getseq();
-			
+
 			dto.setSeq(seq);
 			int su = dao.insertFriend(dto);
 
 			clear();
 			// 응답
-			if(su==1)
+			if (su == 1)
 				area.setText("\n\t\t데이터 등록 완료");
 			else
 				area.setText("\n\t\t데이터 등록 실패");
-			
-			model.addElement(dto);	// JList에 뿌려줌
+
+			model.addElement(dto); // JList에 뿌려줌
 		} else if (e.getSource() == updateB) {
-			
+
 		} else if (e.getSource() == deleteB) {
-			
+
 		} else if (e.getSource() == clearB) {
 			clear();
-		}		
+		}
 
 	}
-	
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) { // JList 선택 이벤트
+		// JList에서 누른 정보 뿌려주기
+		FriendDTO dto = list.getSelectedValue();
+
+		nameT.setText(dto.getName());
+		tel1C.setSelectedItem(dto.getTel1());
+		tel2T.setText(dto.getTel2());
+		tel3T.setText(dto.getTel3());
+		
+		if (dto.getGender() == 0) manR.setSelected(true);
+		else if (dto.getGender() == 1) womanR.setSelected(true);
+
+		if (dto.getRead() == 1)	readCB.setSelected(true);
+		else if (dto.getRead() == 0) readCB.setSelected(false);
+
+		if (dto.getMovie() == 1) movieCB.setSelected(true);
+		else if (dto.getRead() == 0) movieCB.setSelected(false);
+
+		if (dto.getMusic() == 1) musicCB.setSelected(true);
+		else if (dto.getRead() == 0) musicCB.setSelected(false);
+
+		if (dto.getGame() == 1) gameCB.setSelected(true);
+		else if (dto.getRead() == 0) gameCB.setSelected(false);
+
+		if (dto.getShopping() == 1) shoppingCB.setSelected(true);
+		else if (dto.getRead() == 0) shoppingCB.setSelected(false);
+		
+		// JList에서 이름 클릭하면 등록 비활성 / 수정,삭제, 지우기 활성
+		addB.setEnabled(false);
+		updateB.setEnabled(true);
+		deleteB.setEnabled(true);
+		clearB.setEnabled(true);
+	}
+
 	public void clear() {
 		nameT.setText("");
 		tel1C.setSelectedItem("010");
@@ -254,7 +291,7 @@ public class FriendManager extends JFrame implements ActionListener {
 		musicCB.setSelected(false);
 		gameCB.setSelected(false);
 		shoppingCB.setSelected(false);
-	
+
 		area.setText("");
 		// 버튼 초기화
 		addB.setEnabled(true);
@@ -266,5 +303,4 @@ public class FriendManager extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		new FriendManager().event();
 	}
-
 }// class
