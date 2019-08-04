@@ -17,5 +17,15 @@ public class MaleStudentExample {
 		
 		maleStudent.getList().stream()
 			.forEach(s->System.out.println(s.getName()));
+		
+		System.out.println();
+		
+		//병렬 스트림으로 처리 추가
+		MaleStudent maleStudent2 = totalList.parallelStream()
+				.collect(MaleStudent::new, MaleStudent::accmulate, MaleStudent::combine);
+		
+		maleStudent2.getList().stream()
+			.forEach(s->System.out.println(s.getName()));
+	
 	}
 }
