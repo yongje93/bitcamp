@@ -82,36 +82,64 @@ public class FriendDAO { // DB만 처리하는 곳
 	public int updateFriend(FriendDTO dto) { // 수정
 		int su = 0;
 		getConnection();
-		String sql = "update";
+		String sql = "update friend set name=?, tel1=?, tel2=?, tel3=?, gender=?, "
+				+ "read=?, movie=?, music=?, game=?, shopping=? where seq=?";
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getTel1());
+			pstmt.setString(3, dto.getTel2());
+			pstmt.setString(4, dto.getTel3());
+			pstmt.setInt(5, dto.getGender());
+			pstmt.setInt(6, dto.getRead());
+			pstmt.setInt(7, dto.getMovie());
+			pstmt.setInt(8, dto.getMusic());
+			pstmt.setInt(9, dto.getGame());
+			pstmt.setInt(10, dto.getShopping());
+			pstmt.setInt(11, dto.getSeq());
 			
-			
-			
+			su = pstmt.executeUpdate(); // 실행 - 개수 리턴
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try { // 종료
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		return 0;
+		return su;
 	}
 	
-	public int deleteFriend(FriendDTO dto) { // 삭제
+	public int deleteFriend(int seq) { // 삭제
 		int su = 0;
 		getConnection();
-		String sql = "delete";
+		String sql = "delete friend where seq = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, seq);
 			
-			
+			su = pstmt.executeUpdate(); // 실행 - 개수 리턴
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try { // 종료
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		return 0;
+		return su;
 	}
 	
 	public int getseq() {
 		int seq = 0;
 		getConnection();
-		String sql = "select seq_friend.nextval from dual";
+		String sql = "select seq_friend.nextval from dual";	// sequence 값 가지고 오기
 		try {
 			pstmt = conn.prepareStatement(sql); // 생성
 			rs = pstmt.executeQuery(); // 실행
@@ -135,13 +163,13 @@ public class FriendDAO { // DB만 처리하는 곳
 	public ArrayList<FriendDTO> getFriendList() {
 		ArrayList<FriendDTO> arrayList = new ArrayList<FriendDTO>();
 		getConnection();
-		String sql = "select * from friend";
+		String sql = "select * from friend order by seq asc";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				FriendDTO dto = new FriendDTO();
+				FriendDTO dto = new FriendDTO();	// 각각의 다른 주소값 가지고 옴(While문 밖에 만들면 하나만 계속 가지고 옴)
 				dto.setSeq(rs.getInt("seq"));
 				dto.setName(rs.getString("name"));
 				dto.setTel1(rs.getString("tel1"));

@@ -89,6 +89,7 @@ public class FriendManager extends JFrame implements ActionListener, ListSelecti
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setPreferredSize(new Dimension(300, 200));
 		area = new JTextArea(10, 55);
+		area.setEditable(false);
 
 		JPanel mainP = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		mainP.add(mainL);
@@ -189,8 +190,8 @@ public class FriendManager extends JFrame implements ActionListener, ListSelecti
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == addB) {
+	public void actionPerformed(ActionEvent e) { // 버튼 눌렀을때 이벤트
+		if (e.getSource() == addB) {	// 등록
 			// 데이터
 			String name = nameT.getText();
 			String tel1 = (String) tel1C.getSelectedItem();
@@ -223,23 +224,78 @@ public class FriendManager extends JFrame implements ActionListener, ListSelecti
 			FriendDAO dao = FriendDAO.getInstance(); // 싱글톤
 
 			int seq = dao.getseq();
-
 			dto.setSeq(seq);
 			int su = dao.insertFriend(dto);
 
 			clear();
 			// 응답
 			if (su == 1)
-				area.setText("\n\t\t데이터 등록 완료");
+				area.setText("\n\t\t"+su+"개의 데이터 등록 완료");
 			else
 				area.setText("\n\t\t데이터 등록 실패");
 
 			model.addElement(dto); // JList에 뿌려줌
-		} else if (e.getSource() == updateB) {
+		} else if (e.getSource() == updateB) {	// 수정
+			// 데이터
+			String name = nameT.getText();
+			String tel1 = (String) tel1C.getSelectedItem();
+			String tel2 = tel2T.getText();
+			String tel3 = tel3T.getText();
 
-		} else if (e.getSource() == deleteB) {
+			int gender = 0;
+			if (manR.isSelected()) gender = 0;
+			else if (womanR.isSelected()) gender = 1;
 
-		} else if (e.getSource() == clearB) {
+			int read = readCB.isSelected() ? 1 : 0;
+			int movie = movieCB.isSelected() ? 1 : 0;
+			int music = musicCB.isSelected() ? 1 : 0;
+			int game = gameCB.isSelected() ? 1 : 0;
+			int shopping = shoppingCB.isSelected() ? 1 : 0;
+
+			FriendDTO dto = new FriendDTO();
+			dto.setSeq(list.getSelectedValue().getSeq());
+			dto.setName(name);
+			dto.setTel1(tel1);
+			dto.setTel2(tel2);
+			dto.setTel3(tel3);
+			dto.setGender(gender);
+			dto.setRead(read);
+			dto.setMovie(movie);
+			dto.setMusic(music);
+			dto.setGame(game);
+			dto.setShopping(shopping);
+			// DB
+			FriendDAO dao = FriendDAO.getInstance(); // 싱글톤
+			
+			int seq = dto.getSeq();
+			dto.setSeq(seq);
+			
+			int su = dao.updateFriend(dto);
+			// JList 내용 변경
+			clear();
+			model.set(list.getSelectedIndex(), dto);
+			// 응답
+			if (su == 1)
+				area.setText("\n\t\t"+su+"개의 데이터 수정 완료");
+			else
+				area.setText("\n\t\t데이터 수정 실패");
+			
+		} else if (e.getSource() == deleteB) {	// 삭제
+			// DB
+			int seq = list.getSelectedValue().getSeq();	// 삭제할 시퀀스
+			FriendDAO dao = FriendDAO.getInstance(); // 싱글톤			
+
+			int su = dao.deleteFriend(seq);
+			// JList 내용 변경
+			clear();
+			model.remove(list.getSelectedIndex());
+			// 응답
+			if (su == 1)
+				area.setText("\n\t\t"+su+"개의 데이터 삭제 완료");
+			else
+				area.setText("\n\t\t데이터 삭제 실패");
+			
+		} else if (e.getSource() == clearB) {	// 지우기
 			clear();
 		}
 
@@ -248,6 +304,9 @@ public class FriendManager extends JFrame implements ActionListener, ListSelecti
 	@Override
 	public void valueChanged(ListSelectionEvent e) { // JList 선택 이벤트
 		// JList에서 누른 정보 뿌려주기
+		//System.out.println("test");// 마우스 누를때 1번 손땔때 1번 찍힘. 삭제할때 이거때매 문제
+		if(list.getSelectedIndex() == -1) return; //remove가 되면 중간에 index를 잃어버림. 잃어버렸을때 밑에 실행 X
+		
 		FriendDTO dto = list.getSelectedValue();
 
 		nameT.setText(dto.getName());
@@ -258,20 +317,11 @@ public class FriendManager extends JFrame implements ActionListener, ListSelecti
 		if (dto.getGender() == 0) manR.setSelected(true);
 		else if (dto.getGender() == 1) womanR.setSelected(true);
 
-		if (dto.getRead() == 1)	readCB.setSelected(true);
-		else if (dto.getRead() == 0) readCB.setSelected(false);
-
-		if (dto.getMovie() == 1) movieCB.setSelected(true);
-		else if (dto.getRead() == 0) movieCB.setSelected(false);
-
-		if (dto.getMusic() == 1) musicCB.setSelected(true);
-		else if (dto.getRead() == 0) musicCB.setSelected(false);
-
-		if (dto.getGame() == 1) gameCB.setSelected(true);
-		else if (dto.getRead() == 0) gameCB.setSelected(false);
-
-		if (dto.getShopping() == 1) shoppingCB.setSelected(true);
-		else if (dto.getRead() == 0) shoppingCB.setSelected(false);
+		readCB.setSelected(dto.getRead() == 1 ? true : false);
+		movieCB.setSelected(dto.getMovie() == 1 ? true : false);
+		musicCB.setSelected(dto.getMusic() == 1 ? true : false);
+		gameCB.setSelected(dto.getGame() == 1 ? true : false);
+		shoppingCB.setSelected(dto.getShopping() == 1 ? true : false);
 		
 		// JList에서 이름 클릭하면 등록 비활성 / 수정,삭제, 지우기 활성
 		addB.setEnabled(false);
