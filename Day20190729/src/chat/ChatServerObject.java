@@ -5,7 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
 public class ChatServerObject {
 	private ServerSocket ss;
 	private ArrayList<ChatHandlerObject> list;
