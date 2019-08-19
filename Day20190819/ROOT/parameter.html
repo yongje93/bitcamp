@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>연령제한</title>
+	</head>
+	<body>
+	<form name="paramForm" method="get" action="http://localhost:8080/param">
+		<table border='1'>
+			<tr>
+				<td width="70" align="center">이름</td>
+				<td><input type="text" name ="name" id="irum" placeholder="이름입력"></td>
+			</tr>
+
+			<tr>
+				<td width="70" align="center">나이</td>	
+				<td><input type="text" name ="age" id="nai" size="7" maxlength="5" placeholder="나이입력"></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" align ="center">
+					<input type="button" value="보내기" onclick="javascript:check()">
+					<input type="reset" value="취소">
+				</td>
+			</tr>
+		</table>
+	</form>
+	</body>
+	<script>
+		function check() {
+			// 유효성 검사
+			//if(document.paramForm.name.value=="") {	//name속성
+			if(document.getElementById("irum").value=="") {	//id속성
+				alert("이름 입력하세요");
+				document.paramForm.name.focus();
+				
+			//} else if(document.paramForm.age.value=="") {
+			} else if(document.getElementById("nai").value=="") {
+				alert("나이를 입력하세요");
+				document.paramForm.name.focus();
+				
+			} else 
+				document.paramForm.submit();
+	  }
+	  </script>
+</html>
+
+<!-- submit ~ action 
+입력된 데이터를 가지고 다음 페이지(action)로 이동 (주소에 내용 포함해 가는거 GET 방식)
+id 속성
+class 속성
+-->
