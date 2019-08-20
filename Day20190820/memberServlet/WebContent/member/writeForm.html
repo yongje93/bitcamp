@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>회원가입</title>
+  </head>
+  <body>
+    <form name="writeFrom" method="get" action="">
+      <h1>회원가입</h1>
+      <table border="1" cellpadding="5">
+        <tr>
+          <th width="80">이름</th>
+          <td><input type="text" id="name" name="name" placeholder="이름 입력" size="15"></td>
+        </tr>
+        <tr>
+          <th width="80">아이디</th>
+          <td><input type="text" id="id" name="id" placeholder="아이디 입력" size="17"></td>
+        </tr>
+        <tr>
+          <th width="80">비밀번호</th>
+          <td><input type="password" id="pwd" name="pwd" size="20"></td>
+        </tr>
+        <tr>
+          <th width="80">재확인</th>
+          <td><input type="password" id="repwd" name="repwd" size="20"></td>
+        </tr>
+        <tr>
+          <th width="80">성별</th>
+          <td>
+            <input type="radio" name="gender" value="0" checked>남&nbsp;
+            <input type="radio" name="gender" value="1">여
+          </td>
+        </tr>
+        <tr>
+          <th width="80">이메일</th>
+          <td>
+            <input type="text" name="email1" size="12">
+            &nbsp;@&nbsp;
+            <input type="text" name="email2" list="email" placeholder="직접입력" size="15">
+            <datalist id="email">
+              <option value="naver.com"></option>
+              <option value="gmail.com"></option>
+              <option value="daum.net"></option>
+            </datalist>
+          </td>
+        </tr>
+        <tr>
+          <th width="80">핸드폰</th>
+          <td>
+            <select name="tel1" style="width: 55px;">
+              <option value="010">010</option>
+              <option value="019">019</option>
+              <option value="016">016</option>
+            </select>
+            -
+            <input type="text" name="tel2" size="5">
+            -
+            <input type="text" name="tel3" size="5">
+          </td>
+        </tr>
+        <tr>
+          <th width="80">주소</th>
+          <td>
+            <input type="text" name="zipcode" size="5">
+            <input type="button" value="우편번호검색"><br>
+            <input type="text" name="addr1" placeholder="주소" size="40"><br>
+            <input type="text" name="addr2" placeholder="상세 주소" size="40">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center">
+            <input type="button" value="회원가입" onclick="javascript:checkWrite()">
+            <input type="reset" value="다시작성">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+  <script>
+    function checkWrite() {
+      // 유효성 검사
+      if(document.getElementById("name").value=="") {
+          alert("이름을 입력하세요");
+          document.writeFrom.name.focus();
+
+      } else if(document.getElementById("id").value=="") {
+          alert("아이디를 입력하세요");
+          document.writeFrom.id.focus();
+
+      } else if(document.getElementById("pwd").value=="") {
+          alert("비밀번호를 입력하세요");
+          document.writeFrom.pwd.focus();
+
+      } else if(document.getElementById("repwd").value=="") {
+          alert("비밀번호를 입력하세요");
+          document.writeFrom.repwd.focus();
+
+      } else if(document.getElementById("pwd").value != document.getElementById("repwd").value) {
+          alert("비밀번호가 맞지 않습니다");
+          document.writeFrom.repwd.focus();
+      }
+    }
+  </script>
+</html>
