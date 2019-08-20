@@ -1,0 +1,41 @@
+ 클라이언트		서버		DB
+ html		Servlet(컴포넌트)	mysql
+ javascript	JSP(컴포넌트)	oracle			정형화
+ css		PHP(컴포넌트)	MS-SQL
+				postgreSQL
+		Tomcat(컨테이너)				비정형화(NOSQL)
+	
+* Servlet
+html in JAVA
+
+* JSP
+JVAV in html
+
+
+Object
+   ↑
+GenericServlet
+   ↑
+HttpServlet	protected void doPost()
+   ↑
+HelloServlet(나)	public void doPost()
+
+제어의 역전 -> 프레임워크
+
+jar 파일 경로
+-path
+-lib
+-maven or 그래듈
+
+CLASSPATH
+
+
+http://localhost:8080/ROOT/WEB-INF/classes/com.hello.HelloServlet.class - X
+http://localhost:8080/WEB-INF/classes/hello
+http://localhost:8080/hello
+
+500 에러 - 서버 error
+404 에러 - 주소 잘못 기입
+405 에러 - 서비스가 잘못잡힘
+
+
