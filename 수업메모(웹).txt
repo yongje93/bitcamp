@@ -38,4 +38,27 @@ http://localhost:8080/hello
 404 에러 - 주소 잘못 기입
 405 에러 - 서비스가 잘못잡힘
 
+* 페이징 처리
+- 1페이지당 2개씩 
 
+[1][2][3]....
+
+DB의 레코드를 2개씩만 가져오게한다.
+
+select * from 
+(select rownum rn, tt.* from (select name, email, homepage, subject, content, to_char(logtime, 'YYYY.MM.DD') as logtime 
+from guestbook order by seq desc) tt) 
+where rn>=? and rn<=?;
+	
+	startNum   endNum
+	endNum = pg*2
+	startNum = endNum-1
+pg=1	rn>=1 and rn<=2
+pg=2	rn>=3 and rn<=4
+pg=3	rn>=5 and rn<=6
+
+URL
+http://~~~~~?변수=값
+
+
+tt,name
