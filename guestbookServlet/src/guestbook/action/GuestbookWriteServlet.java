@@ -44,7 +44,8 @@ public class GuestbookWriteServlet extends HttpServlet {
 		out.println("<body>");
 		out.println("작성하신 글을 저장하였습니다");
 		out.println("<br><br>");
-		out.println("<input type='button' value='글목록' onclick=location.href='GuestbookListServlet'>");
+		out.println("<input type='button' value='글목록' "
+				+ "onclick=location.href='GuestbookListServlet?pg=1'>");	 //get 방식	?pg=1 기본값으로 1페이지를 해줌
 		out.println("</body>");
 		out.println("</html>");
 	}

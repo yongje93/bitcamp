@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import guestbook.bean.GuestbookDTO;
 
@@ -48,7 +49,6 @@ public class GuestbookDAO {
 	// 글작성
 	public void bookWrite(GuestbookDTO guestbookDTO) {
 		String sql = "insert into guestbook values(seq_guestbook.nextval,?,?,?,?,?,sysdate)";
-
 		getConnection();
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -71,15 +71,22 @@ public class GuestbookDAO {
 		}
 	}
 	
-	// 게시판 리스트
-	public ArrayList<GuestbookDTO> bookList() {
-		ArrayList<GuestbookDTO> guestbookList = new ArrayList<GuestbookDTO>();
-		String sql = "select name, email, homepage, subject, content, to_char(logtime, 'YYYY.MM.DD') as logtime from guestbook order by seq desc";
-		
+	// 글목록
+	public List<GuestbookDTO> getList(int startNum, int endNum) {
+		// 부모 = 자식(다형성)
+		List<GuestbookDTO> list = new ArrayList<GuestbookDTO>();
+		String sql = "select * from " + 
+				"(select rownum rn, tt.* from " + 
+				"(select name,email,homepage,subject,content,to_char(logtime, 'YYYY-MM-DD') as logtime " + 
+				" from guestbook order by seq desc) tt)" + 
+				" where rn>=? and rn<=?";
 		getConnection();
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
 			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
 				GuestbookDTO guestbookDTO = new GuestbookDTO();
 				guestbookDTO.setName(rs.getString("name"));
@@ -89,7 +96,34 @@ public class GuestbookDAO {
 				guestbookDTO.setContent(rs.getString("content"));
 				guestbookDTO.setLogtime(rs.getString("logtime"));
 				
-				guestbookList.add(guestbookDTO);
+				list.add(guestbookDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			list = null;	// 에러났을때 리스트를 버려줘야 한다
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+				if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	// 총 게시글수
+	public int getTotalA() {
+		int totalA = 0;
+		String sql = "select count(*) from guestbook";
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalA = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,7 +135,7 @@ public class GuestbookDAO {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-		return guestbookList;
+		}	
+		return totalA;
 	}
 }
