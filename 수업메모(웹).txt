@@ -1,8 +1,8 @@
  클라이언트		서버		DB
- html		Servlet(컴포넌트)	mysql
- javascript	JSP(컴포넌트)	oracle			정형화
- css		PHP(컴포넌트)	MS-SQL
-				postgreSQL
+ html		Servlet(컴포넌트)		mysql
+ javascript	JSP(컴포넌트)		oracle			정형화
+ css		PHP(컴포넌트)		MS-SQL
+					postgreSQL
 		Tomcat(컨테이너)				비정형화(NOSQL)
 	
 * Servlet
@@ -60,5 +60,21 @@ pg=3	rn>=5 and rn<=6
 URL
 http://~~~~~?변수=값
 
+------------------------------------------------------------------------------------------
+* JSP (Java Server Page)
+directive<%@  %>
+1. <%@ page 자신의 페이지 환경설정  %>
+2. <%@ include  %>
+3. <%@ taglib  %>
 
-tt,name
+this	document		page
+
+자동 컴파일
+내용이 바뀌면 컴파일 한다
+톰캣이 자동 reloading
+
+hello.jsp
+hello_jsp.java (서블릿)
+hello_jsp.class
+
+
