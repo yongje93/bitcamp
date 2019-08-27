@@ -16,7 +16,11 @@
         </tr>
         <tr>
           <th width="80">아이디</th>
-          <td><input type="text" id="id" name="id" placeholder="아이디 입력" style="width: 200px;"></td>
+          <td>
+          	<input type="text" id="id" name="id" placeholder="아이디 입력" style="width: 200px;" onkeydown="inputIdChk()">
+          	<input type="button" value="중복체크" onclick="checkId()">
+          	<input type="hidden" name="idDuplication" value="idUncheck">
+          </td>
         </tr>
         <tr>
           <th width="80">비밀번호</th>
@@ -52,8 +56,8 @@
           <td>
             <select name="tel1" style="width: 55px;">
               <option value="010">010</option>
-              <option value="019">019</option>
               <option value="016">016</option>
+              <option value="019">019</option>
             </select>
             -
             <input type="text" name="tel2" style="width: 50px;">
@@ -79,6 +83,5 @@
       </table>
     </form>
 </body>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
- <script src="http://localhost:8080/memberJSP/js/member.js" type="text/javascript"></script>
+<script src="/memberJSP/js/member.js" type="text/javascript"></script>
 </html>

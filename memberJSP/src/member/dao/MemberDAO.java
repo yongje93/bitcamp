@@ -11,16 +11,16 @@ import member.bean.MemberDTO;
 public class MemberDAO {
 	// 싱글톤
 	private static MemberDAO instance;
-
+	
 	public static MemberDAO getInstance() {
-		if (instance == null) {
+		if(instance == null) {
 			synchronized (MemberDAO.class) {
 				instance = new MemberDAO();
 			}
 		}
 		return instance;
 	}
-
+	
 	private String driver = "oracle.jdbc.driver.OracleDriver";
 	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
 	private String username = "java";
@@ -28,7 +28,7 @@ public class MemberDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-
+	
 	public MemberDAO() {
 		try {
 			Class.forName(driver);
@@ -36,7 +36,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void getConnection() {
 		try {
 			conn = DriverManager.getConnection(url, username, password);
@@ -44,12 +44,12 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-
+	
 	// 회원가입
 	public int write(MemberDTO memberDTO) {
 		int su = 0;
 		String sql = "insert into member values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
-
+		
 		getConnection();
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -65,23 +65,121 @@ public class MemberDAO {
 			pstmt.setString(10, memberDTO.getZipcode());
 			pstmt.setString(11, memberDTO.getAddr1());
 			pstmt.setString(12, memberDTO.getAddr2());
-
-			su = pstmt.executeUpdate(); // 실행 - 개수 리턴
-
+			
+			su = pstmt.executeUpdate(); //실행 - 개수 리턴
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
+		
 		return su;
 	}
-
+	
+	// 로그인
+	public String login(String id, String pwd) {
+		String name = null;
+		String sql = "select * from member where id = ? and pwd = ?";
+		
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				name = rs.getString("name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)	rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return name;
+	}
+	
+	// 아이디 중복 확인
+	public boolean isExistId(String id) {
+		boolean exist = false;
+		String sql ="select * from member where id=?";
+		
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);	// 자바에서 오라클 쓰기위해서 씀
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				exist = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)	rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+			
+		return exist;
+	}
+	
+	// 회원정보 가지고 오기
+	public MemberDTO getMember(String id) {
+		MemberDTO memberDTO = new MemberDTO();
+		String sql = "select * from member where id=?";
+		
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				memberDTO.setName(rs.getString("name"));
+				memberDTO.setId(rs.getString("id"));
+				memberDTO.setPassword(rs.getString("pwd"));
+				memberDTO.setGender(rs.getString("gender"));
+				memberDTO.setEmail1(rs.getString("email1"));
+				memberDTO.setEmail2(rs.getString("email2"));
+				memberDTO.setTel1(rs.getString("tel1"));
+				memberDTO.setTel2(rs.getString("tel2"));
+				memberDTO.setTel3(rs.getString("tel3"));
+				memberDTO.setZipcode(rs.getString("zipcode"));
+				memberDTO.setAddr1(rs.getString("addr1"));
+				memberDTO.setAddr2(rs.getString("addr2"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			memberDTO = null;
+		} finally {
+			try {
+				if (rs != null)	rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return memberDTO;
+	}
 }
