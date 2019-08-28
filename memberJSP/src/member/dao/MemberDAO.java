@@ -81,14 +81,49 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-		
+		return su;
+	}
+	
+	// 회원정보수정
+	public int modify(MemberDTO memberDTO) {
+		int su = 0;
+		String sql = "update member set name=?,pwd=?,gender=?,"
+						+ "email1=?,email2=?,tel1=?,tel2=?,tel3=?,"
+						+ "zipcode=?,addr1=?,addr2=?,logtime=sysdate "
+						+ " where id=?";
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberDTO.getName());
+			pstmt.setString(2, memberDTO.getPassword());
+			pstmt.setString(3, memberDTO.getGender());
+			pstmt.setString(4, memberDTO.getEmail1());
+			pstmt.setString(5, memberDTO.getEmail2());
+			pstmt.setString(6, memberDTO.getTel1());
+			pstmt.setString(7, memberDTO.getTel2());
+			pstmt.setString(8, memberDTO.getTel3());
+			pstmt.setString(9, memberDTO.getZipcode());
+			pstmt.setString(10, memberDTO.getAddr1());
+			pstmt.setString(11, memberDTO.getAddr2());
+			pstmt.setString(12, memberDTO.getId());
+			su = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return su;
 	}
 	
 	// 로그인
 	public String login(String id, String pwd) {
 		String name = null;
-		String sql = "select * from member where id = ? and pwd = ?";
+		String sql = "select * from member where id=? and pwd=?";
 		
 		getConnection();
 		try {
@@ -112,7 +147,6 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-		
 		return name;
 	}
 	
@@ -140,14 +174,13 @@ public class MemberDAO {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-			
+		}	
 		return exist;
 	}
 	
 	// 회원정보 가지고 오기
 	public MemberDTO getMember(String id) {
-		MemberDTO memberDTO = new MemberDTO();
+		MemberDTO memberDTO = null;
 		String sql = "select * from member where id=?";
 		
 		getConnection();
@@ -157,6 +190,8 @@ public class MemberDAO {
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
+				memberDTO = new MemberDTO();
+				
 				memberDTO.setName(rs.getString("name"));
 				memberDTO.setId(rs.getString("id"));
 				memberDTO.setPassword(rs.getString("pwd"));
@@ -172,7 +207,6 @@ public class MemberDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			memberDTO = null;
 		} finally {
 			try {
 				if (rs != null)	rs.close();
@@ -182,7 +216,6 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-		
 		return memberDTO;
 	}
 	

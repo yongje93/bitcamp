@@ -68,10 +68,10 @@
         <tr>
           <th width="80">주소</th>
           <td>
-            <input type="text" name="zipcode" id="daum_zipcode" style="width: 70px;" readonly>
+            <input type="text" name="zipcode" id="zipcode" style="width: 70px;" readonly>
             <input type="button" value="우편번호검색" onclick="checkPost()"><br>
-            <input type="text" name="addr1" id="daum_addr1" placeholder="주소" style="width: 350px;" readonly><br>
-            <input type="text" name="addr2" id="daum_addr2" placeholder="상세 주소" style="width: 350px;">
+            <input type="text" name="addr1" id="addr1" placeholder="주소" style="width: 350px;" readonly><br>
+            <input type="text" name="addr2" id="addr2" placeholder="상세 주소" style="width: 350px;">
           </td>
         </tr>
         <tr>
@@ -83,5 +83,5 @@
       </table>
     </form>
 </body>
-<script src="/memberJSP/js/member.js" type="text/javascript"></script>
+<script src="../js/member.js" type="text/javascript"></script>
 </html>

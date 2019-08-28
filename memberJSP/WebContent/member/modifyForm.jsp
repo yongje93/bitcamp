@@ -5,6 +5,8 @@
     
 <%
 	// 데이터
+	request.setCharacterEncoding("UTF-8");
+
 	String id = request.getParameter("id");
 	
 	// DB
@@ -17,37 +19,7 @@
 <meta charset="UTF-8">
 <title>회원정보수정</title>
 </head>
-<script type="text/javascript">
-function init() {
-	setGender("<%= memberDTO.getGender() %>");
-	setEmail("<%= memberDTO.getEmail2() %>");
-	setTel("<%= memberDTO.getTel1() %>");
-}
-
-function setGender(val) {
-	//console.log(val);
-	document.modifyForm.gender[val].checked = true;
-}
-
-function setEmail(val) {
-	//console.log(val);
-	document.modifyForm.email2.value = val;
-	
-}
-
-function setTel(val) {
-	//console.log(val);
-	var selectTel = document.getElementById("tel1");
-	for(i=0, j=selectTel.length; i < j; i++) {
-		if(selectTel.options[i].value == val) {
-			selectTel.options[i].selected = true;
-			break;
-		}
-	}	
-}
-
-</script>
-<body onload="init()">
+<body>
 <form name="modifyForm" method="post" action="modify.jsp">
       <h1>회원정보수정</h1>
       <table border="1" cellspacing="0" cellpadding="5">
@@ -58,7 +30,7 @@ function setTel(val) {
         <tr>
           <th width="80">아이디</th>
           <td>
-          	<input type="text" id="id" name="id" style="width: 200px;" value="<%=memberDTO.getId() %>" readonly>
+          	<input type="text" id="id" name="id" value="<%=memberDTO.getId() %>" style="width: 200px;" readonly>
           </td>
         </tr>
         <tr>
@@ -79,38 +51,38 @@ function setTel(val) {
         <tr>
           <th width="80">이메일</th>
           <td>
-            <input type="text" name="email1" style="width: 120px;" value="<%=memberDTO.getEmail1() %>">
+            <input type="text" name="email1" value="<%=memberDTO.getEmail1() %>" style="width: 120px;">
             &nbsp;@&nbsp;
-            <input type="text" name="email2" list="list">
+            <input type="text" id="email22" name="email2" list="list">
             <datalist id="list">
-              <option value="naver.com"></option>
-              <option value="gmail.com"></option>
-              <option value="daum.net"></option>
-              <option value="nate.net"></option>
+              <option value="naver.com">naver.com</option>
+              <option value="gmail.com">gmail.com</option>
+              <option value="daum.net">daum.net</option>
+              <option value="nate.net">nate.net</option>
             </datalist>
           </td>
         </tr>
         <tr>
           <th width="80">핸드폰</th>
           <td>
-            <select id="tel1" name="tel1" style="width: 55px;">
+            <select id="tel11" name="tel1" style="width: 55px;">
               <option value="010">010</option>
               <option value="016">016</option>
               <option value="019">019</option>
             </select>
             -
-            <input type="text" name="tel2" style="width: 50px;" value="<%=memberDTO.getTel2() %>">
+            <input type="text" name="tel2" value="<%=memberDTO.getTel2() %>" style="width: 50px;">
             -
-            <input type="text" name="tel3" style="width: 50px;" value="<%=memberDTO.getTel3() %>">
+            <input type="text" name="tel3" value="<%=memberDTO.getTel3() %>" style="width: 50px;">
           </td>
         </tr>
         <tr>
           <th width="80">주소</th>
           <td>
-            <input type="text" name="zipcode" id="daum_zipcode" style="width: 70px;" readonly value="<%=memberDTO.getZipcode() %>">
+            <input type="text" name="zipcode" id="zipcode" value="<%=memberDTO.getZipcode() %>" style="width: 70px;" readonly>
             <input type="button" value="우편번호검색" onclick="checkPost()"><br>
-            <input type="text" name="addr1" id="daum_addr1" placeholder="주소" style="width: 350px;" readonly value="<%=memberDTO.getAddr1() %>"><br>
-            <input type="text" name="addr2" id="daum_addr2" placeholder="상세 주소" style="width: 350px;" value="<%=memberDTO.getAddr2() %>">
+            <input type="text" name="addr1" id="addr1" placeholder="주소" value="<%=memberDTO.getAddr1() %>" style="width: 350px;" readonly><br>
+            <input type="text" name="addr2" id="addr2" placeholder="상세 주소" value="<%=memberDTO.getAddr2() %>" style="width: 350px;">
           </td>
         </tr>
         <tr>
@@ -122,5 +94,16 @@ function setTel(val) {
       </table>
     </form>
 </body>
-<script src="../js/member.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/member.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	document.modifyForm.gender['<%=memberDTO.getGender()%>'].checked = true;
+	
+	//document.modifyForm.email2.value = '<%=memberDTO.getEmail2()%>';
+	document.getElementById("email22").value = '<%=memberDTO.getEmail2() %>';
+	
+	//document.modifyForm.tel1.value = '<%=memberDTO.getTel1()%>';
+	document.getElementById("tel11").value = '<%=memberDTO.getTel1() %>';
+}
+</script>
 </html>

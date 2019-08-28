@@ -37,7 +37,7 @@
 </style>
 </head>
 <body>
-	<form name="" method="post" action="checkPost.jsp">
+	<form name="postForm" method="post" action="checkPost.jsp">
     <table border="1" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="80" align="center">시도</td>
