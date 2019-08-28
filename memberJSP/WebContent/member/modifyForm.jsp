@@ -1,4 +1,4 @@
-<%@page import="member.bean.MemberDTO"%>
+<%@ page import="member.bean.MemberDTO"%>
 <%@ page import="member.dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,18 +25,18 @@ function init() {
 }
 
 function setGender(val) {
-	console.log(val);
+	//console.log(val);
 	document.modifyForm.gender[val].checked = true;
 }
 
 function setEmail(val) {
-	console.log(val);
+	//console.log(val);
 	document.modifyForm.email2.value = val;
 	
 }
 
 function setTel(val) {
-	console.log(val);
+	//console.log(val);
 	var selectTel = document.getElementById("tel1");
 	for(i=0, j=selectTel.length; i < j; i++) {
 		if(selectTel.options[i].value == val) {
@@ -48,7 +48,7 @@ function setTel(val) {
 
 </script>
 <body onload="init()">
-<form name="modifyForm" method="post" action="write.jsp">
+<form name="modifyForm" method="post" action="modify.jsp">
       <h1>회원정보수정</h1>
       <table border="1" cellspacing="0" cellpadding="5">
         <tr>
@@ -115,11 +115,12 @@ function setTel(val) {
         </tr>
         <tr>
           <td colspan="2" align="center">
-            <input type="button" value="회원정보수정" onclick="">
+            <input type="button" value="회원정보수정" onclick="checkModify()">
             <input type="reset" value="다시작성">
           </td>
         </tr>
       </table>
     </form>
 </body>
+<script src="../js/member.js" type="text/javascript"></script>
 </html>

@@ -17,9 +17,9 @@
         <tr>
           <th width="80">아이디</th>
           <td>
-          	<input type="text" id="id" name="id" placeholder="아이디 입력" style="width: 200px;" onkeydown="inputIdChk()">
+          	<input type="text" id="id" name="id" placeholder="아이디 입력" style="width: 200px;">
           	<input type="button" value="중복체크" onclick="checkId()">
-          	<input type="hidden" name="idDuplication" value="idUncheck">
+          	<input type="hidden" name="check" value="">
           </td>
         </tr>
         <tr>

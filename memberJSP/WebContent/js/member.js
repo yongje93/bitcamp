@@ -6,8 +6,6 @@ function checkWrite() {
 	} else if (document.writeForm.id.value == "") {
 		alert("아이디를 입력하세요");
 		document.writeForm.id.focus();
-	} else if(document.writeForm.idDuplication.value != "idCheck") {
-		alert("중복체크 하세요")
 	} else if (document.writeForm.pwd.value == "") {
 		alert("비밀번호를 입력하세요");
 		document.writeForm.pwd.focus();
@@ -16,6 +14,8 @@ function checkWrite() {
 		document.writeForm.repwd.focus();
 	} else if (document.writeForm.pwd.value != document.writeForm.repwd.value) {
 		alert("비밀번호가 맞지 않습니다");
+	} else if (document.writeForm.check.value != document.writeForm.id.value) {
+		alert("중복체크 하세요");
 	} else {
 		document.writeForm.submit();
 	}
@@ -28,17 +28,13 @@ function checkId() {	//자바스크립트는 자료형이없다
 		alert("먼저 아이디를 입력하세요");
 	else
 		window.open("http://localhost:8080/memberJSP/member/checkId.jsp?id="+sId,
-					"",	"width=400 height=100 left=500 top=150 locations=yes");
-}
-
-function inputIdChk() {
-	document.writeForm.idDuplication.value = "idUncheck";
+					"",	"width=400 height=100 left=500 top=250 locations=yes");
 }
 
 // 중복 체크 후 창닫기
 function checkIdClose(id) {
 	opener.writeForm.id.value= id;
-	opener.writeForm.idDuplication.value = "idCheck";
+	opener.writeForm.check.value = id;
 	window.close();
 	opener.writeForm.pwd.focus();
 }
@@ -46,6 +42,15 @@ function checkIdClose(id) {
 // 회원가입 창에서 주소 검색
 function checkPost() {
 	console.log("주소 검색");
+	window.open("checkPost.jsp","","width=500 height=500 left=500 top=250 scrollbars=yes");
+}
+
+// 주소 검색 후 창닫기
+function checkPostClose(zipcode, address) {
+	opener.writeForm.zipcode.value = zipcode;
+	opener.writeForm.addr1.value = address;
+	window.close();
+	opener.writeForm.addr2.focus();
 }
 
 // 로그인 화면에서 로그인 유효성 검사
@@ -59,4 +64,3 @@ function checkLogin() {
 	} else
 		document.loginForm.submit();
 }
-

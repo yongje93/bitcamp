@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import member.bean.MemberDTO;
+import member.bean.ZipcodeDTO;
 
 public class MemberDAO {
 	// 싱글톤
@@ -181,5 +184,46 @@ public class MemberDAO {
 		}
 		
 		return memberDTO;
+	}
+	
+	// 우편번호, 주소 리스트 가져오기
+	public List<ZipcodeDTO> getZipcodeList(String sido, String sigungu, String roadname) {
+		ArrayList<ZipcodeDTO> list = new ArrayList<ZipcodeDTO>();
+		String sql = "select * from newzipcode where sido like ? and nvl(sigungu, ' ') like ? and roadname like ?";
+		
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+sido+"%");
+			pstmt.setString(2, "%"+sigungu+"%");
+			pstmt.setString(3, "%"+roadname+"%");
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ZipcodeDTO zipcodeDTO = new ZipcodeDTO();
+				zipcodeDTO.setZipcode(rs.getString("zipcode"));
+				zipcodeDTO.setSido(rs.getString("sido"));
+				zipcodeDTO.setSigungu(rs.getString("sigungu") == null ? "" : rs.getString("sigungu"));
+				zipcodeDTO.setYubmyundong(rs.getString("yubmyundong"));
+				zipcodeDTO.setRi(rs.getString("ri") == null ? "" : rs.getString("ri"));
+				zipcodeDTO.setRoadname(rs.getString("roadname"));
+				zipcodeDTO.setBuildingname(rs.getString("buildingname") == null ? "" : rs.getString("buildingname"));
+				
+				list.add(zipcodeDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			list = null;
+		} finally {
+			try {
+				if (rs != null)	rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 }
