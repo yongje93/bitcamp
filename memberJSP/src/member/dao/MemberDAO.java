@@ -58,7 +58,7 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberDTO.getName());
 			pstmt.setString(2, memberDTO.getId());
-			pstmt.setString(3, memberDTO.getPassword());
+			pstmt.setString(3, memberDTO.getPwd());
 			pstmt.setString(4, memberDTO.getGender());
 			pstmt.setString(5, memberDTO.getEmail1());
 			pstmt.setString(6, memberDTO.getEmail2());
@@ -69,8 +69,7 @@ public class MemberDAO {
 			pstmt.setString(11, memberDTO.getAddr1());
 			pstmt.setString(12, memberDTO.getAddr2());
 			
-			su = pstmt.executeUpdate(); //실행 - 개수 리턴
-			
+			su = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -95,7 +94,7 @@ public class MemberDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberDTO.getName());
-			pstmt.setString(2, memberDTO.getPassword());
+			pstmt.setString(2, memberDTO.getPwd());
 			pstmt.setString(3, memberDTO.getGender());
 			pstmt.setString(4, memberDTO.getEmail1());
 			pstmt.setString(5, memberDTO.getEmail2());
@@ -106,6 +105,7 @@ public class MemberDAO {
 			pstmt.setString(10, memberDTO.getAddr1());
 			pstmt.setString(11, memberDTO.getAddr2());
 			pstmt.setString(12, memberDTO.getId());
+			
 			su = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -194,7 +194,7 @@ public class MemberDAO {
 				
 				memberDTO.setName(rs.getString("name"));
 				memberDTO.setId(rs.getString("id"));
-				memberDTO.setPassword(rs.getString("pwd"));
+				memberDTO.setPwd(rs.getString("pwd"));
 				memberDTO.setGender(rs.getString("gender"));
 				memberDTO.setEmail1(rs.getString("email1"));
 				memberDTO.setEmail2(rs.getString("email2"));

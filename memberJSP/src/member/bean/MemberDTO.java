@@ -7,7 +7,7 @@ public class MemberDTO {
 	//@Setter 하면 바로 아래만 Setter 생김
 	private String name;
 	private String id;
-	private String password;
+	private String pwd;
 	private String gender;
 	private String email1;
 	private String email2;

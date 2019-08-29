@@ -9,7 +9,7 @@
 		
 	String name = request.getParameter("name");
 	String id = request.getParameter("id");
-	String password = request.getParameter("pwd");
+	String pwd = request.getParameter("pwd");
 	String gender = request.getParameter("gender");
 	String email1 = request.getParameter("email1"); 
 	String email2 = request.getParameter("email2");
@@ -23,7 +23,7 @@
 	MemberDTO memberDTO = new MemberDTO();
 	memberDTO.setName(name);
 	memberDTO.setId(id);
-	memberDTO.setPassword(password);
+	memberDTO.setPwd(pwd);
 	memberDTO.setGender(gender);
 	memberDTO.setEmail1(email1);
 	memberDTO.setEmail2(email2);
@@ -37,7 +37,6 @@
 	// DB
 	MemberDAO memberDAO = MemberDAO.getInstance();
 	int su = memberDAO.modify(memberDTO);
-
 %>
 <!DOCTYPE html>
 <html>
@@ -46,10 +45,16 @@
 <title>회원정보수정완료</title>
 </head>
 <body>
-	<%if(su==1) {%>
-	회원정보 수정완료
-	<% } else { %>
-	회원정보 수정실패
-	<% } %>
 </body>
+<script type="text/javascript">
+window.onload=function(){
+	if(<%=su%>==1) {
+		alert("회원정보수정 성공");
+		location.href="loginForm.jsp";
+	} else {
+		alert("회원정보수정 실패");
+		location.href="modifyForm.jsp";
+	}
+}
+</script>
 </html>
