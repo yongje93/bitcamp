@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="member.dao.MemberDAO"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,7 @@
 <body>
 	<h1>글쓰기</h1>
 	<form name="boardWriteForm" method="post" action="boardWrite.jsp">
-	 <table border="1" cellspacing="0" cellpadding="10">
+	 <table border="1" cellspacing="0" cellpadding="5">
 	 	<tr>
 	 		<td width="80" align="center">제목</td>
 	 		<td width="200"><input type="text" name="subject" style="width: 250px;"></td>

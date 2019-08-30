@@ -7,7 +7,7 @@
 	// 데이터
 	request.setCharacterEncoding("UTF-8");
 
-	String id = request.getParameter("id");
+	String id = (String) session.getAttribute("memId");
 	
 	// DB
 	MemberDAO memberDAO = MemberDAO.getInstance();

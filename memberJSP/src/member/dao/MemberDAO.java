@@ -121,8 +121,8 @@ public class MemberDAO {
 	}
 	
 	// 로그인
-	public String login(String id, String pwd) {
-		String name = null;
+	public MemberDTO login(String id, String pwd) {
+		MemberDTO memberDTO = null;
 		String sql = "select * from member where id=? and pwd=?";
 		
 		getConnection();
@@ -134,7 +134,20 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				name = rs.getString("name");
+				memberDTO = new MemberDTO();
+				
+				memberDTO.setName(rs.getString("name"));
+				memberDTO.setId(rs.getString("id"));
+				memberDTO.setPwd(rs.getString("pwd"));
+				memberDTO.setGender(rs.getString("gender"));
+				memberDTO.setEmail1(rs.getString("email1"));
+				memberDTO.setEmail2(rs.getString("email2"));
+				memberDTO.setTel1(rs.getString("tel1"));
+				memberDTO.setTel2(rs.getString("tel2"));
+				memberDTO.setTel3(rs.getString("tel3"));
+				memberDTO.setZipcode(rs.getString("zipcode"));
+				memberDTO.setAddr1(rs.getString("addr1"));
+				memberDTO.setAddr2(rs.getString("addr2"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -147,7 +160,7 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-		return name;
+		return memberDTO;
 	}
 	
 	// 아이디 중복 확인
@@ -259,4 +272,5 @@ public class MemberDAO {
 		}
 		return list;
 	}
+
 }
