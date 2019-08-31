@@ -10,3 +10,12 @@ function checkBoardWrite() {
 		document.boardWriteForm.submit();
 	}
 }
+
+//게시글 눌렀을때 로그인 중인지 확인
+function isLogin(id, seq) {
+	if(id == null) {
+		alert("먼저 로그인하세요");
+	} else {
+		location.href="boardView.jsp?seq="+seq;
+	}
+}
