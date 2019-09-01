@@ -147,4 +147,95 @@ public class BoardDAO {
 		}
 		return totalBoard;
 	}
+	
+	// 게시글 보기
+	public BoardDTO getBoard(int seq) {
+		BoardDTO boardDTO = null;
+		String sql = "select * from board where seq=?";
+		
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardDTO = new BoardDTO();
+				boardDTO.setSubject(rs.getString("subject"));
+				boardDTO.setSeq(rs.getInt("seq"));
+				boardDTO.setName(rs.getString("name"));
+				boardDTO.setHit(rs.getInt("hit"));
+				boardDTO.setContent(rs.getString("content"));
+				boardDTO.setId(rs.getString("id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+				if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+			
+		return boardDTO;
+	}
+	
+	// 조회수 증가
+	public void updateHit(int seq) {
+		String sql = "update board set hit = hit+1 where seq=?";
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, seq);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 게시글 삭제
+	public void boardDelete(int seq) {
+		String sql = "delete from board where seq=?";
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, seq);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 게시글 수정
+	public void boardModify(BoardDTO boardDTO) {
+		String sql = "update board set subject=?, content=?, logtime=sysdate where seq=?";
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardDTO.getSubject());
+			pstmt.setString(2, boardDTO.getContent());
+			pstmt.setInt(3, boardDTO.getSeq());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

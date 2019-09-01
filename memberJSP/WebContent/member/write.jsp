@@ -11,7 +11,7 @@ request.setCharacterEncoding("UTF-8");
 <%
 	//DB
 	MemberDAO memberDAO = MemberDAO.getInstance();
-	int su = memberDAO.write(memberDTO);	
+	int su = memberDAO.write(memberDTO);
 %>
 
 <!DOCTYPE html>

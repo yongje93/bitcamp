@@ -19,3 +19,24 @@ function isLogin(id, seq) {
 		location.href="boardView.jsp?seq="+seq;
 	}
 }
+
+//게시글 삭제
+function checkBoardDelete(seq) {
+	if(confirm("정말 삭제하시겠습니까?") == true) {
+		location.href="boardDelete.jsp?seq="+seq;
+	} else
+		return false;
+}
+
+//게시글 수정
+function checkBoardModify() {
+	if(document.boardModifyForm.subject.value == "") {
+		alert("제목을 입력하세요")
+		document.boardModifyForm.subject.focus();
+	} else if(document.boardModifyForm.content.value == "") {
+		alert("내용을 입력하세요")
+		document.boardModifyForm.content.focus();
+	} else {
+		document.boardModifyForm.submit();
+	}
+}
