@@ -1,3 +1,4 @@
+<%@ page import="board.bean.BoardPaging"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="board.dao.BoardDAO"%>
@@ -6,22 +7,41 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
+	// 세션
+	String memId = "";
+	if((String)session.getAttribute("memId") != null) {
+		memId = (String) session.getAttribute("memId");
+	}
 	// 데이터
 	int pg = Integer.parseInt(request.getParameter("pg"));
 	
+	// DB - 1페이지당 5개씩
 	int endNum = pg*5;
 	int startNum = endNum - 4;
-	
 	BoardDAO boardDAO = BoardDAO.getInstance();
 	List<BoardDTO> boardList = boardDAO.boardList(startNum, endNum);
 	
-	int totalBoard = boardDAO.getTotalBoard();
-	int totalPage = (totalBoard+4)/5;
-	
 	SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
+
+	// 페이징 처리
+	BoardPaging boardPaging = new BoardPaging();
+	int totalA = boardDAO.getTotalA();// 총글수
+	boardPaging.setCurrentPage(pg);
+	boardPaging.setPageBlock(3);
+	boardPaging.setPageSize(5);
+	boardPaging.setTotalA(totalA);
+	boardPaging.makePagingHTML();
 	
-	String id = (String) session.getAttribute("memId");
-	 
+	// 쿠키
+	Cookie[] ar = request.getCookies();
+	if(ar != null) {
+		for(int i=0; i<ar.length; i++) {
+			if("cookie".equals(ar[i].getName())) {
+				ar[i].setMaxAge(0); // 쿠키삭제
+				response.addCookie(ar[i]); // 클라이언트에 저장
+			}
+		}
+	}
 %>    
 
 <!DOCTYPE html>
@@ -29,19 +49,11 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 목록</title>
-<style>
-	th { style="word-break:break-all"}
-	#currentPaging { color: red; text-decoration: underline; }
-	#paging { color: black; text-decoration: none; }
-	
-	#subjectA:link {color: black; text-decoration: none;} 
-	#subjectA:visited {color: black; text-decoration: none;} 
-	#subjectA:hover {color: green; text-decoration: underline;}
-	#subjectA:active {color: black; text-decoration: none;}
-</style>
+<link rel="stylesheet" href="../css/board.css">
 </head>
 <body>
 	<h1>게시판 목록</h1>
+ 	 <% if(boardList != null) { %>
 	 <table border="1" frame="hsides" rules="rows" cellspacing="0" cellpadding="5" style="word-break:break-all;">
 	 	<tr>
 	 		<th>글번호</th>
@@ -50,12 +62,11 @@
 	 		<th>작성일</th>
 	 		<th>조회수</th>
 	 	</tr>
- 	 <% if(boardList != null) {
-	 	 for(BoardDTO boardDTO : boardList) { %>
+	 	<% for(BoardDTO boardDTO : boardList) { %>
  	 		<tr>
 	 	 		<td width="100" align="center"><%=boardDTO.getSeq() %></td>
 	 	 		<td width="400" align="left">
-	 	 			<a id="subjectA" href='javascript:void(0);' onclick="isLogin('<%=id%>','<%=boardDTO.getSeq() %>');">
+	 	 			<a id="subjectA" href='javascript:void(0);' onclick="isLogin('<%=memId%>',<%=boardDTO.getSeq() %>,<%=pg%>);">
 	 	 				<%=boardDTO.getSubject() %>
 	 	 			</a>
 	 	 		</td>
@@ -65,17 +76,13 @@
  	 		</tr>
 	 	<% } %>
 	 </table>
-	 <br><br>
-	 <%for(int i = 1; i <= totalPage; i++) {
-			if(i == pg) {%>
-				<a id="currentPaging" href="boardList.jsp?pg=<%=i%>">[<%=i %>]</a>
-	 	<% } else { %>
-	 			<a id="Paging" href="boardList.jsp?pg=<%=i%>">[<%=i %>]</a>
-	 	<% }
-	 }
-  } %>
-  <br>
-  <img src="../image/dog.png" width="100" height="100" onclick="location.href='../main/index.jsp'" style="cursor: pointer;">
+  <% } %>
+  <div style="width: 50px; float: left;">
+  	<img src="../image/dog.png" width="50" height="50" onclick="location.href='../main/index.jsp'" style="cursor: pointer;">
+  </div>
+  <div style="float: left; width: 850px; text-align: center;">  	 
+	 <%=boardPaging.getPagingHTML() %>
+  </div>
 </body>
 <script type="text/javascript" src="../js/board.js"></script>
 </html>

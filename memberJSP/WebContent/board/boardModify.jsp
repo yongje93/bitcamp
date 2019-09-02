@@ -9,6 +9,7 @@
 	String subject = request.getParameter("subject");
 	String content = request.getParameter("content");
 	int seq = Integer.parseInt(request.getParameter("seq"));
+	int pg = Integer.parseInt(request.getParameter("pg"));
 	
 	BoardDTO boardDTO = new BoardDTO();
 	boardDTO.setSeq(seq);
@@ -32,7 +33,7 @@
 <script type="text/javascript">
 window.onload=function() {
 	alert("글수정 성공");
-	location.href="../main/index.jsp";
+	location.href="boardList.jsp?pg=<%=pg%>";
 }
 </script>
 </html>

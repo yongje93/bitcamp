@@ -38,7 +38,7 @@
 <script type="text/javascript">
 window.onload=function() {
 	alert("글쓰기 성공");
-	location.href="../main/index.jsp";
+	location.href="boardList.jsp?pg=1";
 }
 </script>
 </html>

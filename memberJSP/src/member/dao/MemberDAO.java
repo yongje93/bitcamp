@@ -1,12 +1,16 @@
 package member.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import member.bean.MemberDTO;
 import member.bean.ZipcodeDTO;
@@ -14,7 +18,6 @@ import member.bean.ZipcodeDTO;
 public class MemberDAO {
 	// 싱글톤
 	private static MemberDAO instance;
-	
 	public static MemberDAO getInstance() {
 		if(instance == null) {
 			synchronized (MemberDAO.class) {
@@ -24,26 +27,17 @@ public class MemberDAO {
 		return instance;
 	}
 	
-	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	private String username = "java";
-	private String password = "dkdlxl";
+	private DataSource ds;
+	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
 	public MemberDAO() {
 		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void getConnection() {
-		try {
-			conn = DriverManager.getConnection(url, username, password);
-		} catch (SQLException e) {
+			Context ctx = new InitialContext(); //Naming Service 이름으로 서비스
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle"); //모든 커넥션을 꺼내서 dataSource에 저장 //tomcat인 경우 앞에 java:comp/env/ 붙여야됨
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -52,9 +46,9 @@ public class MemberDAO {
 	public int write(MemberDTO memberDTO) {
 		int su = 0;
 		String sql = "insert into member values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
-		
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberDTO.getName());
 			pstmt.setString(2, memberDTO.getId());
@@ -90,8 +84,9 @@ public class MemberDAO {
 						+ "email1=?,email2=?,tel1=?,tel2=?,tel3=?,"
 						+ "zipcode=?,addr1=?,addr2=?,logtime=sysdate "
 						+ " where id=?";
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberDTO.getName());
 			pstmt.setString(2, memberDTO.getPwd());
@@ -124,9 +119,9 @@ public class MemberDAO {
 	public MemberDTO login(String id, String pwd) {
 		MemberDTO memberDTO = null;
 		String sql = "select * from member where id=? and pwd=?";
-		
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
@@ -167,9 +162,9 @@ public class MemberDAO {
 	public boolean isExistId(String id) {
 		boolean exist = false;
 		String sql ="select * from member where id=?";
-		
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);	// 자바에서 오라클 쓰기위해서 씀
 			pstmt.setString(1, id);
 			
@@ -195,9 +190,9 @@ public class MemberDAO {
 	public MemberDTO getMember(String id) {
 		MemberDTO memberDTO = null;
 		String sql = "select * from member where id=?";
-		
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -236,9 +231,9 @@ public class MemberDAO {
 	public List<ZipcodeDTO> getZipcodeList(String sido, String sigungu, String roadname) {
 		ArrayList<ZipcodeDTO> list = new ArrayList<ZipcodeDTO>();
 		String sql = "select * from newzipcode where sido like ? and nvl(sigungu, ' ') like ? and roadname like ?";
-		
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+sido+"%");
 			pstmt.setString(2, "%"+sigungu+"%");

@@ -5,10 +5,9 @@
 <jsp:useBean id="boardDAO" class="board.dao.BoardDAO"></jsp:useBean>
 
 <%
-	request.setCharacterEncoding("UTF-8");
 	int seq = Integer.parseInt(request.getParameter("seq"));
+	int pg = Integer.parseInt(request.getParameter("pg"));
 	BoardDTO boardDTO = boardDAO.getBoard(seq);
-	
 %>
 
 <!DOCTYPE html>
@@ -21,7 +20,8 @@
 <h1>게시글 수정</h1>
 	<form name="boardModifyForm" method="post" action="boardModify.jsp">
 	<input type="hidden" name="seq" value="<%=seq %>">
-	 <table border="1" cellspacing="0" cellpadding="5">
+	<input type="hidden" name="pg" value="<%=pg %>">
+	<table border="1" cellspacing="0" cellpadding="5">
 	 	<tr>
 	 		<td width="80" align="center">제목</td>
 	 		<td width="200">
@@ -36,7 +36,7 @@
 	 	</tr>
 	 	<tr>
 	 		<td colspan="2" align="center">
-	 			<input type="button" value="글쓰기" onclick="checkBoardModify()">&nbsp;&nbsp;
+	 			<input type="button" value="글수정" onclick="checkBoardModify()">&nbsp;&nbsp;
 	 			<input type="reset" value="다시작성">
 	 		</td>
 	 	</tr>

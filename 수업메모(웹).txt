@@ -77,4 +77,45 @@ hello.jsp
 hello_jsp.java (서블릿)
 hello_jsp.class
 
+데이터 모아놓은 파일 - 덤프파일
+.txt
+.csv (쉼표로 구분되는 파일)
+JSON (변수: 값)
 
+
+form폼을 관리 객체 - forms
+<form>
+	forms[0]
+</form>
+
+<form>
+	forms[1]
+</form>
+
+<form>
+	forms[2]
+</form>
+
+
+
+
+seq	subject	ref(그룹번호)	lev(단계)	step(글순서)	pseq(원글번호)
+15	과일(원)	15			0		0
+16	채소(원)	16			0		0
+17	사과(답)	15			1		15
+18	오이(답)	16			1		16	
+19	부사(답)	15			2		17	원글ref=seq
+								답글ref=원글ref
+								원글step=0
+								답글step=원글step+1
+
+select * from board order by ref desc, step asc 
+
+	요청
+클라이언트 -----------------> 서버
+	<----------------- 
+쿠키보관	응답+쿠키	            쿠키생성
+
+
+loginForm.jsp	login.jsp		loginOk.jsp
+		쿠키생성

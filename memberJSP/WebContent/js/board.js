@@ -11,13 +11,12 @@ function checkBoardWrite() {
 	}
 }
 
-//게시글 눌렀을때 로그인 중인지 확인
-function isLogin(id, seq) {
-	if(id == null) {
+//게시글 누를때 로그인 확인
+function isLogin(memId, seq, pg) {
+	if(memId=="")
 		alert("먼저 로그인하세요");
-	} else {
-		location.href="boardView.jsp?seq="+seq;
-	}
+	else
+		location.href="boardView.jsp?seq="+seq+"&pg="+pg;
 }
 
 //게시글 삭제

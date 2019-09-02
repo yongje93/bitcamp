@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import board.bean.BoardDTO;
 
 public class BoardDAO {
@@ -20,27 +25,17 @@ public class BoardDAO {
 		}
 		return instance;
 	}
+	private DataSource ds;
 	
-	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	private String username = "java";
-	private String password = "dkdlxl";
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
 	public BoardDAO() {
 		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void getConnection() {
-		try {
-			conn = DriverManager.getConnection(url, username, password);
-		} catch (SQLException e) {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -49,9 +44,9 @@ public class BoardDAO {
 	public void boardWrite(BoardDTO boardDTO) {
 		String sql ="insert into board(seq,id,name,email,subject,content,ref) "
 				  	+"values(seq_board.nextval,?,?,?,?,?,seq_board.currval) ";
-		
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, boardDTO.getId());
 			pstmt.setString(2, boardDTO.getName());
@@ -80,9 +75,9 @@ public class BoardDAO {
 				+ "(select rownum rn, tt.* from "
 				+ "(select * from board order by ref desc, step asc) tt) "
 				+ "where rn >=? and rn<=?";
-		
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, starNum);
 			pstmt.setInt(2, endNum);
@@ -123,11 +118,12 @@ public class BoardDAO {
 	}
 	
 	// 전체 게시글 수
-	public int getTotalBoard() {
+	public int getTotalA() {
 		int totalBoard = 0;
 		String sql = "select count(*) from board";
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -152,21 +148,28 @@ public class BoardDAO {
 	public BoardDTO getBoard(int seq) {
 		BoardDTO boardDTO = null;
 		String sql = "select * from board where seq=?";
-		
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				boardDTO = new BoardDTO();
-				boardDTO.setSubject(rs.getString("subject"));
 				boardDTO.setSeq(rs.getInt("seq"));
-				boardDTO.setName(rs.getString("name"));
-				boardDTO.setHit(rs.getInt("hit"));
-				boardDTO.setContent(rs.getString("content"));
 				boardDTO.setId(rs.getString("id"));
+				boardDTO.setName(rs.getString("name"));
+				boardDTO.setEmail(rs.getString("email"));
+				boardDTO.setSubject(rs.getString("subject"));
+				boardDTO.setContent(rs.getString("content"));
+				boardDTO.setRef(rs.getInt("ref"));
+				boardDTO.setLev(rs.getInt("lev"));
+				boardDTO.setStep(rs.getInt("step"));
+				boardDTO.setPseq(rs.getInt("pseq"));
+				boardDTO.setReply(rs.getInt("reply"));
+				boardDTO.setHit(rs.getInt("hit"));
+				boardDTO.setLogtime(rs.getDate("logtime"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,15 +182,15 @@ public class BoardDAO {
 				e.printStackTrace();
 			}
 		}
-			
 		return boardDTO;
 	}
 	
 	// 조회수 증가
-	public void updateHit(int seq) {
+	public void boardHit(int seq) {
 		String sql = "update board set hit = hit+1 where seq=?";
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			pstmt.executeUpdate();
@@ -207,8 +210,9 @@ public class BoardDAO {
 	// 게시글 삭제
 	public void boardDelete(int seq) {
 		String sql = "delete from board where seq=?";
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			pstmt.executeUpdate();
@@ -227,8 +231,9 @@ public class BoardDAO {
 	// 게시글 수정
 	public void boardModify(BoardDTO boardDTO) {
 		String sql = "update board set subject=?, content=?, logtime=sysdate where seq=?";
-		getConnection();
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, boardDTO.getSubject());
 			pstmt.setString(2, boardDTO.getContent());
@@ -236,6 +241,13 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
