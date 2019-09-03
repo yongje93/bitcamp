@@ -32,7 +32,14 @@
 	boardPaging.setTotalA(totalA);
 	boardPaging.makePagingHTML();
 	
-	// 쿠키
+	// 조회수 - 새로고침 방지
+	if(session.getAttribute("memId") != null) {
+		Cookie cookie = new Cookie("memhit", "0");
+		cookie.setMaxAge(30*60);
+		response.addCookie(cookie); //클라이언트에게 보내기
+	}
+	/*
+	// 조회수(내가한거)
 	Cookie[] ar = request.getCookies();
 	if(ar != null) {
 		for(int i=0; i<ar.length; i++) {
@@ -42,6 +49,7 @@
 			}
 		}
 	}
+	*/
 %>    
 
 <!DOCTYPE html>

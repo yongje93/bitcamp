@@ -14,17 +14,17 @@
 	 <table border="1" cellspacing="0" cellpadding="5">
 	 	<tr>
 	 		<td width="80" align="center">제목</td>
-	 		<td width="200"><input type="text" name="subject" style="width: 250px;"></td>
+	 		<td width="200"><input type="text" id="subject" name="subject" style="width: 250px;"></td>
 	 	</tr>
 	 	<tr>
 	 		<td width="80" align="center">내용</td>
 	 		<td>
-	 		 <textarea name="content" cols="40" rows="10" style="resize: none"></textarea>
-	 		</td>
+	 		 <textarea id="content" name="content" cols="40" rows="10" style="resize: none"></textarea>
+	 		</td> 
 	 	</tr>
 	 	<tr>
 	 		<td colspan="2" align="center">
-	 			<input type="button" value="글쓰기" onclick="checkBoardWrite()">&nbsp;&nbsp;
+	 			<input type="button" value="글쓰기" onclick="checkBoard()">&nbsp;&nbsp;
 	 			<input type="reset" value="다시작성">
 	 		</td>
 	 	</tr>

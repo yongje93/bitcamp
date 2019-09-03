@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="board.dao.BoardDAO"%>
 <%@ page import="board.bean.BoardDTO"%>
+<%@ page import="java.util.Map"%>
+<%@ page import="java.util.HashMap"%>
+
 <%
 	// 데이터
 	request.setCharacterEncoding("UTF-8");
@@ -11,14 +14,14 @@
 	int seq = Integer.parseInt(request.getParameter("seq"));
 	int pg = Integer.parseInt(request.getParameter("pg"));
 	
-	BoardDTO boardDTO = new BoardDTO();
-	boardDTO.setSeq(seq);
-	boardDTO.setSubject(subject);
-	boardDTO.setContent(content);
-	
 	//DB
+	Map<String, String> map = new HashMap<String, String>();
+	map.put("seq", seq+"");
+	map.put("subject", subject);
+	map.put("content", content);
+	
 	BoardDAO boardDAO = BoardDAO.getInstance();
-	boardDAO.boardModify(boardDTO);
+	boardDAO.boardModify(map);
 
 %>  
 <!DOCTYPE html>

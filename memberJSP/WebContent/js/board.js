@@ -1,13 +1,13 @@
-//게시판 글쓰기 유효성 검사
-function checkBoardWrite() {
-	if(document.boardWriteForm.subject.value == "") {
+//게시판 글쓰기, 수정 유효성 검사
+function checkBoard() {
+	if(document.getElementById("subject").value == "") {
 		alert("제목을 입력하세요")
-		document.boardWriteForm.subject.focus();
-	} else if(document.boardWriteForm.content.value == "") {
+		document.getElementById("subject").focus();
+	} else if(document.getElementById("content").value == "") {
 		alert("내용을 입력하세요")
-		document.boardWriteForm.content.focus();
+		document.getElementById("content").focus();
 	} else {
-		document.boardWriteForm.submit();
+		document.forms[0].submit();
 	}
 }
 
@@ -25,17 +25,4 @@ function checkBoardDelete(seq) {
 		location.href="boardDelete.jsp?seq="+seq;
 	} else
 		return false;
-}
-
-//게시글 수정
-function checkBoardModify() {
-	if(document.boardModifyForm.subject.value == "") {
-		alert("제목을 입력하세요")
-		document.boardModifyForm.subject.focus();
-	} else if(document.boardModifyForm.content.value == "") {
-		alert("내용을 입력하세요")
-		document.boardModifyForm.content.focus();
-	} else {
-		document.boardModifyForm.submit();
-	}
 }

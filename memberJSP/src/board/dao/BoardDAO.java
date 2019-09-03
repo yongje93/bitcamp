@@ -1,12 +1,12 @@
 package board.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -54,8 +54,7 @@ public class BoardDAO {
 			pstmt.setString(4, boardDTO.getSubject());
 			pstmt.setString(5, boardDTO.getContent());
 			
-			pstmt.executeUpdate();
-			
+			pstmt.executeUpdate();	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -113,7 +112,6 @@ public class BoardDAO {
 				e.printStackTrace();
 			}
 		}
-		
 		return boardList;
 	}
 	
@@ -218,7 +216,7 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				if (pstmt != null) pstmt.close();
 				if (conn != null) conn.close();
@@ -229,15 +227,15 @@ public class BoardDAO {
 	}
 	
 	// 게시글 수정
-	public void boardModify(BoardDTO boardDTO) {
+	public void boardModify(Map<String, String> map) {
 		String sql = "update board set subject=?, content=?, logtime=sysdate where seq=?";
 		try {
 			conn = ds.getConnection();
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, boardDTO.getSubject());
-			pstmt.setString(2, boardDTO.getContent());
-			pstmt.setInt(3, boardDTO.getSeq());
+			pstmt.setString(1, map.get("subject"));
+			pstmt.setString(2, map.get("content"));
+			pstmt.setInt(3, Integer.parseInt(map.get("seq")));
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
