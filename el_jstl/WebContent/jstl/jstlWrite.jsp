@@ -6,7 +6,7 @@
 
 <fmt:requestEncoding value="UTF-8" />
 <sql:update var="su" dataSource="jdbc/oracle">
-	insert into usertable values('${param.name }', '${param.id }', '${param.pwd }')
+	insert into usertable values('${param.name }','${param.id }','${param.pwd }')
 </sql:update>
 
 <!DOCTYPE html>

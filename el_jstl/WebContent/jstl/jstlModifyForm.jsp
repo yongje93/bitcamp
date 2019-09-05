@@ -16,28 +16,29 @@
 </head>
 <body>
 <form name="" method="post" action="jstlModify.jsp">
-<table border="1" cellspacing="0" cellpadding="5">
-<c:forEach var="row" items="${rs.rowsByIndex }">
+<%-- <c:forEach var="row" items="${rs.rowsByIndex }"> --%>
+<c:forEach var="row" items="${rs.rows }">  
+  <table border="1" cellspacing="0" cellpadding="5">
 	<tr>
 		<th width="80">이름</th>
-		<td><input type="text" name="name" id="name" value=${row[0] }></td>
+		<td><input type="text" name="name" id="name" value="${row.name }"></td>
 	</tr>
 	<tr>
 		<th width="80">아이디</th>
-		<td><input type="text" name="id" style="width: 200px;" value=${row[1] } readonly></td>
+		<td><input type="text" name="id" style="width: 200px;" value="${row.id }" readonly></td>
 	</tr>
 	<tr>
 		<th width="80">비밀번호</th>
-		<td><input type="password" name="pwd" style="width: 230px;" value=${row[2] }></td>
+		<td><input type="password" name="pwd" style="width: 230px;" value="${row.pwd }"></td>
 	</tr>
-</c:forEach>
 	<tr>
 		<td colspan="2" align="center">
 			<input type="submit" value="수정">
 			<input type="reset" value="취소">
 		</td>
 	</tr>
-</table>
+  </table>
+</c:forEach>
 </form>
 </body>
 </html>

@@ -20,7 +20,7 @@
 </body>
 <script type="text/javascript">
 window.onload=function() {
-	alert("삭제 완료");
+	confirm("삭제 완료");
 	location.href="jstlList.jsp";
 }
 </script>

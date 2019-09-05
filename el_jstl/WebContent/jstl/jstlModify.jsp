@@ -6,7 +6,12 @@
 
 <fmt:requestEncoding value="UTF-8" />
 <sql:update var="su" dataSource="jdbc/oracle">
-	update usertable set name='${param.name }', pwd='${param.pwd }' where id='${param.id }'
+	<%-- update usertable set name='${param.name }', pwd='${param.pwd }' where id='${param.id }' --%>
+	
+	update usertable set name=?, pwd=? where id=?
+	<sql:param value="${param.name }"/>
+	<sql:param value="${param.pwd }"/>
+	<sql:param value="${param.id }"/>
 </sql:update>
 
 <!DOCTYPE html>
