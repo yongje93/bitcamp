@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${param.id }는 사용 가능
+	${id }는 사용 가능
 	<br><br>
-	<input type="button" value="사용하기" onclick="checkIdClose('${param.id }')">
+	<input type="button" value="사용하기" onclick="checkIdClose('${id }')">
 </body>
 <script src="../js/member.js" type="text/javascript"></script>
 </html>

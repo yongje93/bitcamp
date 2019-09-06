@@ -21,7 +21,6 @@ public class CheckPostAction implements CommandProcess {
 		
 		// DB
 		MemberDAO memberDAO = MemberDAO.getInstance();
-		
 		List<ZipcodeDTO> list = null;
 		if(sido!=null && roadname!=null) {
 			list = memberDAO.getZipcodeList(sido, sigungu, roadname);

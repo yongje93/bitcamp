@@ -61,7 +61,12 @@
       </tr>
       <c:if test="${requestScope.list != null}">
       	<c:forEach var="zipcodeDTO" items="${requestScope.list }">
-      	<c:set var="address" value="${zipcodeDTO.sido} ${zipcodeDTO.sigungu} ${zipcodeDTO.yubmyundong} ${zipcodeDTO.ri} ${zipcodeDTO.roadname} ${zipcodeDTO.buildingname}"/>
+      	<c:set var="address" value="${zipcodeDTO.sido
+      								 } ${zipcodeDTO.sigungu
+      								 } ${zipcodeDTO.yubmyundong
+      								 } ${zipcodeDTO.ri
+      								 } ${zipcodeDTO.roadname
+      								 } ${zipcodeDTO.buildingname}"/>
       		<tr>
       			<td align="center">${zipcodeDTO.zipcode }</td>
       			<td colspan="3"><a id="addressA" href="#" onclick="checkPostClose('${zipcodeDTO.zipcode }','${address }')"> ${address }</a></td>	

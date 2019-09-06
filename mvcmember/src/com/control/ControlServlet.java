@@ -20,11 +20,11 @@ public class ControlServlet extends HttpServlet {
 	private Map<String, Object> map = new HashMap<String, Object>();
 
 	@Override
-	public void init(ServletConfig config) throws ServletException {
+	public void init(ServletConfig config) throws ServletException {	// 한번밖에 안읽음
 		String propertyConfig = config.getInitParameter("propertyConfig");
 		System.out.println("propertyConfig = " + propertyConfig + "\n");
 
-		FileInputStream fin = null;
+		FileInputStream fin = null;	
 		Properties properties = new Properties();
 
 		try {

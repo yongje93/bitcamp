@@ -15,12 +15,12 @@
       <table border="1" cellspacing="0" cellpadding="5">
         <tr>
           <th width="80">이름</th>
-          <td><input type="text" id="name" name="name" size="15" value="${sessionScope.memDTO.name }"></td>
+          <td><input type="text" id="name" name="name" size="15" value="${requestScope.memberDTO.getName() }"></td>
         </tr>
         <tr>
           <th width="80">아이디</th>
           <td>
-          	<input type="text" id="id" name="id" value="${sessionScope.memDTO.id }" style="width: 200px;" readonly>
+          	<input type="text" id="id" name="id" value="${memberDTO.id }" style="width: 200px;" readonly>
           </td>
         </tr>
         <tr>
@@ -41,7 +41,7 @@
         <tr>
           <th width="80">이메일</th>
           <td>
-            <input type="text" name="email1" value="${sessionScope.memDTO.email1 }" style="width: 120px;">
+            <input type="text" name="email1" value="${memberDTO.email1 }" style="width: 120px;">
             &nbsp;@&nbsp;
             <input type="text" id="email22" name="email2" list="list">
             <datalist id="list">
@@ -61,18 +61,18 @@
               <option value="019">019</option>
             </select>
             -
-            <input type="text" name="tel2" value="${sessionScope.memDTO.tel2 }" style="width: 50px;">
+            <input type="text" name="tel2" value="${memberDTO.tel2 }" style="width: 50px;">
             -
-            <input type="text" name="tel3" value="${sessionScope.memDTO.tel3 }" style="width: 50px;">
+            <input type="text" name="tel3" value="${memberDTO.tel3 }" style="width: 50px;">
           </td>
         </tr>
         <tr>
           <th width="80">주소</th>
           <td>
-            <input type="text" name="zipcode" id="daum_zipcode" value="${sessionScope.memDTO.zipcode }" style="width: 70px;" readonly>
+            <input type="text" name="zipcode" id="daum_zipcode" value="${memberDTO.zipcode }" style="width: 70px;" readonly>
             <input type="button" value="우편번호검색" onclick="checkPost()"><br>
-            <input type="text" name="addr1" id="daum_addr1" placeholder="주소" value="${sessionScope.memDTO.addr1 }" style="width: 350px;" readonly><br>
-            <input type="text" name="addr2" id="daum_addr2" placeholder="상세 주소" value="${sessionScope.memDTO.addr2 }" style="width: 350px;">
+            <input type="text" name="addr1" id="daum_addr1" placeholder="주소" value="${memberDTO.addr1 }" style="width: 350px;" readonly><br>
+            <input type="text" name="addr2" id="daum_addr2" placeholder="상세 주소" value="${memberDTO.addr2 }" style="width: 350px;">
           </td>
         </tr>
         <tr>
@@ -87,13 +87,13 @@
 <script type="text/javascript" src="../js/member.js"></script>
 <script type="text/javascript">
 window.onload = function() {
-	document.modifyForm.gender['${sessionScope.memDTO.gender }'].checked = true;
+	document.modifyForm.gender['${memberDTO.gender }'].checked = true;
 	
-	//document.modifyForm.email2.value = '${sessionScope.memDTO.email2 }';
-	document.getElementById("email22").value = '${sessionScope.memDTO.email2 }';
+	//document.modifyForm.email2.value = '${memberDTO.email2 }';
+	document.getElementById("email22").value = '${memberDTO.email2 }';
 	
-	//document.modifyForm.tel1.value = '${sessionScope.memDTO.tel1 }';
-	document.getElementById("tel11").value = '${sessionScope.memDTO.tel1 }';
+	//document.modifyForm.tel1.value = '${memberDTO.tel1 }';
+	document.getElementById("tel11").value = '${memberDTO.tel1 }';
 }
 </script>
 </html>

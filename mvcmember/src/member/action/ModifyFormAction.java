@@ -21,7 +21,8 @@ public class ModifyFormAction implements CommandProcess {
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		MemberDTO memberDTO = memberDAO.getMember(id);
 		
-		session.setAttribute("memDTO", memberDTO);
+		request.setAttribute("memberDTO", memberDTO);
+		
 		return "/member/modifyForm.jsp";
 	}
 
