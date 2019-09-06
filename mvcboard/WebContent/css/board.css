@@ -1,0 +1,9 @@
+@charset "UTF-8";
+th { style="word-break:break-all"}
+#currentPaging { color: red; text-decoration: underline; }
+#paging { color: black; text-decoration: none; }
+	
+#subjectA:link {color: black; text-decoration: none;} 
+#subjectA:visited {color: black; text-decoration: none;} 
+#subjectA:hover {color: green; text-decoration: underline; font-weight: bold;}
+#subjectA:active {color: black; text-decoration: none;}
