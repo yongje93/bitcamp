@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+ #left {
+ 	vertical-align: top;
+ 	padding: 20px;
+ }
+</style>
 </head>
 <body>
 	<table border="1" width="100%" cellspacing="0" cellpadding="5">
@@ -14,11 +20,11 @@
 		</td>
 	  </tr>
 	  <tr>
-		<td width="20%" height="300">
+		<td width="20%" height="500">
 			<jsp:include page="../template/left.jsp"/>
 		</td>
-		<td>
-			<jsp:include page="../template/body.jsp"/>
+		<td id="left"><!-- body 부분은 값이 고정이 아니다. 그때그때 뿌려주는 값으로 -->
+			<jsp:include page="${display}"/>
 		</td>
 	  </tr>
 	  <tr>
