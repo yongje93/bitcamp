@@ -17,7 +17,7 @@ public class UserDeleteAction implements UserAction {
 		
 		// DB
 		UserDAO userDAO = UserDAO.getInstance();
-		UserDTO userDTO = userDAO.search(id);
+		UserDTO userDTO = userDAO.getUser(id);
 		
 		// 응답
 		if(userDTO == null) {

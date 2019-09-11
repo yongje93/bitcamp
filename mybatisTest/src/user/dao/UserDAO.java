@@ -42,32 +42,39 @@ public class UserDAO {
 		sqlSession.commit();
 		sqlSession.close();
 	}
-	//출력
+	// 출력
 	public List<UserDTO> getList() {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<UserDTO> list = sqlSession.selectList("userSQL.getList");
 		sqlSession.close();
 		return list;
 	}
-	//찾기
-	public UserDTO search(String id) {
+	// 찾기
+	public UserDTO getUser(String id) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		UserDTO userDTO = sqlSession.selectOne("userSQL.search", id);
+		UserDTO userDTO = sqlSession.selectOne("userSQL.getUser", id);
 		sqlSession.close();
 		return userDTO;
 	}
-	//수정
+	// 수정
 	public void update(Map<String, String> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		int su = sqlSession.update("userSQL.update", map);
 		sqlSession.commit();
 		sqlSession.close();
 	}	
-	//삭제
+	// 삭제
 	public void delete(String id) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		sqlSession.delete("userSQL.delete", id);
 		sqlSession.commit();
 		sqlSession.close();
+	}
+	// 검색
+	public List<UserDTO> search(Map<String, String> map) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<UserDTO> list = sqlSession.selectList("userSQL.search", map);
+		sqlSession.close();
+		return list;
 	}
 }

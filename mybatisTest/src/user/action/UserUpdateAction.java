@@ -19,11 +19,12 @@ public class UserUpdateAction implements UserAction {
 		
 		// DB
 		UserDAO userDAO = UserDAO.getInstance();
-		UserDTO userDTO = userDAO.search(id);
+		UserDTO userDTO = userDAO.getUser(id);
 		
 		// 응답
 		if(userDTO == null) {
-			System.out.println("찾고자 하는 아이디가 없습니다");
+			System.out.println("수정할 아이디가 없습니다");
+			return;
 		} else {
 			System.out.println(userDTO.getName()+"\t"+userDTO.getId()+"\t"+userDTO.getPwd());
 			System.out.print("수정할 이름 입력 : ");
