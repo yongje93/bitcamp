@@ -11,18 +11,10 @@ function checkBoard() {
 	}
 }
 
-//게시글 누를때 로그인 확인
-function isLogin(memId, seq, pg) {
-	if(memId=="")
-		alert("먼저 로그인하세요");
-	else
-		location.href="boardView.jsp?seq="+seq+"&pg="+pg;
-}
-
 //게시글 삭제
 function checkBoardDelete(seq) {
 	if(confirm("정말 삭제하시겠습니까?") == true) {
-		location.href="boardDelete.jsp?seq="+seq;
+		location.href="/miniproject/board/boardDelete.do?seq="+seq;
 	} else
 		return false;
 }

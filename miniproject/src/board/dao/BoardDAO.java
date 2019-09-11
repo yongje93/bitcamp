@@ -1,0 +1,99 @@
+package board.dao;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import board.bean.BoardDTO;
+
+public class BoardDAO {
+	private static BoardDAO instance;
+	private SqlSessionFactory sqlSessionFactory;
+	// 싱글톤
+	public static BoardDAO getInstance() {
+		if(instance == null) {
+			synchronized (BoardDAO.class) {
+				instance = new BoardDAO();
+			}
+		}
+		return instance;
+	}
+	
+	public BoardDAO() {
+		try {
+			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 게시판 글쓰기
+	public void boardWrite(BoardDTO boardDTO) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.insert("boardSQL.boardWrite", boardDTO);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	// 게시판 목록
+	public List<BoardDTO> boardList(int startNum, int endNum) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		List<BoardDTO> boardList = sqlSession.selectList("boardSQL.boardList", map);
+		sqlSession.close();
+		return boardList;
+	}
+	
+	// 전체 게시글 수
+	public int getTotalA() {
+		int totalBoard = 0;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		totalBoard = sqlSession.selectOne("boardSQL.getTotalA");
+		sqlSession.close();
+		return totalBoard;
+	}
+	
+	// 게시글 보기
+	public BoardDTO getBoard(int seq) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		BoardDTO boardDTO = sqlSession.selectOne("boardSQL.getBoard", seq);
+		sqlSession.close();
+		return boardDTO;
+	}
+	
+	// 조회수 증가
+	public void boardHit(int seq) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.update("boardSQL.boardHit", seq);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	// 게시글 삭제
+	public void boardDelete(int seq) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.delete("boardSQL.boardDelete", seq);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	// 게시글 수정
+	public void boardModify(Map<String, String> map) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.update("boardSQL.boardModify", map);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+}

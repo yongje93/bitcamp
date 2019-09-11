@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <form name="writeForm" method="post" action="/miniproject/member/write.do">
+  <h1>회원가입</h1>
   <table border="1" cellspacing="0" cellpadding="5">
     <tr>
        <th width="80">이름</th>
