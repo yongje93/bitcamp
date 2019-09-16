@@ -1,15 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<form name="loginForm" method="post" action="/miniproject/member/login.do">
+<style>
+	#loginForm {
+		font-size: 10pt;
+	}
+</style>
+<form id="loginForm" name="loginForm" method="post" action="/miniproject/member/login.do">
    <table border="1" cellspacing="0" cellpadding="5">
       <tr>
         <th width="80">아이디</th>
-        <td><input type="text" name="id" style="width: 200px;" placeholder="아이디 입력"></td>
+        <td><input type="text" name="id" placeholder="아이디 입력"></td>
      </tr>
      <tr>
        <th width="80">비밀번호</th>
-       <td><input type="password" name="pwd" style="width: 230px;" placeholder="비밀번호 입력"></td>
+       <td><input type="password" name="pwd" placeholder="비밀번호 입력"></td>
      </tr>
      <tr>
        <td colspan="2" align="center">

@@ -28,8 +28,20 @@
  	</c:forEach>
 </table>
 </c:if>
+<br>
 <div style="float: left; width: 850px; text-align: center;">  	 
 	${boardPaging.pagingHTML }
+</div>
+<br><br>
+<div style="float: left; width: 850px; text-align: center;">
+	<form name="searchFrom" method="post" action="/miniproject/board/boardList.do?pg=1">
+	<select name="opt">
+		<option value="제목">제목</option>
+		<option value="작성자">작성자</option>
+	</select>
+	<input type="text" name="condition" style="width: 180px;">
+	<input type="submit" value="검색"> 
+	</form>
 </div>
 <script type="text/javascript">
 function isLogin(seq,pg){

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<h1>글쓰기</h1>
 <form name="boardWriteForm" method="post" action="/miniproject/board/boardWrite.do">
  <table border="1" cellspacing="0" cellpadding="5">
  	<tr>

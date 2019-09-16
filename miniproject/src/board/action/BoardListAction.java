@@ -1,6 +1,8 @@
 package board.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ public class BoardListAction implements CommandProcess {
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		// 세션
-		String memId = "";
+		String memId = null;
 		HttpSession session = request.getSession();
 		if((String)session.getAttribute("memId") != null) {
 			memId = (String) session.getAttribute("memId");
@@ -26,16 +28,25 @@ public class BoardListAction implements CommandProcess {
 		
 		// 데이터
 		int pg = Integer.parseInt(request.getParameter("pg"));
+		String opt = request.getParameter("opt");
+		String condition = request.getParameter("condition");
 		
 		// DB - 1페이지당 5개씩
 		int endNum = pg*5;
 		int startNum = endNum - 4;
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		List<BoardDTO> boardList = boardDAO.boardList(startNum, endNum);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("opt", opt);
+		map.put("condition", condition);
+		
+		List<BoardDTO> boardList = boardDAO.boardList(map);
 		
 		// 페이징 처리
 		BoardPaging boardPaging = new BoardPaging();
-		int totalA = boardDAO.getTotalA();// 총글수
+		int totalA = boardDAO.getTotalA(map);// 총글수
 		boardPaging.setCurrentPage(pg);
 		boardPaging.setPageBlock(3);
 		boardPaging.setPageSize(5);

@@ -38,7 +38,7 @@ public class MemberDAO {
 	// 회원가입
 	public void write(MemberDTO memberDTO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int su = sqlSession.insert("memberSQL.write", memberDTO);
+		sqlSession.insert("memberSQL.write", memberDTO);
 		sqlSession.commit();
 		sqlSession.close();
 	}
@@ -46,7 +46,7 @@ public class MemberDAO {
 	// 회원정보수정
 	public void modify(MemberDTO memberDTO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int su = sqlSession.update("memberSQL.update", memberDTO);
+		sqlSession.update("memberSQL.update", memberDTO);
 		sqlSession.commit();
 		sqlSession.close();
 	}

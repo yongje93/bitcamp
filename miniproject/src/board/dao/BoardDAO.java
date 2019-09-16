@@ -2,9 +2,6 @@ package board.dao;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,21 +43,18 @@ public class BoardDAO {
 	}
 	
 	// 게시판 목록
-	public List<BoardDTO> boardList(int startNum, int endNum) {
+	public List<BoardDTO> boardList(Map<String, Object> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startNum", startNum);
-		map.put("endNum", endNum);
 		List<BoardDTO> boardList = sqlSession.selectList("boardSQL.boardList", map);
 		sqlSession.close();
 		return boardList;
 	}
 	
 	// 전체 게시글 수
-	public int getTotalA() {
+	public int getTotalA(Map<String, Object> map) {
 		int totalBoard = 0;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		totalBoard = sqlSession.selectOne("boardSQL.getTotalA");
+		totalBoard = sqlSession.selectOne("boardSQL.getTotalA", map);
 		sqlSession.close();
 		return totalBoard;
 	}

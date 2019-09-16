@@ -6,9 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
- #left {
+ #display {
  	vertical-align: top;
  	padding: 20px;
+ }
+ #left {
+ 	vertical-align: top;
+ 	padding: 10px;
  }
 </style>
 </head>
@@ -20,10 +24,10 @@
 		</td>
 	  </tr>
 	  <tr>
-		<td width="15%" height="500">
+		<td id="left" width="20%" height="500">
 			<jsp:include page="../template/left.jsp"/>
 		</td>
-		<td id="left"><!-- body 부분은 값이 고정이 아니다. 그때그때 뿌려주는 값으로 -->
+		<td id="display"><!-- body 부분은 값이 고정이 아니다. 그때그때 뿌려주는 값으로 -->
 			<jsp:include page="${display}"/>
 		</td>
 	  </tr>

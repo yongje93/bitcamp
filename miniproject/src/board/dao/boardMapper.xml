@@ -9,11 +9,34 @@
   	</insert>
   	<!-- 게시판 목록 -->
   	<select id="boardList" parameterType="java.util.Map" resultType="board">
-  		select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt) where rn&gt;=#{startNum} and rn &lt;= #{endNum}	
+  		<choose>
+  			<when test="opt == null">
+  				select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt) where rn between #{startNum} and #{endNum}	
+  				<!-- <![CDATA[
+  					select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt) where rn >= #{startNum} and rn <= #{endNum}	
+  				]]> -->
+  			</when>
+  			<when test="opt == '제목'">
+  				select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board where subject like '%'|| #{condition} ||'%' order by ref desc, step asc)tt) where rn between #{startNum} and #{endNum}
+  			</when>
+  			<when test="opt == '작성자'">
+  				select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board where id like '%'|| #{condition} ||'%' order by ref desc, step asc)tt) where rn between #{startNum} and #{endNum}	
+  			</when>
+  		</choose>
   	</select>
   	<!-- 전체 게시글 수 -->
-  	<select id="getTotalA" resultType="int">
-  		select count(*) from board
+  	<select id="getTotalA" parameterType="java.util.Map" resultType="int">
+  		<choose>
+  			<when test="opt == null">
+  				select count(*) from board
+  			</when>
+  			<when test="opt == '제목'">
+  				select count(*) from board where subject like '%'||#{condition}||'%'
+  			</when>
+  			<when test="opt == '작성자'">
+  				select count(*) from board where id like '%'||#{condition}||'%'			
+  			</when>
+  		</choose>
   	</select>
   	<!-- 게시글 보기 -->
   	<select id="getBoard" parameterType="int" resultType="board">
