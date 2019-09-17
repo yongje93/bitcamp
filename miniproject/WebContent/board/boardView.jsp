@@ -3,11 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-	#subject { font-size: 25px; font-weight: bold;}
+	#subject { font-size: 30px; font-weight: bold;}
 	pre { overflow: auto; width: 100%; height: 150px; white-space: pre-line; word-break: break-all; }
 </style>
-
-<h1>게시글 보기</h1>
 <c:if test="${boardDTO != null }">
 <table border="1" width="450" frame="hsides" rules="rows" cellspacing="0" cellpadding="5">
 	<tr>
@@ -34,5 +32,4 @@
 		<input type="button" value="글삭제" onclick="checkBoardDelete(${boardDTO.seq})">
 	</c:if>
 </c:if>
-
 <script type="text/javascript" src="../js/board.js"></script>

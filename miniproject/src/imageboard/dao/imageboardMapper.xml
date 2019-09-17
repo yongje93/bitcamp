@@ -5,7 +5,17 @@
 <mapper namespace="imageboardSQL">
 	<!-- 이미지 게시판 작성 -->
 	<insert id="imageboardWrite" parameterType="imageboard">
-		insert into imageboard(seq,imageId,imageName,imagePrice,imageQty,imageContent,image1) values(seq_imageboard.nextval,#{imageId},#{imageName},#{imagePrice},#{imageQty},#{imageContent},#{image1})
+		insert into imageboard values(seq_imageboard.nextval, #{imageId}, #{imageName}, #{imagePrice}, #{imageQty}, #{imageContent}, #{image1}, sysdate)
 	</insert>
-	
+	<!-- 이미지 게시판 목록 -->
+	<select id="imageboardList" parameterType="java.util.Map" resultType="imageboard">
+		select * from
+		(select rownum rn, tt.* from
+		(select seq,imageid,imagename,imageprice,imageqty,imagecontent,image1 from imageboard order by seq desc)tt)
+		where rn between #{startNum} and #{endNum}
+	</select>
+	<!-- 전체 이미지 게시글 수 -->
+	<select id="getTotalA" parameterType="java.util.Map" resultType="int">
+		select count(*) from imageboard
+	</select>
 </mapper>

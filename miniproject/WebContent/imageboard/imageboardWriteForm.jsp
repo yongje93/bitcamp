@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<form name="imageboardWriteForm" method="post" action="/miniproject/imageboard/imageboardWrite.do">
+<form name="imageboardWriteForm" method="post" enctype="multipart/form-data" action="/miniproject/imageboard/imageboardWrite.do">
 	<table border="1" cellspacing="0" cellpadding="5">
 		<tr>
 			<td width="100" align="center">상품코드</td>
@@ -26,7 +26,7 @@
 	 		</td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td colspan="2" align="center">
 				<input type="file" name="image1" size="50">
 			</td>
 		</tr>

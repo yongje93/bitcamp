@@ -5,22 +5,37 @@
 <mapper namespace="boardSQL">
  	<!-- 게시판 글쓰기 -->
  	<insert id="boardWrite" parameterType="board">
-		insert into board(seq,id,name,email,subject,content,ref) values(seq_board.nextval,#{id},#{name},#{email},#{subject},#{content},seq_board.currval)	
+		insert into board(seq, id, name, email, subject, content, ref) 
+		values(seq_board.nextval, #{id}, #{name}, #{email}, #{subject}, #{content}, seq_board.currval)	
   	</insert>
   	<!-- 게시판 목록 -->
   	<select id="boardList" parameterType="java.util.Map" resultType="board">
   		<choose>
   			<when test="opt == null">
-  				select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt) where rn between #{startNum} and #{endNum}	
+  				select * from 
+  				(select rownum rn, tt.* from 
+  				(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt)
+  				 where rn between #{startNum} and #{endNum}	
   				<!-- <![CDATA[
-  					select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt) where rn >= #{startNum} and rn <= #{endNum}	
+  					select * from 
+  					(select rownum rn, tt.* from 
+  					(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt) 
+  					where rn >= #{startNum} and rn <= #{endNum}	
   				]]> -->
   			</when>
   			<when test="opt == '제목'">
-  				select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board where subject like '%'|| #{condition} ||'%' order by ref desc, step asc)tt) where rn between #{startNum} and #{endNum}
+  				select * from 
+  				(select rownum rn, tt.* from 
+  				(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board 
+  				 where subject like '%'|| #{condition} ||'%' order by ref desc, step asc)tt) 
+  				 where rn between #{startNum} and #{endNum}
   			</when>
   			<when test="opt == '작성자'">
-  				select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board where id like '%'|| #{condition} ||'%' order by ref desc, step asc)tt) where rn between #{startNum} and #{endNum}	
+  				select * from 
+  				(select rownum rn, tt.* from 
+  				(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board 
+  				 where id like '%'|| #{condition} ||'%' order by ref desc, step asc)tt) 
+  				 where rn between #{startNum} and #{endNum}	
   			</when>
   		</choose>
   	</select>

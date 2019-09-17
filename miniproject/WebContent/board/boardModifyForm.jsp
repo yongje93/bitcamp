@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<h1>게시글 수정</h1>
+<h2>게시글 수정</h2>
 <form name="boardModifyForm" method="post" action="/miniproject/board/boardModify.do">
  	<input type="hidden" name="seq" value="${seq }">	<!-- hidden은 form 안에 넣어야 넘어감 id속성은 안넘어감. name으로 해야됨 -->
 	<input type="hidden" name="pg" value="${pg }"> 

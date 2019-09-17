@@ -13,5 +13,6 @@ MVC를 이용한 미니프로젝트</h3>
 	<a href="/miniproject/imageboard/imageboardWriteForm.do">이미지등록</a>&emsp;
 	</c:if>
 </c:if>
-<a href="/miniproject/board/boardList.do?pg=1">목록</a><br>
+<a href="/miniproject/board/boardList.do?pg=1">목록</a>&emsp;
+<a href="/miniproject/imageboard/imageboardList.do?pg=1">이미지 목록</a>
 </font>
