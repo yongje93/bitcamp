@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.control.CommandProcess;
 
-import board.bean.BoardPaging;
 import board.bean.ImageboardPaging;
 import imageboard.bean.ImageboardDTO;
 import imageboard.dao.ImageboardDAO;

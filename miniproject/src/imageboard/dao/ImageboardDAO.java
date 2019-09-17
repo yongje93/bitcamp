@@ -58,4 +58,15 @@ public class ImageboardDAO {
 		sqlSession.close();
 		return totalImageboard;
 	}
+
+	// 이미지 게시글 보기
+	public ImageboardDTO getImageboard(int seq) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		ImageboardDTO imageboardDTO = sqlSession.selectOne("imageboardSQL.getImageboard", seq);
+		sqlSession.close();
+		return imageboardDTO;
+	}
+	
+
+	
 }

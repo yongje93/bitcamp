@@ -18,4 +18,8 @@
 	<select id="getTotalA" parameterType="java.util.Map" resultType="int">
 		select count(*) from imageboard
 	</select>
+	<!-- 이미지 게시글 보기 -->
+	<select id="getImageboard" parameterType="int" resultType="imageboard">
+		select * from imageboard where seq = #{seq}
+	</select>
 </mapper>

@@ -19,7 +19,6 @@ public class BoardViewAction implements CommandProcess {
 		
 		// DB
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		BoardDTO boardDTO = boardDAO.getBoard(seq);
 		
 		// 조회수 -- 새로고침 방지
 		Cookie[] ar = request.getCookies();
@@ -33,6 +32,8 @@ public class BoardViewAction implements CommandProcess {
 			}
 		}
 		
+		BoardDTO boardDTO = boardDAO.getBoard(seq);
+
 		// 응답
 		request.setAttribute("boardDTO", boardDTO);
 		request.setAttribute("pg", pg);

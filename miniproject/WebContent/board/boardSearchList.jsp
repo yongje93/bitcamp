@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+    
 <c:if test="${requestScope.boardList != null}">
 <table border="1" frame="hsides" rules="rows" cellspacing="0" cellpadding="5" style="word-break:break-all;">
  	<tr>
@@ -38,7 +38,7 @@
 		<option value="제목">제목</option>
 		<option value="작성자">작성자</option>
 	</select>
-	<input type="text" name="condition" style="width: 180px;" placeholder="검색어입력">
+	<input type="text" name="condition" style="width: 180px;">
 	<input type="submit" value="검색"> 
 	</form>
 </div>

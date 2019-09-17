@@ -14,11 +14,12 @@
 		<th width="80">합계</th>
 	</tr>
 	<c:forEach var="imageboardDTO" items="${imageboardList }">
-	<c:set var="result" value="${imageboardDTO.imagePrice*imageboardDTO.imageQty }"/>
 	<tr>
 		<td align="center">${imageboardDTO.seq }</td>
 		<td align="center"> 
-			<img src="../storage/${imageboardDTO.image1}" width="100" height="100">
+			<a class="onsubject" style="cursor: pointer;" href="javascript:void(0)" onclick="location.href='/miniproject/imageboard/imageboardView.do?seq=${imageboardDTO.seq}&pg=${pg}'">
+				<img src="http://localhost:8080/miniproject/storage/${imageboardDTO.image1}" width="100" height="100">
+			</a>
 		</td>
 		<td align="center">${imageboardDTO.imageName }</td>
 		<td align="center">
@@ -26,7 +27,7 @@
 		</td>
 		<td align="center">${imageboardDTO.imageQty }</td>
 		<td align="center">
-			<fmt:formatNumber type="number" value="${result }" pattern="#,###원"/>
+			<fmt:formatNumber type="number" value="${imageboardDTO.imagePrice * imageboardDTO.imageQty }" pattern="#,###원"/>
 		</td>
 	</tr>
 	</c:forEach>
