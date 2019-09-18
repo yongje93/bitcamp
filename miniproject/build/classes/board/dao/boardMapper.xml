@@ -82,7 +82,8 @@
   	<!-- 게시글 삭제 -->
   	<!-- update -->
   	<update id="boardDelete1" parameterType="int">
-  		update board set reply=reply-1 where seq=#{seq}
+  		<!-- update board set reply=reply-1 where seq=#{seq} -->
+  		update board set reply=reply-1 where seq = (select pseq from board where seq=#{seq}) and pseq=0
   	</update>
   	<!-- update -->
   	<update id="boardDelete2" parameterType="int">

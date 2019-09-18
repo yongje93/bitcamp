@@ -106,11 +106,12 @@ public class BoardDAO {
 	
 	// 게시글 삭제
 	public void boardDelete(int seq) {
-		BoardDTO nDTO = getBoard(seq); // 현재글
+		//BoardDTO nDTO = getBoard(seq); // 현재글
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// 원글을 찾아서 답글 수 1감소
-		sqlSession.update("boardSQL.boardDelete1", nDTO.getPseq());
+		//sqlSession.update("boardSQL.boardDelete1", nDTO.getPseq());
+		sqlSession.update("boardSQL.boardDelete1", seq);
 		
 		// 답글을 찾아서 제목에 추가
 		sqlSession.update("boardSQL.boardDelete2", seq);
