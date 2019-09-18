@@ -69,4 +69,18 @@
   	<update id="boardModify" parameterType="java.util.Map">
   		update board set subject=#{subject}, content=#{content}, logtime=sysdate where seq=#{seq}
   	</update>
+  	<!-- 답글 -->
+  	<!-- step update -->
+  	<update id="boardReply1" parameterType="board">
+  		update board set step=step+1 where ref=#{ref} and step > #{step}
+  	</update>
+  	<!-- insert -->
+  	<insert id="boardReply2" parameterType="board">
+  		insert into board(seq, id, name, email, subject, content, ref, lev, step, pseq)
+  		values(seq_board.nextval, #{id}, #{name}, #{email}, #{subject}, #{content}, #{ref}, #{lev}, #{step}, #{pseq})
+  	</insert>
+  	<!-- reply update -->
+  	<update id="boardReply3" parameterType="board">
+  		update board set reply=reply+1 where seq=#{pseq}
+  	</update>
 </mapper>

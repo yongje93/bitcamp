@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<h2>글쓰기</h2>
-<form name="boardWriteForm" method="post" action="/miniproject/board/boardWrite.do">
+<h2>답글쓰기</h2>
+<form name="boardReplyForm" method="post" action="/miniproject/board/boardReply.do">
+ <input type="hidden" name="pseq" value="${pseq}">
+ <input type="hidden" name="pg" value="${pg}">
  <table border="1" cellspacing="0" cellpadding="5">
  	<tr>
  		<td width="80" align="center">제목</td>
@@ -16,7 +18,7 @@
  	</tr>
  	<tr>
  		<td colspan="2" align="center">
- 			<input type="button" value="글쓰기" onclick="checkBoard()">
+ 			<input type="button" value="답글쓰기" onclick="checkBoard()">
  			<input type="reset" value="다시작성">
  		</td>
  	</tr>

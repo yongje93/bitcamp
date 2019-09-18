@@ -27,6 +27,7 @@
 </table>
 <br>
 <input type="button" value="목록" onclick="location.href='/miniproject/board/boardList.do?pg=${pg}'">
+<input type="button" value="답글" onclick="location.href='/miniproject/board/boardReplyForm.do?pseq=${boardDTO.seq}&pg=${pg }'">
 	<c:if test="${memId == boardDTO.id }">
 		<input type="button" value="글수정" onclick="location.href='/miniproject/board/boardModifyForm.do?seq=${boardDTO.seq}&pg=${pg }'">
 		<input type="button" value="글삭제" onclick="checkBoardDelete(${boardDTO.seq})">

@@ -17,7 +17,13 @@
  		<td width="400" align="left">
  			<a href="javascript:void(0)" id="subjectA" 
 			onclick="isLogin(${boardDTO.seq },${pg })">
-			${boardDTO.subject }
+			<c:if test="${boardDTO.lev != 0 }">
+				<c:forEach var="lev" begin="1" end="${boardDTO.lev }">
+				 &nbsp;
+				</c:forEach>
+				<img src="../image/reply.gif">
+			</c:if>
+				${boardDTO.subject }
 			</a>
  		</td>
  		<td width="120" align="center">${boardDTO.id}</td>
