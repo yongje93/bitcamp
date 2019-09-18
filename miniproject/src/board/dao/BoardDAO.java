@@ -75,14 +75,6 @@ public class BoardDAO {
 		sqlSession.close();
 	}
 	
-	// 게시글 삭제
-	public void boardDelete(int seq) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		sqlSession.delete("boardSQL.boardDelete", seq);
-		sqlSession.commit();
-		sqlSession.close();
-	}
-	
 	// 게시글 수정
 	public void boardModify(Map<String, String> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -108,6 +100,23 @@ public class BoardDAO {
 		// reply update
 		sqlSession.update("boardSQL.boardReply3", boardDTO.getPseq());
 		
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	// 게시글 삭제
+	public void boardDelete(int seq) {
+		BoardDTO nDTO = getBoard(seq); // 현재글
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// 원글을 찾아서 답글 수 1감소
+		sqlSession.update("boardSQL.boardDelete1", nDTO.getPseq());
+		
+		// 답글을 찾아서 제목에 추가
+		sqlSession.update("boardSQL.boardDelete2", seq);
+		
+		// 삭제
+		sqlSession.delete("boardSQL.boardDelete3", seq);
 		sqlSession.commit();
 		sqlSession.close();
 	}

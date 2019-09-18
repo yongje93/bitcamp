@@ -97,17 +97,17 @@ form폼을 관리 객체 - forms
 </form>
 
 
-
-
-seq	subject	ref(그룹번호)	lev(단계)	step(글순서)	pseq(원글번호)
-15	과일(원)	15			0		0
+seq	subject	ref(그룹번호)	lev(단계)	step(글순서)     	pseq(원글번호)	reply(답글수)
+15	과일(원)	15		0	0		0
 16	채소(원)	16			0		0
-17	사과(답)	15			1		15
+17	사과(답)	15		1	1		15
 18	오이(답)	16			1		16	
-19	부사(답)	15			2		17	원글ref=seq
-								답글ref=원글ref
-								원글step=0
-								답글step=원글step+1
+19	부사(답)	15			2		17	원글 ref=seq
+								답글 ref=원글 ref
+								원글 step=0
+								답글 step=원글 step+1
+								원글 lev = 0
+								답글 lev = 원글 step+1
 
 select * from board order by ref desc, step asc 
 
@@ -119,3 +119,39 @@ select * from board order by ref desc, step asc
 
 loginForm.jsp	login.jsp		loginOk.jsp
 		쿠키생성
+
+----------------------------------------------------------------------------------------
+Collection
+: 객체를 모아주는 것
+
+1. Collection coll = new ArrayList(); - 순서, 중복
+2. Set set = new HashSet(); - 순서X, 중복X
+3. Map<Key, Value>
+
+----------------------------------------------------------------
+모델1기법 - 비지니스 로직(JAVA), 프리젠테이션 섞여있는 상태 (단기간에 짧게)
+모델2기법(MVC) - 비즈니스 로직(JAVA), 프리젠테이션 따로 따로
+
+<%   %>사용 X  
+<%= %>사용 X --> ${  } 사용
+
+${ expr } 사용O 
+
+get, post - getParamater() ---> param
+
+			       namespace(이름 구분자) - member는 폴더가 아님
+http://loaclhost:8080/mvcmember/member/writeForm.do
+
+----------------------------------------------------------------
+mybatis - framework
+DB를 건드리는 아이.
+
+UserInsertAction.java	userDAO.java		mybatis-config.xml
+1.데이터						환경설정
+2.DB
+
+----------------------------------------------------------------
+파일 업로드
+<form method="post" enctype="multipart/form-data">
+
+<input type="file">
