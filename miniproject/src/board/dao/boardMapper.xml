@@ -8,63 +8,41 @@
 		insert into board(seq, id, name, email, subject, content, ref) 
 		values(seq_board.nextval, #{id}, #{name}, #{email}, #{subject}, #{content}, seq_board.currval)	
   	</insert>
+  	
   	<!-- 게시판 목록 -->
   	<select id="boardList" parameterType="java.util.Map" resultType="board">
-  		<choose>
-  			<when test="opt == null">
-  				select * from 
-  				(select rownum rn, tt.* from 
-  				(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt)
-  				 where rn between #{startNum} and #{endNum}	
-  				<!-- <![CDATA[
-  					select * from 
-  					(select rownum rn, tt.* from 
-  					(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt) 
-  					where rn >= #{startNum} and rn <= #{endNum}	
-  				]]> -->
-  			</when>
-  			<when test="opt == '제목'">
-  				select * from 
-  				(select rownum rn, tt.* from 
-  				(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board 
-  				 where subject like '%'|| #{condition} ||'%' order by ref desc, step asc)tt) 
-  				 where rn between #{startNum} and #{endNum}
-  			</when>
-  			<when test="opt == '작성자'">
-  				select * from 
-  				(select rownum rn, tt.* from 
-  				(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board 
-  				 where id like '%'|| #{condition} ||'%' order by ref desc, step asc)tt) 
-  				 where rn between #{startNum} and #{endNum}	
-  			</when>
-  		</choose>
+		select * from 
+		(select rownum rn, tt.* from 
+		(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt)
+		 where rn between #{startNum} and #{endNum}	
+		<!-- <![CDATA[
+			select * from 
+			(select rownum rn, tt.* from 
+			(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board order by ref desc, step asc)tt) 
+			where rn >= #{startNum} and rn <= #{endNum}	
+		]]> -->
   	</select>
+  	
   	<!-- 전체 게시글 수 -->
   	<select id="getTotalA" parameterType="java.util.Map" resultType="int">
-  		<choose>
-  			<when test="opt == null">
-  				select count(*) from board
-  			</when>
-  			<when test="opt == '제목'">
-  				select count(*) from board where subject like '%'||#{condition}||'%'
-  			</when>
-  			<when test="opt == '작성자'">
-  				select count(*) from board where id like '%'||#{condition}||'%'			
-  			</when>
-  		</choose>
+  		select count(*) from board
   	</select>
+  	
   	<!-- 게시글 보기 -->
   	<select id="getBoard" parameterType="int" resultType="board">
   		select * from board where seq=#{seq}
   	</select>
+  	
   	<!-- 조회수 증가 -->
   	<update id="boardHit" parameterType="int">
   		update board set hit = hit+1 where seq=#{seq}
   	</update>
+  	
   	<!-- 게시글 수정 -->
   	<update id="boardModify" parameterType="java.util.Map">
   		update board set subject=#{subject}, content=#{content}, logtime=sysdate where seq=#{seq}
   	</update>
+  	
   	<!-- 답글 -->
   	<!-- step update -->
   	<update id="boardReply1" parameterType="board">
@@ -79,6 +57,7 @@
   	<update id="boardReply3" parameterType="board">
   		update board set reply=reply+1 where seq=#{pseq}
   	</update>
+  	
   	<!-- 게시글 삭제 -->
   	<!-- update -->
   	<update id="boardDelete1" parameterType="int">
@@ -101,4 +80,21 @@
 		  	delete from board where seq=#{seq};  			
   		end;
   	</delete>
+  	
+  	<!-- 게시글 검색 -->
+  	<select id="boardSearch" parameterType="java.util.Map" resultType="board">
+  		<![CDATA[
+  			select * from 
+  			(select rownum rn, tt.* from 
+ 			(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from board
+ 			where ${opt} like '%'|| #{condition} ||'%'
+ 			order by ref desc, step asc)tt) 
+ 			where rn >= #{startNum} and rn <= #{endNum}	
+ 		]]>
+  	</select>
+  	
+  	<!-- 게시글 검색 총글수 -->
+  	<select id="getSearchTotalA" parameterType="java.util.Map" resultType="int">
+  		select count(*) from board where ${opt} like '%'||#{condition}||'%'
+  	</select>
 </mapper>

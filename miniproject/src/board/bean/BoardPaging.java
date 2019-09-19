@@ -23,7 +23,7 @@ public class BoardPaging {
 		}
 		// [이전]
 		if(startPage > pageBlock)
-			pagingHTML.append("[<a id='paging' href='/miniproject/board/boardList.do?pg="+(startPage-1)+"'>이전</a>]");
+			pagingHTML.append("[<a id='paging' href='boardList.do?pg="+(startPage-1)+"'>이전</a>]");
 		
 		for(int i = startPage; i<=endPage; i++) {
 			if(i == currentPage) 
@@ -36,7 +36,7 @@ public class BoardPaging {
 			pagingHTML.append("[<a id='paging' href='boardList.do?pg="+(endPage+1)+"'>다음</a>]");
 	}
 	
-	public void makeSearchPagingHTML(String opt, String condition) {
+	public void makeSearchPagingHTML() {
 		pagingHTML = new StringBuffer();
 		
 		int totalP = (int)(totalA+(pageSize-1))/pageSize; 
@@ -47,17 +47,18 @@ public class BoardPaging {
 		if(endPage > totalP) {
 			endPage = totalP;
 		}
-		// [이전]
-		if(startPage > pageBlock)
-			pagingHTML.append("[<a id='paging' href='/miniproject/board/boardSearchList.do?pg="+(startPage-1)+"&opt="+opt+"&condition="+condition+"'>이전</a>]");
-		for(int i = startPage; i<=endPage; i++) {
-			if(i == currentPage) 
-				pagingHTML.append("[<a id='currentPaging' href='boardSearchList.do?pg="+i+"&opt="+opt+"&condition="+condition+"'>"+i+"</a>]");
+		
+		if(startPage>pageBlock)
+			pagingHTML.append("[<span id='paging' onclick='boardSearch("+(startPage-1)+")'>이전</span>]");                                             
+				
+		for(int i=startPage; i<=endPage; i++) {
+			if(i==currentPage)
+				pagingHTML.append("[<span id='currentPaging' onclick='boardSearch("+i+")'>"+i+"</span>]");
 			else
-				pagingHTML.append("[<a id='paging' href='boardSearchList.do?pg="+i+"&opt="+opt+"&condition="+condition+"'>"+i+"</a>]");
-		} 
-		// [다음]
+				pagingHTML.append("[<span id='paging' onclick='boardSearch("+i+")'>"+i+"</span>]");
+		}
+		
 		if(endPage < totalP)
-			pagingHTML.append("[<a id='paging' href='boardSearchList.do?pg="+(endPage+1)+"&opt="+opt+"&condition="+condition+"'>다음</a>]");
+			pagingHTML.append("[<span id='paging' onclick='boardSearch("+(endPage+1)+")'>다음</span>]");
 	}
 }

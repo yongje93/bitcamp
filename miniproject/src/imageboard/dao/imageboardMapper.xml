@@ -22,4 +22,8 @@
 	<select id="getImageboard" parameterType="int" resultType="imageboard">
 		select * from imageboard where seq = #{seq}
 	</select>
+	<!-- 이미지 게시글 삭제 -->
+	<delete id="imageboardDelete" parameterType="string">
+		delete from imageboard where seq = #{seq}
+	</delete>
 </mapper>

@@ -5,26 +5,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.control.CommandProcess;
 
-import imageboard.bean.ImageboardDTO;
 import imageboard.dao.ImageboardDAO;
 
-public class ImageboardViewAction implements CommandProcess {
+public class ImageboardDeleteAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		// 데이터
-		int seq = Integer.parseInt(request.getParameter("seq"));
-		int pg = Integer.parseInt(request.getParameter("pg"));
+		String seqArr = request.getParameter("seq");
+		String[] seq = seqArr.split(",");
 		
 		// DB
 		ImageboardDAO imageboardDAO = ImageboardDAO.getInstance();
-		ImageboardDTO imageboardDTO = imageboardDAO.getImageboard(seq);
+		for(int i=0; i < seq.length; i++) {
+			imageboardDAO.imageboardDelete(seq[i]);
+		}
 		
 		// 응답
-		request.setAttribute("pg", pg);
-		request.setAttribute("imageboardDTO", imageboardDTO);
-		request.setAttribute("display", "/imageboard/imageboardView.jsp");
-		
+		request.setAttribute("display", "/imageboard/imageboardDelete.jsp");
 		return "/main/index.jsp";
 	}
 

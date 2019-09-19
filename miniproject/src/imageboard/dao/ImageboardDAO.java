@@ -67,6 +67,12 @@ public class ImageboardDAO {
 		return imageboardDTO;
 	}
 	
-
+	// 이미지 게시글 삭제
+	public void imageboardDelete(String seq) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.delete("imageboardSQL.imageboardDelete", seq);
+		sqlSession.commit();
+		sqlSession.close();
+	}
 	
 }
