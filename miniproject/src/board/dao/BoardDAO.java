@@ -99,7 +99,6 @@ public class BoardDAO {
 		
 		// reply update
 		sqlSession.update("boardSQL.boardReply3", boardDTO.getPseq());
-		
 		sqlSession.commit();
 		sqlSession.close();
 	}
@@ -109,15 +108,12 @@ public class BoardDAO {
 		//BoardDTO nDTO = getBoard(seq); // 현재글
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		// 원글을 찾아서 답글 수 1감소
 		//sqlSession.update("boardSQL.boardDelete1", nDTO.getPseq());
-		sqlSession.update("boardSQL.boardDelete1", seq);
+		//sqlSession.update("boardSQL.boardDelete1", seq);
+		//sqlSession.update("boardSQL.boardDelete2", seq);
+		//sqlSession.delete("boardSQL.boardDelete3", seq);
 		
-		// 답글을 찾아서 제목에 추가
-		sqlSession.update("boardSQL.boardDelete2", seq);
-		
-		// 삭제
-		sqlSession.delete("boardSQL.boardDelete3", seq);
+		sqlSession.delete("boardSQL.boardDelete", seq);
 		sqlSession.commit();
 		sqlSession.close();
 	}

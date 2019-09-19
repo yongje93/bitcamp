@@ -16,10 +16,9 @@ public class BoardDeleteAction implements CommandProcess {
 		// DB
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.boardDelete(seq);
-		
 		// 응답
 		request.setAttribute("display", "/board/boardDelete.jsp");
-		
+	
 		return "/main/index.jsp";
 	}
 }

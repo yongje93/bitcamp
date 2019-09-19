@@ -14,18 +14,22 @@
 		</tr>
 		<c:forEach var="boardDTO" items="${boardList }">
 			<tr>
-				<td width="100" align="center">${boardDTO.seq}</td>
+				<td width="100" align="center">
+				<c:if test="${boardDTO.pseq == 0 }">
+					${boardDTO.seq}
+				</c:if>
+				</td>
 				<td width="400">
 				<c:forEach var="i" begin="1" end="${boardDTO.lev }" step="1">
 					&emsp;
-				</c:forEach>
+				</c:forEach> 
 				<c:if test="${boardDTO.lev != 0 }">
-					<img src="../image/reply.gif">
+				<img src="../image/reply.gif">
 				</c:if> 
 				<a href="javascript:void(0)" id="subjectA"
-					onclick="isLogin(${boardDTO.seq },${pg })"> 
-					${boardDTO.subject }
-				</a></td>
+					onclick="isLogin(${boardDTO.seq },${pg })"> ${boardDTO.subject }
+				</a>
+				</td>
 				<td width="120" align="center">${boardDTO.id}</td>
 				<td width="150" align="center">${boardDTO.logtime}</td>
 				<td width="80" align="center">${boardDTO.hit}</td>
