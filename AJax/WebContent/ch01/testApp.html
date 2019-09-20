@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form name="testInputForm" method="post">
+  <table cellpadding="10" cellspacing="0">
+  	<tr>
+  		<td>이름</td>
+  		<td><input type="text" name="name"></td>
+  	</tr>
+  	<tr>
+  		<td>생년월일</td>
+  		<td><input type="text" name="birthday" placeholder="ex)1991/07/16"></td>
+  	</tr>
+  	<tr>
+  		<td colspan="2" align="center">
+  			<input type="button" value="보내기" onclick="testToServer()">
+  			<input type="reset" value="다시작성">
+  		</td>
+  	</tr>
+  </table>
+</form>
+</body>
+
+<script type="text/javascript">
+var xhr = null;
+function testToServer() {
+	name = document.testInputForm.name.value;
+	birthday = document.testInputForm.birthday.value;
+	
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = testFromServer;
+	xhr.open("POST", "test.jsp", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send("name="+name+"&birthday="+birthday);
+}
+
+function testFromServer() {
+	if(xhr.readyState == 4) {
+		if(xhr.status == 200) {
+			alert(xhr.responseText);
+		}
+	}
+}
+</script>
+</html>
