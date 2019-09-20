@@ -23,7 +23,7 @@ public class ImageboardPaging {
 		}
 		// [이전]
 		if(startPage > pageBlock)
-			pagingHTML.append("[<a id='paging' href='/miniproject/imageboard/imageboardList.do?pg="+(startPage-1)+"'>이전</a>]");
+			pagingHTML.append("[<a id='paging' href='imageboardList.do?pg="+(startPage-1)+"'>이전</a>]");
 		
 		for(int i = startPage; i<=endPage; i++) {
 			if(i == currentPage) 

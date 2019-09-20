@@ -15,7 +15,7 @@
 		where rn between #{startNum} and #{endNum}
 	</select>
 	<!-- 전체 이미지 게시글 수 -->
-	<select id="getTotalA" parameterType="java.util.Map" resultType="int">
+	<select id="getImageTotalA" parameterType="java.util.Map" resultType="int">
 		select count(*) from imageboard
 	</select>
 	<!-- 이미지 게시글 보기 -->
@@ -23,7 +23,11 @@
 		select * from imageboard where seq = #{seq}
 	</select>
 	<!-- 이미지 게시글 삭제 -->
-	<delete id="imageboardDelete" parameterType="string">
-		delete from imageboard where seq = #{seq}
+	<delete id="imageboardDelete" parameterType="java.util.Map">
+		delete from imageboard where seq in 
+		<foreach collection="check" item="seq" index="i" open="(" separator="," close=")">
+			<!-- #{check[i]} -->	
+			#{seq}
+		</foreach>
 	</delete>
 </mapper>

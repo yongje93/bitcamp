@@ -33,7 +33,7 @@ public class ImageboardListAction implements CommandProcess {
 		
 		// 페이징 처리
 		ImageboardPaging imageboardPaging = new ImageboardPaging();
-		int totalA = imageboardDAO.getTotalA(map);
+		int totalA = imageboardDAO.getImageboardTotalA(map);
 		imageboardPaging.setCurrentPage(pg);
 		imageboardPaging.setPageBlock(3);
 		imageboardPaging.setPageSize(3);

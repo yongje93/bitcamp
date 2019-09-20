@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 window.onload=function() {
-	alert("삭제완료");
+	alert("이미지 삭제 성공");
 	location.href="/miniproject/imageboard/imageboardList.do?pg=1";
 }
 </script>

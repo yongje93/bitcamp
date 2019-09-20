@@ -72,7 +72,7 @@
   	<delete id="boardDelete3" parameterType="int">
   		delete from board where seq=#{seq}
   	</delete>
-  	
+  	<!-- 위의 세가지 삭제 동작 통합 -->
   	<delete id="boardDelete" parameterType="int">
   		begin
 			update board set reply=reply-1 where seq=(select pseq from board where seq=#{seq});

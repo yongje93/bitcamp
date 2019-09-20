@@ -2,6 +2,7 @@ package imageboard.dao;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,10 +52,10 @@ public class ImageboardDAO {
 	}
 	
 	// 전체 이미지 게시글 수
-	public int getTotalA(Map<String, Object> map) {
+	public int getImageboardTotalA(Map<String, Object> map) {
 		int totalImageboard = 0;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		totalImageboard = sqlSession.selectOne("imageboardSQL.getTotalA", map);
+		totalImageboard = sqlSession.selectOne("imageboardSQL.getImageTotalA", map);
 		sqlSession.close();
 		return totalImageboard;
 	}
@@ -68,9 +69,11 @@ public class ImageboardDAO {
 	}
 	
 	// 이미지 게시글 삭제
-	public void imageboardDelete(String seq) {
+	public void imageboardDelete(String[] check) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		sqlSession.delete("imageboardSQL.imageboardDelete", seq);
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("check", check);
+		sqlSession.delete("imageboardSQL.imageboardDelete", map);
 		sqlSession.commit();
 		sqlSession.close();
 	}
