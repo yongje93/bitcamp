@@ -13,7 +13,7 @@
   	</tr>
   	<tr>
   		<td>생년월일</td>
-  		<td><input type="text" name="birthday" placeholder="ex)1991/07/16"></td>
+  		<td><input type="text" name="birthday" placeholder="ex)yyyy/mm/dd"></td>
   	</tr>
   	<tr>
   		<td colspan="2" align="center">
@@ -28,7 +28,8 @@
 <script type="text/javascript">
 var xhr = null;
 function testToServer() {
-	name = document.testInputForm.name.value;
+	// 데이터
+	name = encodeURIComponent(document.testInputForm.name.value);
 	birthday = document.testInputForm.birthday.value;
 	
 	xhr = new XMLHttpRequest();
