@@ -6,7 +6,7 @@
 <form name="imageboardListForm" method="get" action="/miniproject/imageboard/imageboardDelete.do">
 <table border="1" frame="hsides" rules="rows" cellspacing="0" cellpadding="5" style="word-break:break-all;">
 	<tr>
-		<th width="100"><input type="checkbox" id="checkAll" onclick="checkAll()">번호</th>
+		<th width="100"><input type="checkbox" id="all" onclick="checkAll()"/>번호</th>
 		<th width="120">이미지</th>
 		<th width="200">상품명</th>
 		<th width="100">단가</th>
@@ -40,15 +40,15 @@
 <div style="float: left; width: 80px;">
 	<input type="button" value="선택삭제" onclick="checkDelete()">
 </div>
-</form>
 <div style="float: left; width: 650px; text-align: center;">  	 
 	${imageboardPaging.pagingHTML}
 </div>
+</form>
 <script type="text/javascript">
 function checkAll() {
 	var check = document.getElementsByName("check");
 	
-	if(document.getElementById("checkAll").checked) {
+	if(document.getElementById("all").checked) {
 		for(i=0; i<check.length; i++) {
 			check[i].checked = true;
 		}

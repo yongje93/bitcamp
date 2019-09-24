@@ -5,7 +5,9 @@
 <style>
 	pre { overflow: auto; width: 100%; height: 150px; white-space: pre-line; word-break: break-all; }
 </style>
-<c:if test="${imageboardDTO != null }">
+<span>
+	<img src="../image/zoom.png" width="20" height="20" style="cursor: pointer;" onclick="bigImage('${imageboardDTO.image1}')">
+</span>
 <table border="1" cellspacing="0" cellpadding="5">
 	<tr>
 		<td rowspan="4">
@@ -20,8 +22,7 @@
 	</tr>
 	<tr>
 		<td align="center">개수</td>
-		<td align="center"><fmt:formatNumber pattern="#,###개" value="${imageboardDTO.imageQty }"/>
-</td>
+		<td align="center"><fmt:formatNumber pattern="#,###개" value="${imageboardDTO.imageQty }"/></td>
 	</tr>
 	<tr>
 		<td align="center">합계</td>
@@ -35,4 +36,4 @@
 </table>
 <br>
 <input type="button" value="목록" onclick="location.href='/miniproject/imageboard/imageboardList.do?pg=${pg}'">
-</c:if>
+<script type="text/javascript" src="../js/imageboard.js"></script>
