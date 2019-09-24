@@ -15,13 +15,13 @@ function process() {
 	alert("commit_1 호출");
 }
 
-$(document).ready(function() {	// window.onload와 같은 의미
+$(document).ready(function(){	// window.onload와 같은 의미
 	//선택자.이벤트(함수) //$는 jQuery를 뜻함
-	$("#btn2").click(function() {
+	$("#btn2").click(function(){
 		alert("commit_2 호출");
 	});
 	
-	$("#btn3").bind("click", function() {
+	$("#btn3").bind("click", function(){
 		alert("commit_3 호출");
 	});
 });
