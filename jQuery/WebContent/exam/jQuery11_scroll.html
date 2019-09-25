@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.jBox {
+	height: 2000px;
+}
+.jbColor {
+	background-color: orange;
+}
+</style>
+</head>
+<body>
+<div class="jBox"></div>
+
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(window).scroll(function(){
+		$(".jBox").addClass("jbColor");
+	});
+});
+</script>
+</html>
