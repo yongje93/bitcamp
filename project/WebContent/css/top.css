@@ -6,7 +6,7 @@
 	font: 67.5% "Raleway-Regular", "Bitstream Vera Sans",
 		"Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica,
 		sans-serif;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
 	color: #666666;
 	transition: all 0.4s;
@@ -116,5 +116,6 @@
 }
 
 .form-control {
-    display: inline-block;
+     display: inline-block;
 }
+
