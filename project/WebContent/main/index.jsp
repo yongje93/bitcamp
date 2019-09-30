@@ -5,14 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>메인화면</title>
+<title>쇼핑몰</title>
 <style type="text/css">
-header .navigation {
-    /* border : 2px solid red; */
-    line-height: 55px;
-    height : 55px;
+@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+
+body {
+ 	color: #333; 
+ 	font-family: 'NanumSquareRound', "Apple SD Gothic Neo", "Nanum Gothic", 'Lato', Helvetica, sans-serif, "Noto Sans KR" ,"Malgun Gothic", "맑은 고딕", Dotum, '돋움' ; 
 }
+
 </style>
+<link rel="stylesheet" type="text/css" href="../css/top.css">
+<link rel="stylesheet" type="text/css" href="../css/body.css">
 </head>
 <body>
 	<header>

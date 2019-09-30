@@ -2,12 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" type="text/css" href="../css/top.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<div class="header">
 <div class="navigation">
 	<div class="navigation-menu primary-menu">
 		<ul>
@@ -46,7 +47,7 @@
 						</a>					
 					</c:if>
 					<c:if test="${memId != null }">
-						<a href="">
+						<a href="/project/member/memberInfo.do">
 						<i class="fa fa-user"></i>
 						</a>					
 					</c:if>
@@ -93,7 +94,8 @@
 			           	  <div id="pwdDiv"></div>
 			            </div>
 			            <div class="checkbox">
-			              <label><input type="checkbox" name="remember">&nbsp;아이디 저장</label>
+			              <label><input type="checkbox" id="idRememberCheck" name="idRemember">&nbsp;아이디 저장</label>&nbsp;
+			              <label><input type="checkbox" id="keepLogin" name="keepLogin">&nbsp;자동 로그인</label>
 			            </div>
 			              <div id="loginResultDiv"></div>
 			              <button type="submit" id="login-submit" class="btn btn-success btn-block"> 로그인</button>
@@ -108,18 +110,50 @@
 		</div>
 	</div>
 </div>
+</div>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#id").keyup(function(){
-		$("#loginResultDiv").empty();
+	// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백들어감
+	var rememberId = getCookie("rememberId");
+	$("#login_id").val(rememberId);
+	
+	// 로그인 유지
+	var keepLogin = getCookie("id");	//keepLogin에 hong 들어옴
+	if(keepLogin != "") {	// 자동로그인처리된 아이디가 있을때.
+	
+	}
+	
+	// 그 전에 ID를 저장해서 처음 페이지 로딩시, 입력칸에 저장된 ID가 표시된 상태라면
+	if($("#login_id").val() != "") {
+		$("#idRememberCheck").attr("checked", true);
+	}
+	
+	$("#idRememberCheck").change(function(){
+		if($("#idRememberCheck").is(":checked")) {
+			var rememberId = $("#login_id").val();
+			setCookie("rememberId", rememberId, 7);	// 7일 동안 쿠키 보관
+		} else { //ID 저장하기 체크 해제 시
+			deleteCookie("rememberId");
+		}
 	});
 	
+	// ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 쿠키도 저장
+	$("#login_id").keyup(function(){
+		$("#loginResultDiv").empty();
+		if($("#idRememberCheck").is(":chekced")) {	
+			var rememberId = $("#login_id").val();
+			setCookie("rememberId", rememberId, 7);	// 7일 동안 쿠키 보관
+		}
+	});
+
+	// 로그인 액션
 	$("#login-submit").click(function(){
 		$("#idDiv").empty();
 		$("#pwdDiv").empty();
 		
 		var id = $("#login_id").val();
 		var pwd = $("#login_pwd").val();
+		var keepLogin = $("#keepLogin").is(":checked");
 		
 		if(id == "") {
 			$("#idDiv").text("아이디를 입력하세요").css("color", "tomato").css("font-size", "8pt");
@@ -133,12 +167,11 @@ $(document).ready(function(){
 			$.ajax({
 				type	: "post",
 				url		: "/project/member/login.do",
-				data	: {id : $("#login_id").val(), pwd : $("#login_pwd").val()},
+				data	: {id : $("#login_id").val(), pwd : $("#login_pwd").val(), keepLogin : keepLogin },
 				dataType: "text",
 				success : function(data) {
 					if(data.trim() == "ok") {
-						alert("로그인 성공");
-						location.replace("/project/main/index.do");
+						location.replace("/project/member/memberInfo.do");
 					} else if(data.trim() == "fail") {
 						$("#loginResultDiv").text("아이디 또는 비밀번호 다시 입력하세요!!").css("color", "tomato").css("font-size", "10pt");
 						$("#login_pwd").val("");
@@ -160,4 +193,31 @@ $(document).ready(function(){
 
 });
 
+// 아이디 저장 쿠키 관련------------------------------
+function setCookie(cookieName, value, exdays) {
+	var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toUTCString());
+    document.cookie = cookieName + "=" + cookieValue;
+}
+
+function deleteCookie(cookieName){
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toUTCString();
+}
+
+function getCookie(cookieName) {
+    cookieName = cookieName + '=';
+    var cookieData = document.cookie;
+    var start = cookieData.indexOf(cookieName);
+    var cookieValue = '';
+    if(start != -1){
+        start += cookieName.length;
+        var end = cookieData.indexOf(';', start);
+        if(end == -1)end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+    }
+    return unescape(cookieValue);
+}
 </script>

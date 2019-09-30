@@ -14,16 +14,16 @@ import member.bean.MemberDTO;
 public class MemberDAO {
 	private static MemberDAO instance;
 	private SqlSessionFactory sqlSessionFactory;
-	
+
 	public static MemberDAO getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			synchronized (MemberDAO.class) {
 				instance = new MemberDAO();
 			}
 		}
 		return instance;
 	}
-	
+
 	public MemberDAO() {
 		try {
 			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
@@ -32,7 +32,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// 회원가입
 	public void write(MemberDTO memberDTO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -40,9 +40,7 @@ public class MemberDAO {
 		sqlSession.commit();
 		sqlSession.close();
 	}
-	
-	// 회원정보 수정
-	
+
 	// 로그인
 	public MemberDTO login(Map<String, String> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -50,16 +48,32 @@ public class MemberDAO {
 		sqlSession.close();
 		return memberDTO;
 	}
-	
+
 	// 아이디 중복 확인
 	public boolean isExistId(String id) {
 		boolean exist = false;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		MemberDTO memberDTO = sqlSession.selectOne("memberSQL.isExistId", id);
-		if(memberDTO!=null) {
+		if (memberDTO != null) {
 			exist = true;
 		}
 		sqlSession.close();
 		return exist;
+	}
+
+	// 회원정보 가져오기
+	public MemberDTO getMember(String id) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		MemberDTO memberDTO = sqlSession.selectOne("memberSQL.getMember", id);
+		sqlSession.close();
+		return memberDTO;
+	}
+
+	// 회원정보수정
+	public void modify(MemberDTO memberDTO) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.update("memberSQL.update", memberDTO);
+		sqlSession.commit();
+		sqlSession.close();
 	}
 }

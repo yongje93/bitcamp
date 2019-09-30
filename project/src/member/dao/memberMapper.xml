@@ -5,7 +5,8 @@
 <mapper namespace="memberSQL">
 	<!-- 회원가입 -->
 	<insert id="write" parameterType="member">
-		insert into member_project values(#{name},#{id},#{pwd},#{email},#{tel},#{birthday},#{zipcode},#{addr1},#{addr2},sysdate)
+		insert into member_project(name,id,pwd,email,tel,birthday,zipcode,addr1,addr2,logtime) 
+		values(#{name},#{id},#{pwd},#{email},#{tel},#{birthday},#{zipcode},#{addr1},#{addr2},sysdate)
 	</insert>
 	<!-- 아이디 중복 확인 -->
 	<select id="isExistId" parameterType="String" resultType="member">
@@ -15,4 +16,12 @@
 	<select id="login" parameterType="java.util.Map" resultType="member">
 		select * from member_project where id=#{id} and pwd=#{pwd}
 	</select>
+	<!-- 회원정보 가져오기 -->
+	<select id="getMember" parameterType="String" resultType="member">
+		select * from member_project where id=#{id}
+	</select>
+	<!-- 회원정보 수정 -->
+	<update id="update" parameterType="member">
+		update member_project set name=#{name},pwd=#{pwd},email=#{email},tel=#{tel},zipcode=#{zipcode},addr1=#{addr1},addr2=#{addr2},logtime=sysdate where id=#{id} 
+	</update>
 </mapper>
