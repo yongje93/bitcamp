@@ -23,6 +23,7 @@ public class MemberInfoAction implements CommandProcess {
 		
 		request.setAttribute("memberDTO", memberDTO);
 		request.setAttribute("display", "/member/memberInfo.jsp");
+		request.setAttribute("myDisplay", "/member/myPage.jsp");
 		return "/main/index.jsp";
 	}
 

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 ul, ol, li { 
     list-style: none; 
 }
@@ -41,20 +42,26 @@ ul, ol, li {
 /* container page */
 .page-container {
 	margin-top: 40px;
+	border: 1px solid orange;
+	width: 100%;
+	display: inline-block;
 }
 .page-navigation {
 	float: left;
 	margin-top: 30px;
 	width: 250px;
+	border: 1px solid blue;
 }
 .page-content {
 	float: right;
 	width: calc(100% - 250px);
 	min-height: 40vh;
+	border: 1px solid red;
 }
 .page-navigation ul li {
     font-size: 16px;
     padding-bottom: 15px;
+    font-weight: bold;
 }
 .page-navigation ul .current {
     font-weight: 700;
@@ -120,4 +127,13 @@ ul, ol, li {
     padding-top: 50px;
     font-size: 15px;
     color: #aaa;
+}
+.service-menu {
+    position: absolute;
+    top: 55px;
+    right: 0;
+}
+.service-menu {
+	font-weight: 500;
+    margin-left: 20px;
 }

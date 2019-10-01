@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="serviceSQL">
+	<!-- 고객센터 게시판 목록 -->
+	<select id="serviceboardList" parameterType="java.util.Map" resultType="service">
+		<![CDATA[
+			select * from 
+			(select rownum rn, tt.* from 
+			(select seq,id,name,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime, 'YYYY.MM.DD') as logtime from service_board order by ref desc, step asc)tt) 
+			where rn >= #{startNum} and rn <= #{endNum}
+		]]>
+	</select>
+</mapper>

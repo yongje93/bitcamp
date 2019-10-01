@@ -29,7 +29,6 @@
 					<li><a href="#"><span>Accessories</span></a></li>
 				</ul>
 			</li>
-			<li><a href="#"><span>고객센터</span></a></li>
 		</ul>
 	</div>
 	<div class="navigation-menu secondary-menu">
