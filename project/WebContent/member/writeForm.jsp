@@ -22,21 +22,21 @@
           <div class="form-group" id="divId">
               <label for="inputId" class="col-lg-2 control-label">아이디</label>
               <div class="col-lg-10">
-                  <input type="text" class="form-control" name="id" id="id" placeholder="4자이상 12자내의 알파벳, 숫자만 입력 가능합니다." maxlength="12" required>
+                  <input type="text" class="form-control" name="id" id="id" placeholder="4자이상 12자내의 소문자,숫자만 입력 가능합니다." maxlength="12" required>
               	<div class="check_font" id="id_check"></div>
               </div>
           </div>
           <div class="form-group" id="divPassword">
-              <label for="inputPassword" class="col-lg-2 control-label">패스워드</label>
+              <label for="inputPassword" class="col-lg-2 control-label">비밀번호</label>
               <div class="col-lg-10">
-                  <input type="password" class="form-control" name="pwd" id="pwd" placeholder="패스워드" maxlength="30" required>
+                  <input type="password" class="form-control" name="pwd" id="pwd" placeholder="4자이상 16자내의 대소문자,숫자만 입력 가능합니다." maxlength="16" required>
               	<div class="check_font" id="pwd_check"></div>
               </div>
           </div>
           <div class="form-group" id="divPasswordCheck">
-              <label for="inputPasswordCheck" class="col-lg-2 control-label">패스워드 확인</label>
+              <label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호 확인</label>
               <div class="col-lg-10">
-                  <input type="password" class="form-control" name="pwd2" id="pwd2" placeholder="패스워드 확인" maxlength="30" required>
+                  <input type="password" class="form-control" name="pwd2" id="pwd2" placeholder="4자이상 16자내의 대소문자,숫자만 입력 가능합니다." maxlength="16" required>
               	<div class="check_font" id="pwd2_check"></div>
               </div>
           </div>
@@ -50,7 +50,7 @@
           <div class="form-group" id="divEmail">
               <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
               <div class="col-lg-10">
-                  <input type="email" class="form-control" id="email" name="email" placeholder="이메일" maxlength="40" required>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="ex)abc@gmail.com" maxlength="40" required>
               	<div class="check_font" id="email_check"></div>
               </div>
           </div>

@@ -26,7 +26,7 @@ public class LogoutAction implements CommandProcess{
 	            }
 	        }
 	    }
-		
+				
 		request.setAttribute("display", "/member/logout.jsp");
 		return "/main/index.jsp";
 	}

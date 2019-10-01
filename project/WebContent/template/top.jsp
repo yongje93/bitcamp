@@ -2,12 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
 <div class="header">
 <div class="navigation">
 	<div class="navigation-menu primary-menu">
@@ -35,23 +29,13 @@
 					<li><a href="#"><span>Accessories</span></a></li>
 				</ul>
 			</li>
+			<li><a href="#"><span>고객센터</span></a></li>
 		</ul>
 	</div>
 	<div class="navigation-menu secondary-menu">
 		<ul>
 			<li class="account">
-				<span class="menu-item">
-					<c:if test="${memId == null }">
-						<a data-toggle="modal" href="#myModal">
-						<i class="fa fa-user"></i>
-						</a>					
-					</c:if>
-					<c:if test="${memId != null }">
-						<a href="/project/member/memberInfo.do">
-						<i class="fa fa-user"></i>
-						</a>					
-					</c:if>
-				</span>
+				<span class="menu-item" id="loginStatus"></span>
 			</li>
 			<li class="bag is-empty">
 				<span class="menu-item">
@@ -113,15 +97,16 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
+	var memId = "${sessionScope.memId}";
+	if(memId == "") {
+		$("#loginStatus").append("<a data-toggle='modal' href='#myModal'><i class='fa fa-user'></i></a>");
+	} else if(memId != "") {
+		$("#loginStatus").append("<a href='/project/member/memberInfo.do'><i class='fa fa-user'></i></a>");
+	} 
+	
 	// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백들어감
 	var rememberId = getCookie("rememberId");
 	$("#login_id").val(rememberId);
-	
-	// 로그인 유지
-	var keepLogin = getCookie("id");	//keepLogin에 hong 들어옴
-	if(keepLogin != "") {	// 자동로그인처리된 아이디가 있을때.
-	
-	}
 	
 	// 그 전에 ID를 저장해서 처음 페이지 로딩시, 입력칸에 저장된 ID가 표시된 상태라면
 	if($("#login_id").val() != "") {
@@ -154,7 +139,7 @@ $(document).ready(function(){
 		var id = $("#login_id").val();
 		var pwd = $("#login_pwd").val();
 		var keepLogin = $("#keepLogin").is(":checked");
-		
+				
 		if(id == "") {
 			$("#idDiv").text("아이디를 입력하세요").css("color", "tomato").css("font-size", "8pt");
 			$("#login_id").focus();
@@ -167,12 +152,12 @@ $(document).ready(function(){
 			$.ajax({
 				type	: "post",
 				url		: "/project/member/login.do",
-				data	: {id : $("#login_id").val(), pwd : $("#login_pwd").val(), keepLogin : keepLogin },
-				dataType: "text",
+				data	: {id : $("#login_id").val(), pwd : $("#login_pwd").val(), keepLogin : keepLogin},
+				dataType: "json",
 				success : function(data) {
-					if(data.trim() == "ok") {
+					if(data.result == "ok") {
 						location.replace("/project/member/memberInfo.do");
-					} else if(data.trim() == "fail") {
+					} else if(data.result == "fail") {
 						$("#loginResultDiv").text("아이디 또는 비밀번호 다시 입력하세요!!").css("color", "tomato").css("font-size", "10pt");
 						$("#login_pwd").val("");
 						$("#login_pwd").focus();
@@ -181,7 +166,6 @@ $(document).ready(function(){
 				}
 			});
 		}
-
 	});
 	
 	$('#myModal').on('hidden.bs.modal', function (e) {
@@ -193,20 +177,18 @@ $(document).ready(function(){
 
 });
 
-// 아이디 저장 쿠키 관련------------------------------
+//아이디 저장 쿠키 관련------------------------------
 function setCookie(cookieName, value, exdays) {
 	var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
     var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toUTCString());
     document.cookie = cookieName + "=" + cookieValue;
 }
-
 function deleteCookie(cookieName){
     var expireDate = new Date();
     expireDate.setDate(expireDate.getDate() - 1);
     document.cookie = cookieName + "= " + "; expires=" + expireDate.toUTCString();
 }
-
 function getCookie(cookieName) {
     cookieName = cookieName + '=';
     var cookieData = document.cookie;

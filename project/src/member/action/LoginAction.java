@@ -50,6 +50,7 @@ public class LoginAction implements CommandProcess {
 				response.addCookie(cookie);
 			}
 		}
+		
 		request.setAttribute("loginResult", loginResult);
 		return "/member/loginResult.jsp";
 	}

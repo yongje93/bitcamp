@@ -55,7 +55,7 @@ var empJ = /\s/g;
 //아이디 정규식
 var idJ = /^[a-z0-9]{4,12}$/;
 // 비밀번호 정규식
-var pwJ = /^[A-Za-z0-9]{4,12}$/; 
+var pwJ = /^[A-Za-z0-9]{4,16}$/; 
 // 이름 정규식
 var nameJ = /^[가-힣]{2,6}$/;
 // 이메일 검사 정규식
@@ -66,88 +66,104 @@ var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 var birthJ = false;
 
 $(function() {
-	// 아이디
+	// 아이디 중복 확인
 	$("#id").blur(function(){
-		if(idJ.test($(this).val())) {
-			$("#id_check").text("");
-			$.ajax({
-				type	: "post",
-				url		: "/project/member/checkId.do",
-				data	: "id="+$("#id").val(),
-				dataType: "text",
-				success : function(data){
-					if(data.trim() == "ok") {
-						$("#id_check").text("아이디 사용가능");
-						$("#id_check").css("color", "blue");
-						$("#id_check").css("font-size", "9pt");
-					} else if(data.trim() == "fail") {
-						$("#id_check").text("아이디 중복 사용불가");
-						$("#id_check").css("color", "red");
-						$("#id_check").css("font-size", "9pt");
-						$("#id").focus();
-					}
+		$.ajax({
+			type	: "post",
+			url		: "/project/member/checkId.do",
+			data	: "id="+$("#id").val(),
+			dataType: "text",
+			success : function(data){
+				if(data.trim() == "ok") {
+					$("#id_check").text("");
+				} else if(data.trim() == "fail") {
+					$("#id_check").text("아이디 중복").css("color", "red").css("font-size", "9pt");
+					$("#id").focus();
 				}
-			});
+			}
+		});
+	});
+	
+	// 아이디랑 패스워드 같음 확인
+	$("#pwd").blur(function(){
+		if($("#id").val() == $("#pwd").val()){
+			$("#pwd_check").text("아이디와 비밀번호가 같습니다").css("color", "red").css("font-size", "9pt");
+			$("#pwd").focus();
+			return false;
 		} else {
-			$("#id_check").text("아이디를 확인해주세요");
-			$("#id_check").css("color", "red");
-			$("#id_check").css("font-size", "9pt");
+			$("#pwd_check").text("");
 		}
 	});
 	
-	// 패스워드
-	$("#pwd").blur(function(){
-		if(pwJ.test($(this).val())) {
+	// 비밀번호 동일 확인
+	$("#pwd2").blur(function(){
+		if($("#pwd").val() != $("#pwd2").val()) {
+			$("#pwd2_check").text("비밀번호를 동일하게 작성해주세요").css("color", "red").css("font-size", "9pt");
+			$("#pwd2").focus();
+			return false;
+		} else {
+			$("#pwd2_check").text("");
+		}
+	});
+	
+	// 유효성 검사
+	$("form").submit(function(){
+		// 아이디
+		if(idJ.test($("#id").val())) {
+			$("#id_check").text("");
+		} else {
+			$("#id_check").text("아이디를 확인해주세요").css("color", "red").css("font-size", "9pt");
+			$("#id").focus();
+			return false;
+		}
+		
+		// 비밀번호
+		if(pwJ.test($("#pwd").val())) {
 			$("#pwd_check").text("");
 		} else {
-			$("#pwd_check").text("비밀번호를 확인해주세요");
-			$("#pwd_check").css("color", "red");
-			$("#pwd_check").css("font-size", "9pt");
+			$("#pwd_check").text("4자이상 16자내의 대소문자,숫자만 입력 가능합니다").css("color", "red").css("font-size", "9pt");
+			$("#pwd").focus();
+			return false;
 		}
-	});
-	// 패스워드 확인
-	$("#pwd2").blur(function(){
-		if(pwJ.test($(this).val())) {
+		
+		// 비밀번호 확인
+		if(pwJ.test($("#pwd2").val())) {
 			$("#pwd2_check").text("");
 		} else {
-			$("#pwd2_check").text("비밀번호를 확인해주세요");
-			$("#pwd2_check").css("color", "red");
-			$("#pwd2_check").css("font-size", "9pt");
+			$("#pwd2_check").text("4자이상 16자내의 대소문자,숫자만 입력 가능합니다.").css("color", "red").css("font-size", "9pt");
+			$("#pwd2").focus();
+			return false;
 		}
-	});
-	// 이름
-	$("#name").blur(function(){
-		if(nameJ.test($(this).val())) {
+		
+		// 이름
+		if(nameJ.test($("#name").val())) {
 			$("#name_check").text("");
 		} else {
-			$("#name_check").text("이름을 확인해주세요");
-			$("#name_check").css("color", "red");
-			$("#name_check").css("font-size", "9pt");
+			$("#name_check").text("한글만 입력 가능합니다").css("color", "red").css("font-size", "9pt");
+			$("#name").focus();
+			return false;
 		}
-	});
-	// 이메일
-	$("#email").blur(function(){
-		if(mailJ.test($(this).val())) {
+		
+		// 이메일
+		if(mailJ.test($("#email").val())) {
 			$("#email_check").text("");
 		} else {
-			$("#email_check").text("이메일을 확인해주세요");
-			$("#email_check").css("color", "red");
-			$("#email_check").css("font-size", "9pt");
+			$("#email_check").text("이메일 주소가 유효하지 않습니다. ex)abc@gmail.com").css("color", "red").css("font-size", "9pt");
+			$("#email").focus();
+			return false;
 		}
-	});
-	// 전화번호
-	$("#tel").blur(function(){
-		if(phoneJ.test($(this).val())) {
+		
+		// 전화번호
+		if(phoneJ.test($("#tel").val())) {
 			$("#tel_check").text("");
 		} else {
-			$("#tel_check").text("전화번호를 확인해주세요");
-			$("#tel_check").css("color", "red");
-			$("#tel_check").css("font-size", "9pt");
+			$("#tel_check").text("전화번호가 유효하지 않습니다. ex)01012341234").css("color", "red").css("font-size", "9pt");
+			$("#tel").focus();
+			return false;
 		}
-	});
-	// 생년월일	birthJ 유효성 검사
-	$("#birthday").blur(function(){
-		var dateStr = $(this).val();		
+	
+		// 생년월일	birthJ 유효성 검사
+		var dateStr = $("#birthday").val();		
 	    var year = Number(dateStr.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
 	    var month = Number(dateStr.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
 	    var day = Number(dateStr.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일)
@@ -157,56 +173,43 @@ $(function() {
 	    if (dateStr.length <=8) {
 			// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
 		    if (1900 > year || year > yearNow){
-		    	
-		    	$("#birth_check").text("생년월일을 확인해주세요");
-				$("#birth_check").css("color", "red");
-				$("#birth_check").css("font-size", "9pt");
-		    	
+		    	$("#birth_check").text("생년월일을 확인해주세요").css("color", "red").css("font-size", "9pt");
+		    	$("#birthday").focus();
+				return false;
 		    } else if (month<1 || month>12) {
-		    		
-		    	$("#birth_check").text("생년월일을 확인해주세요");
-				$("#birth_check").css("color", "red"); 
-				$("#birth_check").css("font-size", "9pt");
-		    
-		    }else if (day<1 || day>31) {
-		    	
-		    	$("#birth_check").text("생년월일을 확인해주세요");
-				$("#birth_check").css("color", "red"); 
-				$("#birth_check").css("font-size", "9pt");
-		    	
-		    }else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
-		    	 
-		    	$("#birth_check").text("생년월일을 확인해주세요");
-				$("#birth_check").css("color", "red"); 
-				$("#birth_check").css("font-size", "9pt");
-		    	 
-		    }else if (month == 2) {
-		    	 
+		    	$("#birth_check").text("생년월일을 확인해주세요").css("color", "red").css("font-size", "9pt");
+		    	$("#birthday").focus();
+				return false;
+		    } else if (day<1 || day>31) {
+		    	$("#birth_check").text("생년월일을 확인해주세요").css("color", "red").css("font-size", "9pt");
+		    	$("#birthday").focus();
+				return false;
+		    } else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+		    	$("#birth_check").text("생년월일을 확인해주세요").css("color", "red").css("font-size", "9pt");
+		    	$("#birthday").focus();
+				return false;
+		    } else if (month == 2) {
 		       	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 		       	
 		     	if (day>29 || (day==29 && !isleap)) {
-		     		
-		     		$("#birth_check").text("생년월일을 확인해주세요");
-					$("#birth_check").css("color", "red"); 
-					$("#birth_check").css("font-size", "9pt");
-		    	
-				}else{
+		     		$("#birth_check").text("생년월일을 확인해주세요").css("color", "red").css("font-size", "9pt");
+					return false;
+				} else{
 					$("#birth_check").text("");
 					birthJ = true;
 				}//end of if (day>29 || (day==29 && !isleap))
 		     	
-		    }else{
-		    	
+		    } else {
 		    	$("#birth_check").text(""); 
 				birthJ = true;
 			}//end of if
 			
-			}else{
-				//1.입력된 생년월일이 8자 초과할때 :  auth:false
-				$("#birth_check").text("생년월일을 확인해주세요");
-				$("#birth_check").css("color", "red");  
-				$("#birth_check").css("font-size", "9pt");
-			}
-		}); //End of method /*
-		
+		} else {
+			//1.입력된 생년월일이 8자 초과할때 :  auth:false
+			$("#birth_check").text("생년월일을 확인해주세요").css("color", "red").css("font-size", "9pt");
+			$("#birthday").focus();
+			return false;
+		}
+	});	
 });
+	
