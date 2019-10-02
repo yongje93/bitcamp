@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+	
 <div class="container">
     <form class="form-horizontal" name="writeForm" role="form" method="post" action="/project/member/write.do">
     	<br><br>
@@ -71,7 +62,7 @@
           <div class="form-group" id="divAddress">
           	<label for="inputAddress" class="col-lg-2 control-label">주소</label>
           	<div class="col-lg-10">
-          		<input type="button" class="btn btn-dark" value="우편번호검색" onclick="checkPost()">
+          		<input type="button" class="btn btn-secondary" value="우편번호검색" onclick="checkPost()">
           		<input type="text" name="zipcode" id="daum_zipcode" class="form-control" placeholder="우편번호" readonly required>
           		<input type="text" name="addr1" id="daum_addr1" class="form-control" placeholder="주소" readonly required>
       			<input type="text" name="addr2" id="daum_addr2" class="form-control" placeholder="상세 주소" required>
@@ -79,8 +70,8 @@
           </div>
           <div class="form-group">
               <div class="col-lg-offset-2 col-lg-10">
-                  <button type="submit" id="submit" class="btn btn-dark">확인</button>
-                  <button type="button" class="btn btn-dark" onclick="location.href='/project/main/index.do'">취소</button> 
+                  <button type="submit" id="submit" class="btn btn-secondary">확인</button>
+                  <button type="button" class="btn btn-secondary" onclick="location.href='/project/main/index.do'">취소</button> 
               </div>
           </div>
 	</form>

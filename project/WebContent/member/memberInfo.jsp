@@ -2,12 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-
 <div class="page-header">
 	<div class="outer-margin">
 		<h2>My Page</h2>
@@ -15,25 +9,28 @@
 </div>
 
 <div class="page-container mypage" data-page-title="dashboard">
+<div class="page-container-width">
 	<div class="outer-margin">
-		<div class="page-navigation">
-			<ul>
-				<li data-page-target="dashboard">
-					<a href="/project/member/memberInfo.do">마이페이지</a>
-				</li>
-				<li data-page-target="orders">
-					<a href="">주문내역</a>
-				</li>
-				<li data-page-target="points">
-					<a href="">적립금</a>
-				</li>
-				<li data-page-target="inquiries">
-					<a href="/project/service/serviceBoardList.do?pg=1">고객센터</a>
-				</li>
-			</ul>
-		</div>
-		<div class="page-content" id="myDisplay">
-			<jsp:include page="${myDisplay}"/>
+		<div class="page-width">
+			<div class="page-navigation">
+				<ul>
+					<li data-page-target="dashboard">
+						<a href="/project/member/memberInfo.do">마이페이지</a>
+					</li>
+					<li data-page-target="orders">
+						<a href="">주문내역</a>
+					</li>
+					<li data-page-target="points">
+						<a href="">적립금</a>
+					</li>
+					<li data-page-target="inquiries">
+						<a href="/project/service/serviceBoardList.do?pg=1">고객센터</a>
+					</li>
+				</ul>
+			</div>
+			<div class="page-content" id="myDisplay">
+				<jsp:include page="${myDisplay}"/>
+			</div>
 		</div>
 	</div>
 </div>
@@ -63,6 +60,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -106,6 +104,5 @@ $(document).ready(function(){
 	    $(this).find('form')[0].reset();
 		$("#ResultDiv").empty();
 	});
-
 });
 </script>

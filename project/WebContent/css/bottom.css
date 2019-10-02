@@ -1,13 +1,14 @@
 @charset "UTF-8";
 .footer {
-    padding: 50px 0;
-    margin-top: 50px;
+    padding: 30px 0;
+    margin-top: 70px;
 }
 .footer .outer-margin {
     max-width: 100%;
 }
 .footer .footer-info {
     border-top: 2px solid #222;
-    padding-top: 35px;
+    padding-top: 30px;
     position: relative;
+    width: 1820px;
 }

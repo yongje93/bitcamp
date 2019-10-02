@@ -124,12 +124,13 @@ $(document).ready(function(){
 	// ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 쿠키도 저장
 	$("#login_id").keyup(function(){
 		$("#loginResultDiv").empty();
-		if($("#idRememberCheck").is(":chekced")) {	
+		if($("#idRememberCheck").is(":checked")) {	
 			var rememberId = $("#login_id").val();
 			setCookie("rememberId", rememberId, 7);	// 7일 동안 쿠키 보관
 		}
 	});
-
+	
+});
 	// 로그인 액션
 	$("#login-submit").click(function(){
 		$("#idDiv").empty();
@@ -174,7 +175,7 @@ $(document).ready(function(){
 		$("#loginResultDiv").empty();
 	});
 
-});
+
 
 //아이디 저장 쿠키 관련------------------------------
 function setCookie(cookieName, value, exdays) {

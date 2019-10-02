@@ -5,8 +5,8 @@
 <div class="section-title">
 	<h3>${memberDTO.name }님 안녕하세요!</h3>
 	<div class="account-menu">
-		<a data-toggle="modal" href="#passwordModal">회원정보수정</a> 
-		<a href="/project/member/logout.do">로그아웃</a>
+		<button data-toggle="modal" data-target="#passwordModal" type="button" class="btn btn-secondary">회원정보수정</button>
+		<button type="button" class="btn btn-secondary" onclick="location.href='/project/member/logout.do'">로그아웃</button>
 	</div>
 </div>
 <div class="section">

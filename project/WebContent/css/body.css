@@ -20,6 +20,9 @@ ul, ol, li {
 }
 
 /* 레이아웃 */
+#demo {
+	width: 1903px;
+}
 .outer-margin {
 	padding: 0 40px;
 	width: 100%;
@@ -30,8 +33,13 @@ ul, ol, li {
 
 .page-header {
 	margin-top: 50px;
+	width: 1903px;
 }
 
+.page-width {
+	display: inline-block;
+	width: 1352px;
+}
 .section-title {
 	border-top: 2px solid #222;
 	margin: 50px 0 35px;
@@ -42,21 +50,22 @@ ul, ol, li {
 /* container page */
 .page-container {
 	margin-top: 40px;
-	border: 1px solid orange;
 	width: 100%;
 	display: inline-block;
+}
+.page-container-width {
+	width: 1903px;
 }
 .page-navigation {
 	float: left;
 	margin-top: 30px;
 	width: 250px;
-	border: 1px solid blue;
 }
 .page-content {
 	float: right;
-	width: calc(100% - 250px);
+	/* width: calc(100% - 250px); */
+	width: 1100px;
 	min-height: 40vh;
-	border: 1px solid red;
 }
 .page-navigation ul li {
     font-size: 16px;
@@ -136,4 +145,66 @@ ul, ol, li {
 .service-menu {
 	font-weight: 500;
     margin-left: 20px;
+}
+
+/* 문의하기 부분 */
+#formDiv {
+	border-top: 1px solid #dcdcdc;
+	padding-top: 10px;
+}
+#summernoteDiv {
+	width: 1090px;
+	padding-left: 10px;
+}
+#button {
+	padding: 5px;
+	margin-top: 10px;
+	text-align: right;
+	width: 1100px;
+}
+#subjectDiv, #authorDiv {
+	width: 1108px;
+}
+#subjectLabel, #authorLabel {
+	font-size: 20px;
+	margin-right: 15px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	width: 100px;
+}
+.boardSpan {
+	font-size: 18px;
+}
+
+/* 고객센터 부분 */
+.serviceTable {
+	margin: 10px;
+}
+.serviceTable th {
+	text-align: center;
+}
+.boardViewContent {
+	margin-top: 20px;
+	margin-left: 10px;
+	width: 1078px;
+	height: 384px;
+	padding: 10px;
+	overflow: auto;
+	overflow-x: hidden;
+	border: 1px solid #dcdcdc;
+}
+/*페이징 처리 부분 */
+#currentPaging { 
+	color: tomato; 
+	text-decoration: underline; 
+	cursor: pointer;
+}
+#paging { 
+	color: black; 
+	text-decoration: none; 
+	cursor: pointer;
+}
+#pagingDiv {
+	margin-top: 20px;
+	text-align: center;
 }
