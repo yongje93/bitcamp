@@ -91,9 +91,9 @@
 }
 
 .header .navigation .navigation-menu li ul a:hover, .navigation li ul li:hover a {
-	/* background: rgb(71, 71, 71); */
+	color: #fff;
+	background: #555;
 	border: 0px;
-	color: #c0c0c0;
 	text-decoration: none;
 }
 

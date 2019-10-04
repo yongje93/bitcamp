@@ -41,5 +41,6 @@ section {
 	<footer>
 		<jsp:include page="../template/bottom.jsp"/>
 	</footer>
+<script type="text/javascript" src="../js/bottom.js"></script>
 </body>
 </html>

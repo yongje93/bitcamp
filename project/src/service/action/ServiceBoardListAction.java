@@ -20,9 +20,9 @@ public class ServiceBoardListAction implements CommandProcess {
 		// 데이터
 		int pg = Integer.parseInt(request.getParameter("pg"));
 
-		// DB - 1페이지당 5개씩
-		int endNum = pg * 5;
-		int startNum = endNum - 4;
+		// DB - 1페이지당 10개씩
+		int endNum = pg * 10;
+		int startNum = endNum - 9;
 		ServiceboardDAO serviceDAO = ServiceboardDAO.getInstance();
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -36,7 +36,7 @@ public class ServiceBoardListAction implements CommandProcess {
 		int totalA = serviceDAO.getTotalA(map);// 총글수
 		boardPaging.setCurrentPage(pg);
 		boardPaging.setPageBlock(3);
-		boardPaging.setPageSize(5);
+		boardPaging.setPageSize(10);
 		boardPaging.setTotalA(totalA);
 		boardPaging.makePagingHTML();
 

@@ -195,8 +195,9 @@ ul, ol, li {
 }
 /*페이징 처리 부분 */
 #currentPaging { 
-	color: tomato; 
-	text-decoration: underline; 
+	color: #fff;
+	background: #555;
+	text-decoration: none; 
 	cursor: pointer;
 }
 #paging { 
@@ -206,5 +207,4 @@ ul, ol, li {
 }
 #pagingDiv {
 	margin-top: 20px;
-	text-align: center;
 }
